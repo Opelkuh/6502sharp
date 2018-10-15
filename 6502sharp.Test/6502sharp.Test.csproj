@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <LangVersion>7.2</LangVersion>
     <RootNamespace>_6502sharp.Test</RootNamespace>
 
     <IsPackable>false</IsPackable>
