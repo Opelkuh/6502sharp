@@ -15,7 +15,8 @@ namespace _6502sharp.Debug
             Console.WriteLine("Memory position 0x0000: " + mem.Get(0));
         }
 
-        private static bool SetEventTest(ref int location, in byte oldValue, ref byte newValue) {
+        private static bool SetEventTest(ref int location, in byte oldValue, ref byte newValue)
+        {
             newValue += 5;
             return true;
         }

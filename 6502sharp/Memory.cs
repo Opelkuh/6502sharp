@@ -1,5 +1,8 @@
 namespace _6502sharp
 {
+    /// <summary>
+    /// Main RAM of the emulator
+    /// </summary>
     public class Memory : EventReadableBase
     {
         private byte[] _store;
@@ -13,12 +16,12 @@ namespace _6502sharp
         {
             return _store[location];
         }
-        
+
         public override void Set(int location, byte value)
         {
             bool contFlag = SetEvent.Invoke(ref location, _store[location], ref value);
 
-            if(!contFlag) return;
+            if (!contFlag) return;
 
             _store[location] = value;
         }
