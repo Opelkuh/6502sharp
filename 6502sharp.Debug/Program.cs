@@ -2,12 +2,13 @@
 
 namespace _6502sharp.Debug
 {
-    class Program
+    partial class Program
     {
         static void Main(string[] args)
         {
-            Test16BitReg();
-            TestStatusReg();
+            new CPU();
+            // Test16BitReg();
+            // TestStatusReg();
         }
 
         private static void TestStatusReg()
