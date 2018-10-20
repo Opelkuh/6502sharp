@@ -19,9 +19,12 @@ namespace _6502sharp
 
         public override void Set(int location, byte value)
         {
-            bool contFlag = SetEvent.Invoke(ref location, _store[location], ref value);
+            if (SetEvent != null)
+            {
+                bool contFlag = SetEvent.Invoke(ref location, _store[location], ref value);
 
-            if (!contFlag) return;
+                if (!contFlag) return;
+            }
 
             _store[location] = value;
         }
