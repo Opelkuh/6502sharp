@@ -6,7 +6,41 @@ namespace _6502sharp.Debug
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Test16BitReg();
+            TestStatusReg();
+        }
+
+        private static void TestStatusReg()
+        {
+            StatusRegister sr = new StatusRegister();
+
+            sr.Carry = true;
+
+            Console.WriteLine("Carry flag after true: " + sr.Carry);
+
+            sr.Carry = false;
+
+            Console.WriteLine("Carry flag after false: " + sr.Carry);
+
+            Console.WriteLine("SR value: " + Convert.ToString(sr.Value, 2).PadLeft(8, '0'));
+            sr.Negative = true;
+            sr.Unused = true;
+            sr.Decimal = true;
+            sr.Zero = true;
+            Console.WriteLine("SR value: " + Convert.ToString(sr.Value, 2).PadLeft(8, '0'));
+        }
+
+        private static void Test16BitReg()
+        {
+            Register16Bit pc = new Register16Bit();
+
+            pc.Value = 30000;
+
+            Console.WriteLine("PC value: " + pc.Value);
+        }
+
+        private static void TestMem()
+        {
             Memory mem = new Memory(65535);
             mem.SetEvent += SetEventTest;
 
