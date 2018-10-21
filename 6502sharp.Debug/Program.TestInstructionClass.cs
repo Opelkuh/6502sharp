@@ -17,7 +17,7 @@ namespace _6502sharp.Debug
             }
 
             [CPUInstruction(0x69, 2)]
-            public void SET_Abs([AbsoluteAdress] int memAddress) { }
+            public void SET_Abs([AbsoluteAdress] int memAddress, byte param) { }
         }
     }
 }
