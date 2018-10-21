@@ -6,7 +6,7 @@ namespace _6502sharp.Debug
     {
         static void Main(string[] args)
         {
-            new CPU();
+            new DefaultMachine();
             // Test16BitReg();
             // TestStatusReg();
         }

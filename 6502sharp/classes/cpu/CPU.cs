@@ -2,11 +2,12 @@ namespace _6502sharp
 {
     public partial class CPU
     {
-        public CPU()
-        {
-            Reflector reflector = new Reflector();
+        private IMachine _machine;
 
-            reflector.FindInjectables();
+        public CPU(IMachine machine)
+        {
+            _machine = machine;
+            FindInjectables();
         }
     }
 }

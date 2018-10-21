@@ -5,79 +5,76 @@ namespace _6502sharp
 {
     public partial class CPU
     {
-        protected class Reflector
+        private protected void FindInjectables()
         {
-            internal void FindInjectables()
+            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (Assembly assembly in assemblies)
             {
-                Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-                foreach (Assembly assembly in assemblies)
+                foreach (Type type in assembly.GetTypes())
                 {
-                    foreach (Type type in assembly.GetTypes())
+                    InjectableInstructionAttribute attribute =
+                        (InjectableInstructionAttribute)type.GetCustomAttribute(typeof(InjectableInstructionAttribute), true);
+                    if (attribute != null)
                     {
-                        InjectableInstructionAttribute attribute =
-                            (InjectableInstructionAttribute)type.GetCustomAttribute(typeof(InjectableInstructionAttribute), true);
-                        if (attribute != null)
-                        {
-                            FindMethods(type);
-                        }
+                        FindMethods(type);
                     }
                 }
             }
+        }
 
-            internal void FindMethods(Type classType)
+        private protected void FindMethods(Type classType)
+        {
+            // try to instantiate class
+            object instance = null;
+            try
             {
-                // try to instantiate class
-                object instance = null;
-                try
+                instance = Activator.CreateInstance(classType, _machine);
+            }
+            catch (Exception e)
+            {
+                if (e is MissingMethodException)
                 {
-                    instance = Activator.CreateInstance(classType);
+                    throw
+                        new MissingMethodException($"No constructor with parameter of type 'IMachine' found in class '{classType.Name}'. Define one or manually use Machine.Register to register instruction");
                 }
-                catch (Exception e)
+                else
                 {
-                    if (e is MissingMethodException)
+                    throw e;
+                }
+            }
+
+            // Find CPU instructions
+            MethodInfo[] methods = classType.GetMethods();
+            foreach (MethodInfo method in methods)
+            {
+                object attribute = method.GetCustomAttribute(typeof(CPUInstructionAttribute), false);
+                if (attribute != null)
+                {
+                    FindParameters(classType, instance, method);
+                }
+            }
+        }
+
+        private protected void FindParameters(Type classType, object instance, MethodInfo method)
+        {
+            ParameterInfo[] parameters = method.GetParameters();
+            foreach (ParameterInfo parameter in parameters)
+            {
+                MemoryAddressAttributeBase attribute = (MemoryAddressAttributeBase)parameter.GetCustomAttribute(typeof(MemoryAddressAttributeBase), false);
+                if (attribute != null)
+                {
+                    if (parameter.ParameterType != typeof(int))
                     {
                         throw
-                            new MissingMethodException($"No 0 parameter constructor found in class '{classType.Name}'. Define one or manually use Machine.Register to register it");
-                    }
-                    else
-                    {
-                        throw e;
+                            new InvalidParameterTypeException($"Memory address parameter '${parameter.Name}' of CPU instruction '{classType.Name}.{method.Name}' must be of type 'int'");
                     }
                 }
-
-                // Find CPU instructions
-                MethodInfo[] methods = classType.GetMethods();
-                foreach (MethodInfo method in methods)
+                else
                 {
-                    object attribute = method.GetCustomAttribute(typeof(CPUInstructionAttribute), false);
-                    if (attribute != null)
+                    if (parameter.ParameterType != typeof(byte))
                     {
-                        FindParameters(classType, instance, method);
-                    }
-                }
-            }
-
-            internal void FindParameters(Type classType, object instance, MethodInfo method)
-            {
-                ParameterInfo[] parameters = method.GetParameters();
-                foreach (ParameterInfo parameter in parameters)
-                {
-                    MemoryAddressAttributeBase attribute = (MemoryAddressAttributeBase)parameter.GetCustomAttribute(typeof(MemoryAddressAttributeBase), false);
-                    if (attribute != null)
-                    {
-                        if (parameter.ParameterType != typeof(int))
-                        {
-                            throw
-                                new InvalidParameterTypeException($"Memory address parameter of CPU instruction '{classType.Name}.{method.Name}' must be of type 'int'");
-                        }
-                    }
-                    else
-                    {
-                        if (parameter.ParameterType != typeof(byte))
-                        {
-                            throw
-                                new InvalidParameterTypeException($"Parameter of CPU instruction '{classType.Name}.{method.Name}' must be of type 'byte'");
-                        }
+                        throw
+                            new InvalidParameterTypeException($"Parameter '${parameter.Name}' of CPU instruction '{classType.Name}.{method.Name}' must be of type 'byte'");
                     }
                 }
             }
