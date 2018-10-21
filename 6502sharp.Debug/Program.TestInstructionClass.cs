@@ -7,13 +7,13 @@ namespace _6502sharp.Debug
         [InjectableInstruction]
         class TestInstructionClass
         {
-            public TestInstructionClass(IMachine machine)
+            public TestInstructionClass(ICpu cpu)
             {
-                machine.PC.Value = 32000;
-                Console.WriteLine(machine.PC.Value);
+                cpu.PC.Value = 32000;
+                Console.WriteLine(cpu.PC.Value);
 
-                machine.Memory.Set(10000, 69);
-                Console.WriteLine(machine.Memory.Get(10000));
+                cpu.Memory.Set(10000, 69);
+                Console.WriteLine(cpu.Memory.Get(10000));
             }
 
             [CPUInstruction(0x69, 2)]

@@ -1,9 +1,6 @@
-using System;
-using System.Reflection;
-
 namespace _6502sharp
 {
-    public partial class DefaultMachine : IMachine
+    public partial class CPU : ICpu
     {
         public StatusRegister SR => _sr;
 

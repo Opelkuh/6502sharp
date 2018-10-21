@@ -1,6 +1,6 @@
 namespace _6502sharp
 {
-    public partial class CPU
+    public partial class CPU : ICpu
     {
         private IMachine _machine;
         private delegate void InstructionDelegate();

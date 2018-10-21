@@ -28,14 +28,14 @@ namespace _6502sharp
             object instance = null;
             try
             {
-                instance = Activator.CreateInstance(classType, _machine);
+                instance = Activator.CreateInstance(classType, this);
             }
             catch (Exception e)
             {
                 if (e is MissingMethodException)
                 {
                     throw
-                        new MissingMethodException($"No constructor with parameter of type 'IMachine' found in class '{classType.Name}'. Define one or manually use Machine.Register to register instruction");
+                        new MissingMethodException($"No constructor with single parameter of type 'ICpu' found in class '{classType.Name}'. Define one or manually use ICpu.Register to register instruction");
                 }
                 else
                 {
