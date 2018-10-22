@@ -5,7 +5,7 @@ namespace _6502sharp
         private IMachine _machine;
         protected delegate void InstructionDelegate();
 
-        private Instruction[] _instructions = new Instruction[256];
+        private Instruction[] _instructions = new Instruction[byte.MaxValue];
 
         public CPU(IMachine machine)
         {

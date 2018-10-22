@@ -3,6 +3,11 @@ namespace _6502sharp
     public interface ICpu
     {
         /// <summary>
+        /// Executes one cpu cycle
+        /// </summary>
+        void Tick();
+
+        /// <summary>
         /// Memmory linked to the cpu
         /// </summary>
         IReadable Memory { get; }

@@ -9,13 +9,20 @@ namespace _6502sharp.Debug
             Memory mem = new Memory(65536);
             MemRandomFill(mem);
 
-            new DefaultMachine(mem);
+            IMachine mach = new DefaultMachine(mem);
+
+            mach.CPU.Tick();
+            mach.CPU.Tick();
+            mach.CPU.Tick();
+            
             // Test16BitReg();
             // TestStatusReg();
         }
 
-        private static void MemRandomFill(Memory mem) {
-            for(int i = 0; i < mem.Size; i++) {
+        private static void MemRandomFill(Memory mem)
+        {
+            for (int i = 0; i < mem.Size; i++)
+            {
                 mem.Set(i, (byte)i);
             }
         }
