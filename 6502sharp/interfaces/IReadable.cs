@@ -5,6 +5,8 @@ namespace _6502sharp
     /// </summary>
     public interface IReadable
     {
+        int Size { get; }
+
         /// <summary>
         /// Gets byte at memory location
         /// </summary>

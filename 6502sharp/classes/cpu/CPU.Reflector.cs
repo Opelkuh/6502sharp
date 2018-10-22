@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using System.Reflection.Emit;
 
 namespace _6502sharp
 {
@@ -66,7 +67,7 @@ namespace _6502sharp
         {
             if (meta.Parameters == null)
             {
-                meta.Parameters = new System.Collections.Generic.List<Tuple<int, MemoryAddressAttributeBase>>();
+                meta.Parameters = new System.Collections.Generic.List<MemoryAddressAttributeBase>();
             }
 
             ParameterInfo[] parameters = meta.Method.GetParameters();
@@ -82,7 +83,7 @@ namespace _6502sharp
                     }
 
                     // add parameter to meta
-                    Tuple<int, MemoryAddressAttributeBase> param = new Tuple<int, MemoryAddressAttributeBase>(parameter.Position, attribute);
+                    MemoryAddressAttributeBase param = attribute;
                     meta.Parameters.Add(param);
                 }
                 else
@@ -94,10 +95,46 @@ namespace _6502sharp
                     }
 
                     // add parameter to meta
-                    Tuple<int, MemoryAddressAttributeBase> param = new Tuple<int, MemoryAddressAttributeBase>(parameter.Position, null);
+                    MemoryAddressAttributeBase param = null;
                     meta.Parameters.Add(param);
                 }
             }
+
+            //generate delegate
+            InstructionDelegate del = GenerateDelegate(meta);
+
+            //register delegate
+            Instruction inst = new Instruction(
+                meta.CPUAttribute.OpCode,
+                meta.CPUAttribute.Cycles,
+                del
+            );
+
+            RegisterInstruction(inst);
+        }
+
+        private protected InstructionDelegate GenerateDelegate(InstructionMetadata meta)
+        {
+            InstructionDelegate del = () =>
+            {
+                object[] instParams = new object[meta.Parameters.Count];
+
+                for (int i = 0; i < instParams.Length; i++)
+                {
+                    MemoryAddressAttributeBase attr = meta.Parameters[i];
+                    if (attr == null)
+                    {
+                        instParams[i] = FetchNext();
+                    }
+                    else
+                    {
+                        instParams[i] = attr.Resolve(FetchMultiple(attr.RequiredBytes));
+                    }
+                }
+                meta.Method.Invoke(meta.ClassInstance, instParams);
+            };
+
+            return del;
         }
     }
 }

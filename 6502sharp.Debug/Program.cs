@@ -6,9 +6,18 @@ namespace _6502sharp.Debug
     {
         static void Main(string[] args)
         {
-            new DefaultMachine();
+            Memory mem = new Memory(65536);
+            MemRandomFill(mem);
+
+            new DefaultMachine(mem);
             // Test16BitReg();
             // TestStatusReg();
+        }
+
+        private static void MemRandomFill(Memory mem) {
+            for(int i = 0; i < mem.Size; i++) {
+                mem.Set(i, (byte)i);
+            }
         }
 
         private static void TestStatusReg()

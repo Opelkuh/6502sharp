@@ -8,7 +8,7 @@ namespace _6502sharp
 
         public override int Resolve(byte[] raw)
         {
-            throw new NotImplementedException();
+            return (raw[0] * 1000) + raw[1];
         }
     }
 }

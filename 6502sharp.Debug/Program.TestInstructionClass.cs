@@ -7,8 +7,11 @@ namespace _6502sharp.Debug
         [InjectableInstruction]
         class TestInstructionClass
         {
+            private ICpu _cpu;
+
             public TestInstructionClass(ICpu cpu)
             {
+                _cpu = cpu;
                 cpu.PC.Value = 32000;
                 Console.WriteLine(cpu.PC.Value);
 
@@ -17,7 +20,14 @@ namespace _6502sharp.Debug
             }
 
             [CPUInstruction(0x69, 2)]
-            public void SET_Abs([AbsoluteAdress] int memAddress, byte param) { }
+            public void SET_Abs(byte param, [AbsoluteAdress] int memAddress, byte param2)
+            {
+                Console.WriteLine($"PC: {_cpu.PC.Value}");
+                Console.WriteLine($"Arg1: {param}");
+                Console.WriteLine($"Mem address: {memAddress}");
+                Console.WriteLine($"Arg2: {param2}");
+                Console.WriteLine($"PC after: {_cpu.PC.Value}");
+            }
         }
     }
 }

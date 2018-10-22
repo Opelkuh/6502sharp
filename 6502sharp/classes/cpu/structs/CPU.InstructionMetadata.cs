@@ -12,7 +12,7 @@ namespace _6502sharp
             public object ClassInstance;
             public MethodInfo Method;
             public CPUInstructionAttribute CPUAttribute;
-            public List<Tuple<int, MemoryAddressAttributeBase>> Parameters;
+            public List<MemoryAddressAttributeBase> Parameters;
         }
     }
 }

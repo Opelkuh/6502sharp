@@ -5,6 +5,8 @@ namespace _6502sharp
     /// </summary>
     public abstract class EventReadableBase : IReadable
     {
+        public abstract int Size { get; }
+
         public abstract byte Get(int location);
         public abstract void Set(int location, byte value);
 

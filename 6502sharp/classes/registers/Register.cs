@@ -24,6 +24,8 @@ namespace _6502sharp
             }
         }
 
+        public int Size => 1;
+
         public Register()
         {
         }

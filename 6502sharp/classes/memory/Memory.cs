@@ -6,6 +6,9 @@ namespace _6502sharp
     public class Memory : EventReadableBase
     {
         private byte[] _store;
+
+        public override int Size => _store.Length;
+
         public override event SetDelegate SetEvent;
 
         public Memory(int size)

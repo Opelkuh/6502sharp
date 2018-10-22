@@ -7,6 +7,8 @@ namespace _6502sharp
     {
         private byte[] _store = new byte[2];
 
+        public int Size => 2;
+
         /// <summary>
         /// 
         /// </summary>
