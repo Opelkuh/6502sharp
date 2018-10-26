@@ -8,6 +8,12 @@ namespace _6502sharp
         void Tick();
 
         /// <summary>
+        /// The number of cycles that the processor is going to sleep for 
+        /// (used to time instructions that take multiple cycles)
+        /// </summary>
+        int SleepCycles { get; set; }
+        
+        /// <summary>
         /// Memmory linked to the cpu
         /// </summary>
         IReadable Memory { get; }
