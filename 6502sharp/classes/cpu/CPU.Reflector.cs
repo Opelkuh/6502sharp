@@ -128,7 +128,8 @@ namespace _6502sharp
                     }
                     else
                     {
-                        instParams[i] = attr.Resolve(FetchMultiple(attr.RequiredBytes));
+                        byte[] rawAddr = FetchMultiple(attr.RequiredBytes);
+                        instParams[i] = attr.Resolve(this, ref rawAddr);
                     }
                 }
                 meta.Method.Invoke(meta.ClassInstance, instParams);

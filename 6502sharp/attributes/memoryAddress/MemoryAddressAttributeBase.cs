@@ -6,6 +6,6 @@ namespace _6502sharp
     public abstract class MemoryAddressAttributeBase : Attribute
     {
         abstract public int RequiredBytes { get; }
-        abstract public int Resolve(byte[] rawAddress);
+        abstract public int Resolve(ICpu cpu, ref byte[] rawAddress);
     }
 }

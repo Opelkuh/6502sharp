@@ -1,5 +1,6 @@
 namespace _6502sharp
 {
+
     /// <summary>
     /// 16-bit processor register
     /// </summary>
@@ -17,7 +18,7 @@ namespace _6502sharp
         {
             get
             {
-                return (ushort)(_store[0] | _store[1] << 8);
+                return (ushort)LEHelper.From(_store);
             }
 
             set
