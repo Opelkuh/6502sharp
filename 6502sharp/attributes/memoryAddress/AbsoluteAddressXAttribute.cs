@@ -6,11 +6,7 @@ namespace _6502sharp
 
         public override int Resolve(ICpu cpu, ref byte[] raw)
         {
-            int first = raw[0] + cpu.X.Value;
-
-            if (first > 255) cpu.SleepCycles++;
-
-            return first | (raw[1] << 8);
+            return MemoryResolveHelpers.AbsoluteIndexed(cpu, ref raw, cpu.X.Value);
         }
     }
 }
