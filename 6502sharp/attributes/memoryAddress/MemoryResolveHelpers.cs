@@ -10,11 +10,11 @@ namespace _6502sharp
 
         public static int AbsoluteIndexed(ICpu cpu, ref byte[] raw, in byte addition)
         {
-            int first = raw[0] + addition;
+            // check for carry 1 cycle penalty
+            int lower = raw[0] + addition;
+            if (lower > 255) cpu.SleepCycles++;
 
-            if (first > 255) cpu.SleepCycles++;
-
-            return first | (raw[1] << 8);
+            return LEHelper.From(raw) + addition;
         }
     }
 }
