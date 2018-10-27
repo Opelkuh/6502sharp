@@ -9,7 +9,8 @@ namespace _6502sharp
             int firstLoc = LEHelper.From(raw);
 
             // 6502 bug (https://everything2.com/node/868510)
-            if (raw[1] >= 0xFF) raw[1] = 0;
+            raw[0] = (byte)((raw[0] + 1) % 256);
+
             int secondLoc = LEHelper.From(raw);
 
             byte[] target = { cpu.Memory.Get(firstLoc), cpu.Memory.Get(secondLoc) };
