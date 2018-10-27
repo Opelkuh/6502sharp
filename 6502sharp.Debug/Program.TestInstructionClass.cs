@@ -20,7 +20,7 @@ namespace _6502sharp.Debug
             }
 
             [CPUInstruction(0x69, 2)]
-            public void SET_Abs(byte param, [AbsoluteAdress] int memAddress, byte param2)
+            public void SET_Abs(byte param, [AbsoluteAddress] int memAddress, byte param2)
             {
                 Console.WriteLine($"PC: {_cpu.PC.Value}");
                 Console.WriteLine($"Arg1: {param}");
