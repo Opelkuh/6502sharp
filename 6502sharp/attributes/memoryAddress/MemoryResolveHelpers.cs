@@ -5,9 +5,6 @@ namespace _6502sharp
         public static int ZeroPageIndexed(ICpu cpu, ref byte[] raw, in byte addition)
         {
             int target = raw[0] + addition;
-
-            if (target > 256) cpu.SleepCycles++;
-
             return target % 256;
         }
 
