@@ -1,19 +1,18 @@
+﻿using System;
+
 namespace _6502sharp
 {
-    public partial class CPU
-    {
-        protected struct Instruction
+    public struct Instruction
         {
             public byte OpCode;
             public int Cycles;
-            public InstructionDelegate Delegate;
+            public Action Delegate;
 
-            public Instruction(byte opcode, int cycles, InstructionDelegate instructionDelegate)
+            public Instruction(byte opcode, int cycles, Action instructionDelegate)
             {
                 OpCode = opcode;
                 Cycles = cycles;
                 Delegate = instructionDelegate;
             }
         }
-    }
 }

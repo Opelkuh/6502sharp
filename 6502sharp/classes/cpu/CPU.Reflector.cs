@@ -111,7 +111,7 @@ namespace _6502sharp
             }
 
             //generate delegate
-            InstructionDelegate del = GenerateDelegate(meta);
+            Action del = GenerateDelegate(meta);
 
             //register delegate
             Instruction inst = new Instruction(
@@ -123,9 +123,9 @@ namespace _6502sharp
             RegisterInstruction(inst);
         }
 
-        private protected InstructionDelegate GenerateDelegate(InstructionMetadata meta)
+        private protected Action GenerateDelegate(InstructionMetadata meta)
         {
-            InstructionDelegate del = () =>
+            Action del = () =>
             {
                 object[] instParams = new object[meta.Parameters.Count];
 

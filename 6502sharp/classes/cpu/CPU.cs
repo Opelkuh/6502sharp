@@ -8,8 +8,6 @@ namespace _6502sharp
         private CPUType _type;
         private Instruction[] _instructions = new Instruction[byte.MaxValue];
 
-        protected delegate void InstructionDelegate();
-
         public CPU(IMachine machine, CPUType type)
         {
             _machine = machine;
@@ -18,7 +16,7 @@ namespace _6502sharp
             FindInjectables();
         }
 
-        private void RegisterInstruction(Instruction instruction)
+        public void RegisterInstruction(Instruction instruction)
         {
             _instructions[instruction.OpCode] = instruction;
         }
