@@ -1,0 +1,42 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: microsoft/dotnet
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run:
+          name: Restore project
+          command: dotnet restore
+      - run:
+          name: Build project
+          command: dotnet build
+
+      - persist_to_workspace:
+          root: /root
+          paths:
+              - repo
+
+  test:
+    docker:
+      - image: microsoft/dotnet
+
+    working_directory: ~/repo
+
+    steps:
+      - attach_workspace:
+          at: /root
+      - run:
+          command: dotnet test 6502sharp.Test/6502sharp.Test.csproj
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+              - build
