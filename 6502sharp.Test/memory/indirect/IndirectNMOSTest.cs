@@ -1,12 +1,12 @@
-using Xunit;
+﻿using Xunit;
 
 namespace _6502sharp.Test.Memory
 {
-    public class IndirectTest : MemoryResolverTestBase
+    public class IndirectNMOSTest : MemoryResolverTestBase
     {
         IndirectAddressAttribute attr;
 
-        public IndirectTest() : base()
+        public IndirectNMOSTest() : base()
         {
             attr = new IndirectAddressAttribute();
         }
