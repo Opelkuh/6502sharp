@@ -9,7 +9,13 @@ namespace _6502sharp
     {
         private protected void FindInjectables()
         {
-            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            Assembly self = Assembly.GetExecutingAssembly();
+
+            List<Assembly> assemblies = new List<Assembly>(AppDomain.CurrentDomain.GetAssemblies());
+
+            assemblies.Remove(self);
+            assemblies.Insert(0, self);
+
             foreach (Assembly assembly in assemblies)
             {
                 foreach (Type type in assembly.GetTypes())
