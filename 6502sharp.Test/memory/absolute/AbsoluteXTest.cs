@@ -2,7 +2,7 @@ using Xunit;
 
 namespace _6502sharp.Test.Memory
 {
-    public class AbsoluteXTest : MemoryResolverTestBase
+    public class AbsoluteXTest : MachineNMOSBase
     {
         AbsoluteAddressXAttribute attr;
 

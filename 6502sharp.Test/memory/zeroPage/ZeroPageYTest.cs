@@ -2,7 +2,7 @@ using Xunit;
 
 namespace _6502sharp.Test.Memory
 {
-    public class ZeroPageYTest : MemoryResolverTestBase
+    public class ZeroPageYTest : MachineNMOSBase
     {
         ZeroPageYAttribute attr;
 

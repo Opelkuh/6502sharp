@@ -2,7 +2,7 @@ using Xunit;
 
 namespace _6502sharp.Test.Memory
 {
-    public class IndirectYTest : MemoryResolverTestBase
+    public class IndirectYTest : MachineNMOSBase
     {
         IndirectYAddressAttribute attr;
 

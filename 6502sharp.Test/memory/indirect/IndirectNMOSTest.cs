@@ -2,7 +2,7 @@
 
 namespace _6502sharp.Test.Memory
 {
-    public class IndirectNMOSTest : MemoryResolverTestBase
+    public class IndirectNMOSTest : MachineNMOSBase
     {
         IndirectAddressAttribute attr;
 
