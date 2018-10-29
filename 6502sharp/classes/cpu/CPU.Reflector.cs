@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Collections.Generic;
 
 namespace _6502sharp
 {
@@ -51,6 +52,9 @@ namespace _6502sharp
                 CPUInstructionAttribute attribute = (CPUInstructionAttribute)method.GetCustomAttribute(typeof(CPUInstructionAttribute), false);
                 if (attribute != null)
                 {
+                    // check if instruction has the same cpu type
+                    if (!attribute.CPUType.HasFlag(_type)) continue;
+
                     // generate metadata
                     InstructionMetadata meta = new InstructionMetadata();
                     meta.ClassType = classType;
@@ -67,7 +71,7 @@ namespace _6502sharp
         {
             if (meta.Parameters == null)
             {
-                meta.Parameters = new System.Collections.Generic.List<MemoryAddressAttributeBase>();
+                meta.Parameters = new List<MemoryAddressAttributeBase>();
             }
 
             ParameterInfo[] parameters = meta.Method.GetParameters();

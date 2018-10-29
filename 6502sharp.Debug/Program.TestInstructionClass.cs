@@ -19,7 +19,7 @@ namespace _6502sharp.Debug
                 Console.WriteLine(cpu.Memory.Get(10000));
             }
 
-            [CPUInstruction(0x69, 2)]
+            [CPUInstruction(0x69, 2, CPUType.CMOS)]
             public void SET_Abs(byte param, [AbsoluteAddress] int memAddress, byte param2)
             {
                 Console.WriteLine($"PC: {_cpu.PC.Value}");

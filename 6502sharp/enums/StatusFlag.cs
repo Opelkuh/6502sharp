@@ -8,6 +8,7 @@ namespace _6502sharp
         Decimal = 8,
         Break = 16,
         Unused = 32,
+        B = 32,
         Overflow = 64,
         Negative = 128
     }

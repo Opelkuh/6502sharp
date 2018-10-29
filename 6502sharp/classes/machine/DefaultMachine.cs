@@ -3,22 +3,23 @@ using System.Reflection;
 
 namespace _6502sharp
 {
-    public partial class DefaultMachine : IMachine
+    public class DefaultMachine : IMachine
     {
         public IReadable Memory => _ram;
+
         public ICpu CPU => _cpu;
 
-        private ICpu _cpu;
-        private Memory _ram;
+        protected CPU _cpu;
+        protected IReadable _ram;
 
-        public DefaultMachine() : this(new Memory(65536))
+        public DefaultMachine(CPUType type) : this(new Memory(65536), type)
         {
         }
 
-        public DefaultMachine(Memory memory)
+        public DefaultMachine(IReadable memory, CPUType type)
         {
             _ram = memory;
-            _cpu = new CPU(this);
+            _cpu = new CPU(this, type);
         }
     }
 }
