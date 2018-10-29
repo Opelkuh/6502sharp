@@ -6,7 +6,7 @@ namespace _6502sharp.Test.Memory
 
         public MemoryResolverTestBase()
         {
-            machine = new DefaultMachine();
+            machine = new NMOSMachine();
         }
     }
 }
