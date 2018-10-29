@@ -5,7 +5,7 @@ namespace _6502sharp
 {
     public partial class DefaultMachine : IMachine
     {
-        public EventReadableBase Memory => _ram;
+        public IReadable Memory => _ram;
         public ICpu CPU => _cpu;
 
         private ICpu _cpu;

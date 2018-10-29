@@ -2,7 +2,7 @@ namespace _6502sharp
 {
     public interface IMachine
     {
-        EventReadableBase Memory { get; }
+        IReadable Memory { get; }
         ICpu CPU { get; }
     }
 }

@@ -3,32 +3,23 @@ namespace _6502sharp
     /// <summary>
     /// Main RAM of the emulator
     /// </summary>
-    public class Memory : EventReadableBase
+    public class Memory : IReadable
     {
         private byte[] _store;
 
-        public override int Size => _store.Length;
-
-        public override event SetDelegate SetEvent;
+        public int Size => _store.Length;
 
         public Memory(int size)
         {
             _store = new byte[size];
         }
-        public override byte Get(int location)
+        public byte Get(int location)
         {
             return _store[location];
         }
 
-        public override void Set(int location, byte value)
+        public void Set(int location, byte value)
         {
-            if (SetEvent != null)
-            {
-                bool contFlag = SetEvent.Invoke(ref location, _store[location], ref value);
-
-                if (!contFlag) return;
-            }
-
             _store[location] = value;
         }
     }
