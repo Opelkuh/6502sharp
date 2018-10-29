@@ -12,6 +12,11 @@ namespace _6502sharp
         /// (used to time instructions that take multiple cycles)
         /// </summary>
         int SleepCycles { get; set; }
+
+        /// <summary>
+        /// Type of the CPU
+        /// </summary>
+        CPUType Type { get; }
         
         /// <summary>
         /// Memmory linked to the cpu

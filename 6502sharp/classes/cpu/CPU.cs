@@ -2,12 +2,13 @@ namespace _6502sharp
 {
     public partial class CPU : ICpu
     {
+        public CPUType Type => _type;
+
         private IMachine _machine;
         private CPUType _type;
+        private Instruction[] _instructions = new Instruction[byte.MaxValue];
 
         protected delegate void InstructionDelegate();
-
-        private Instruction[] _instructions = new Instruction[byte.MaxValue];
 
         public CPU(IMachine machine, CPUType type)
         {
