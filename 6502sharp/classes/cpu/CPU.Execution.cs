@@ -2,18 +2,8 @@ namespace _6502sharp
 {
     public partial class CPU : ICpu
     {
-        public int SleepCycles
-        {
-            get
-            {
-                return _sleepFor;
-            }
-            set
-            {
-                _sleepFor = value;
-            }
-        }
-
+        public int SleepCycles { get => _sleepFor; set => _sleepFor = value; }
+        
         private int _sleepFor = 0;
         private Instruction _nextInstruction;
 
