@@ -1,4 +1,4 @@
-﻿namespace _6502sharp
+﻿namespace _6502sharp.Helpers
 {
     /// <summary>
     /// Class that sets flags based on results
