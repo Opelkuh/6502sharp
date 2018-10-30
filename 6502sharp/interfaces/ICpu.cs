@@ -17,6 +17,12 @@ namespace _6502sharp
         /// Type of the CPU
         /// </summary>
         CPUType Type { get; }
+
+        /// <summary>
+        /// Enables or disables decimal mode.
+        /// If false, Decimal flag will be ignored
+        /// </summary>
+        bool DecimalMode { get; }
         
         /// <summary>
         /// Memmory linked to the cpu

@@ -3,9 +3,11 @@ namespace _6502sharp
     public partial class CPU : ICpu
     {
         public CPUType Type => _type;
+        public bool DecimalMode { get => _decimalMode; set => _decimalMode = value; }
 
         private IMachine _machine;
         private CPUType _type;
+        private bool _decimalMode = true;
         private Instruction[] _instructions = new Instruction[byte.MaxValue];
 
         public CPU(IMachine machine, CPUType type)
