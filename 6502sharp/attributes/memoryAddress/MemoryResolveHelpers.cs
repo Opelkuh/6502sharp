@@ -12,7 +12,7 @@ namespace _6502sharp
         {
             // check for carry 1 cycle penalty
             int lower = raw[0] + addition;
-            if (lower > 255) cpu.SleepCycles++;
+            if (lower > 255 || cpu.Type == CPUType.CMOS) cpu.SleepCycles++;
 
             return LEHelper.From(raw) + addition;
         }
