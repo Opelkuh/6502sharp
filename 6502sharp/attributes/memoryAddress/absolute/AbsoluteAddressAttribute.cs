@@ -6,7 +6,7 @@ namespace _6502sharp
     {
         public override int RequiredBytes => 2;
 
-    public override int Resolve(ICpu cpu, ref byte[] raw)
+        public override int Resolve(ICpu cpu, ref byte[] raw)
         {
             return LEHelper.From(raw);
         }
