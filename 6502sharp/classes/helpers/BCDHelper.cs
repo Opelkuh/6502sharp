@@ -28,10 +28,13 @@ namespace _6502sharp.Helpers
         /// <returns></returns>
         public static bool GetHalfBorrow(params int[] values)
         {
-            int temp = 0;
-            foreach (int i in values)
+            if (values.Length < 1) return false;
+
+            int temp = values[0] & 0x0F;
+
+            for (int i = 1; i < values.Length; i++)
             {
-                temp -= i & 0x0F;
+                temp -= values[i] & 0x0F;
             }
 
             return temp < 0;
