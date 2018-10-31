@@ -1,3 +1,5 @@
+using _6502sharp.Helpers;
+
 namespace _6502sharp
 {
     public class IndirectAddressAttribute : MemoryAddressAttributeBase
