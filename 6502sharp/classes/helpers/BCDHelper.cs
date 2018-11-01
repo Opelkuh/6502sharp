@@ -42,6 +42,7 @@ namespace _6502sharp.Helpers
 
         /// <summary>
         /// Corrects the result of addition of two BCD values (DAA instruction in other processors)
+        /// Also adjusts the C flag on all processors and the N and Z flags on CMOS processors
         /// </summary>
         /// <param name="cpu">target cpu</param>
         /// <param name="result">value to be adjusted</param>
@@ -55,6 +56,7 @@ namespace _6502sharp.Helpers
 
         /// <summary>
         /// Corrects the addition of two BCD values (DAA instruction in other processors)
+        /// Also adjusts the C flag on all processors and the N and Z flags on CMOS processors
         /// </summary>
         /// <param name="cpu">target cpu</param>
         /// <param name="result">value to be adjusted</param>
@@ -66,6 +68,7 @@ namespace _6502sharp.Helpers
 
         /// <summary>
         /// Corrects the result of substraction of two BCD values (DAS instruction in other processors)
+        /// Also adjusts the C flag on all processors and the N and Z flags on CMOS processors
         /// </summary>
         /// <param name="cpu">target cpu</param>
         /// <param name="result">value to be adjusted</param>
@@ -79,6 +82,7 @@ namespace _6502sharp.Helpers
 
         /// <summary>
         /// Corrects the result of substraction of two BCD values (DAS instruction in other processors)
+        /// Also adjusts the C flag on all processors and the N and Z flags on CMOS processors
         /// </summary>
         /// <param name="cpu">target cpu</param>
         /// <param name="result">value to be adjusted</param>
@@ -107,6 +111,14 @@ namespace _6502sharp.Helpers
             else cpu.SR.Carry = false;
 
             result += mod * modifier;
+
+            // recalculate flags on CMOS
+            if (cpu.Type == CPUType.CMOS)
+            {
+                FlagHelper.SetZero(cpu, result);
+                FlagHelper.SetNegative(cpu, result);
+                cpu.SleepCycles++;
+            }
         }
     }
 }
