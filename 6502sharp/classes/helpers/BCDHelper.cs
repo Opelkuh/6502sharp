@@ -95,13 +95,13 @@ namespace _6502sharp.Helpers
             // low 4 bits
             if ((result & 0x0F) > 0x09 || carryOrBorrow)
             {
-                result |= 0x06;
+                mod |= 0x06;
             }
 
             // high 4 bits
             if (result > 0x99)
             {
-                result |= 0x60;
+                mod |= 0x60;
                 cpu.SR.Carry = true;
             }
             else cpu.SR.Carry = false;
