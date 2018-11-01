@@ -38,7 +38,7 @@
         /// <param name="result">value to be checked</param>
         public static void SetZero(ICpu cpu, int value)
         {
-            if (value <= 0) cpu.SR.Zero = true;
+            if ((value & 0xFF) == 0) cpu.SR.Zero = true;
             else cpu.SR.Zero = false;
         }
 
