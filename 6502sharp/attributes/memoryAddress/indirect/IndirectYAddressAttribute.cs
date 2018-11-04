@@ -15,7 +15,7 @@ namespace _6502sharp
 
             // carry 1 cycle penalty
             int lower = target[0] + cpu.Y.Value;
-            if (lower > 255) cpu.SleepCycles++;
+            if (cpu.Type == CPUType.CMOS || lower > 0xFF) cpu.SleepCycles++;
 
             int address = LEHelper.From(target);
             return address + cpu.Y.Value;
