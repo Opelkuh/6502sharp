@@ -15,12 +15,12 @@ namespace _6502sharp
         }
         public byte Get(int location)
         {
-            return _store[location];
+            return _store[location % Size];
         }
 
         public void Set(int location, byte value)
         {
-            _store[location] = value;
+            _store[location % Size] = value;
         }
     }
 }
