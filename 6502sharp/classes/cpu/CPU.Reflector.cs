@@ -55,8 +55,13 @@ namespace _6502sharp
             MethodInfo[] methods = classType.GetMethods();
             foreach (MethodInfo method in methods)
             {
-                CPUInstructionAttribute attribute = (CPUInstructionAttribute)method.GetCustomAttribute(typeof(CPUInstructionAttribute), false);
-                if (attribute != null)
+                CPUInstructionAttribute[] attributes = (CPUInstructionAttribute[])method.GetCustomAttributes(typeof(CPUInstructionAttribute), false);
+
+                if (attributes.Length < 1) continue;
+
+                List<InstructionMetadata> metadata = new List<InstructionMetadata>();
+
+                foreach (var attribute in attributes)
                 {
                     // check if instruction has the same cpu type
                     if (!attribute.CPUType.HasFlag(_type)) continue;
@@ -68,7 +73,16 @@ namespace _6502sharp
                     meta.Method = method;
                     meta.CPUAttribute = attribute;
 
-                    FindParameters(meta);
+                    metadata.Add(meta);
+                }
+
+                if (metadata.Count == 1)
+                {
+                    FindParameters(metadata[0]);
+                }
+                else if (metadata.Count > 1)
+                {
+                    FindMemoryAddressParameters(method, metadata.ToArray());
                 }
             }
         }
@@ -87,10 +101,7 @@ namespace _6502sharp
                 if (attribute != null)
                 {
                     if (parameter.ParameterType != typeof(int))
-                    {
-                        throw
-                            new InvalidParameterTypeException($"Memory address parameter '${parameter.Name}' of CPU instruction '{meta.ClassType.Name}.{meta.Method.Name}' must be of type 'int'");
-                    }
+                        ThrowInvalidParameterType(parameter.Name, "int", meta);
 
                     // add parameter to meta
                     MemoryAddressAttributeBase param = attribute;
@@ -99,10 +110,7 @@ namespace _6502sharp
                 else
                 {
                     if (parameter.ParameterType != typeof(byte))
-                    {
-                        throw
-                            new InvalidParameterTypeException($"Parameter '${parameter.Name}' of CPU instruction '{meta.ClassType.Name}.{meta.Method.Name}' must be of type 'byte'");
-                    }
+                        ThrowInvalidParameterType(parameter.Name, "byte", meta);
 
                     // add parameter to meta
                     MemoryAddressAttributeBase param = null;
@@ -110,6 +118,61 @@ namespace _6502sharp
                 }
             }
 
+            RegisterInstructionMetadata(meta);
+        }
+
+        private protected void FindMemoryAddressParameters(MethodInfo method, InstructionMetadata[] meta)
+        {
+            if (meta.Length < 1) return;
+            // check if all attributes have memory attribute
+            MemoryAddressAttributeBase[] memAttributes =
+                (MemoryAddressAttributeBase[])method.GetCustomAttributes(typeof(MemoryAddressAttributeBase), false);
+
+            if (meta.Length != memAttributes.Length)
+                throw new Exception($"Method {method.Name} doesn't have the same number of CPUInstruction attributes ({meta.Length}) and MemoryResolver attributes ({memAttributes.Length})!");
+
+            // check parameters
+            ParameterInfo[] parameters = method.GetParameters();
+            bool[] isIntParam = new bool[parameters.Length];
+
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                ParameterInfo parameter = parameters[i];
+                if (parameter.ParameterType == typeof(int))
+                {
+                    isIntParam[i] = true;
+                    continue;
+                }
+                else if (parameter.ParameterType == typeof(byte))
+                {
+                    isIntParam[i] = false;
+                    continue;
+                }
+                else
+                {
+                    ThrowInvalidParameterType(parameter.Name, "int|byte", meta[0]);
+                }
+            }
+
+            // generate delegates
+            for (int i = 0; i < meta.Length; i++)
+            {
+                InstructionMetadata metadata = meta[i];
+
+                metadata.Parameters = new List<MemoryAddressAttributeBase>();
+
+                foreach (bool isInt in isIntParam)
+                {
+                    if (isInt) metadata.Parameters.Add(memAttributes[i]);
+                    else metadata.Parameters.Add(null);
+                }
+
+                RegisterInstructionMetadata(metadata);
+            }
+        }
+
+        private protected void RegisterInstructionMetadata(InstructionMetadata meta)
+        {
             //generate delegate
             Action del = GenerateDelegate(meta);
 
@@ -146,6 +209,12 @@ namespace _6502sharp
             };
 
             return del;
+        }
+
+        private void ThrowInvalidParameterType(string parameterName, string targetType, InstructionMetadata meta)
+        {
+            throw
+                new InvalidParameterTypeException($"Parameter '{parameterName}' of CPU instruction '{meta.ClassType.Name}.{meta.Method.Name}' must be of type '{targetType}'");
         }
     }
 }

@@ -2,7 +2,7 @@ using System;
 
 namespace _6502sharp
 {
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public class CPUInstructionAttribute : Attribute
     {
         public byte OpCode;

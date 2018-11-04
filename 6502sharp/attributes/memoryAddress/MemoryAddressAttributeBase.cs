@@ -2,7 +2,10 @@ using System;
 
 namespace _6502sharp
 {
-    [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false)]
+    [AttributeUsage(
+        AttributeTargets.Parameter | AttributeTargets.Method,
+        AllowMultiple = true
+    )]
     public abstract class MemoryAddressAttributeBase : Attribute
     {
         abstract public int RequiredBytes { get; }
