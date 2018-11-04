@@ -27,7 +27,7 @@ namespace _6502sharp
 
         private Instruction getCurrentOpcode()
         {
-            byte opcode = _machine.Memory.Get(this.PC.Value);
+            byte opcode = FetchNext();
             return _instructions[opcode];
         }
     }
