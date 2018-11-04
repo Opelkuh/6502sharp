@@ -8,7 +8,7 @@ namespace _6502sharp
         private IMachine _machine;
         private CPUType _type;
         private bool _decimalMode = true;
-        private Instruction[] _instructions = new Instruction[byte.MaxValue];
+        private Instruction[] _instructions = new Instruction[256];
 
         public CPU(IMachine machine, CPUType type)
         {
