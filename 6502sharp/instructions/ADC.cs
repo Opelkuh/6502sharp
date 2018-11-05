@@ -18,50 +18,15 @@ namespace _6502sharp.Instructions
             process(param);
         }
 
-        [CPUInstruction(0x65, 3)]
-        public void ADC_Zeropage([ZeroPage] int address)
-        {
-            process(_cpu.Memory.Get(address));
-        }
-
-        [CPUInstruction(0x75, 4)]
-        public void ADC_ZeropageX([ZeroPageX] int address)
-        {
-            process(_cpu.Memory.Get(address));
-        }
-
-        [CPUInstruction(0x6D, 4)]
-        public void ADC_Absolute([AbsoluteAddress] int address)
-        {
-            process(_cpu.Memory.Get(address));
-        }
-
-        [CPUInstruction(0x7D, 4)]
-        public void ADC_AbsoluteX([AbsoluteAddressX] int address)
-        {
-            process(_cpu.Memory.Get(address));
-        }
-
-        [CPUInstruction(0x79, 4)]
-        public void ADC_AbsoluteY([AbsoluteAddressY] int address)
-        {
-            process(_cpu.Memory.Get(address));
-        }
-
-        [CPUInstruction(0x61, 6)]
-        public void ADC_IndirectX([IndirectXAddress] int address)
-        {
-            process(_cpu.Memory.Get(address));
-        }
-
-        [CPUInstruction(0x71, 5)]
-        public void ADC_IndirectY([IndirectYAddress] int address)
-        {
-            process(_cpu.Memory.Get(address));
-        }
-
-        [CPUInstruction(0x72, 6, CPUType.CMOS)]
-        public void ADC_Indirect([IndirectAddress] int address)
+        [CPUInstruction(0x65, 3), ZeroPage]
+        [CPUInstruction(0x75, 4), ZeroPageX]
+        [CPUInstruction(0x6D, 4), AbsoluteAddress]
+        [CPUInstruction(0x7D, 4), AbsoluteAddressX]
+        [CPUInstruction(0x79, 4), AbsoluteAddressY]
+        [CPUInstruction(0x61, 6), IndirectXAddress]
+        [CPUInstruction(0x71, 5), IndirectYAddress]
+        [CPUInstruction(0x72, 6, CPUType.CMOS), IndirectAddress]
+        public void ADC_Memory(int address)
         {
             process(_cpu.Memory.Get(address));
         }
