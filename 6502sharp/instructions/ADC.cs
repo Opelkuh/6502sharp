@@ -36,6 +36,11 @@ namespace _6502sharp.Instructions
             int carry = _cpu.SR.Carry ? 1 : 0;
             int res = value + _cpu.A.Value + carry;
 
+            FlagHelper.SetCarry(_cpu, res);
+            FlagHelper.SetZero(_cpu, res);
+            FlagHelper.SetNegative(_cpu, res);
+            FlagHelper.SetOverflow(_cpu, res, _cpu.A.Value, value + carry);
+
             if (_cpu.DecimalMode && _cpu.SR.Decimal)
             {
                 BCDHelper.AdditionAdjust(_cpu, ref res, value, _cpu.A.Value, carry);
