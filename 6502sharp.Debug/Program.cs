@@ -9,7 +9,7 @@ namespace _6502sharp.Debug
             Memory mem = new Memory(65536);
             MemRandomFill(mem);
 
-            IMachine mach = new CMOSMachine();
+            IMachine mach = new NMOSMachine();
 
             mach.CPU.Tick();
             mach.CPU.Tick();

@@ -59,12 +59,16 @@ namespace _6502sharp
 
                 if (attributes.Length < 1) continue;
 
-                List<InstructionMetadata> metadata = new List<InstructionMetadata>();
+                List<InstructionMetadata?> metadata = new List<InstructionMetadata?>();
 
                 foreach (var attribute in attributes)
                 {
                     // check if instruction has the same cpu type
-                    if (!attribute.CPUType.HasFlag(_type)) continue;
+                    if (!attribute.CPUType.HasFlag(_type))
+                    {
+                        metadata.Add(null);
+                        continue;
+                    }
 
                     // generate metadata
                     InstructionMetadata meta = new InstructionMetadata();
@@ -78,7 +82,7 @@ namespace _6502sharp
 
                 if (metadata.Count == 1)
                 {
-                    FindParameters(metadata[0]);
+                    if (metadata[0].HasValue) FindParameters(metadata[0].Value);
                 }
                 else if (metadata.Count > 1)
                 {
@@ -121,7 +125,7 @@ namespace _6502sharp
             RegisterInstructionMetadata(meta);
         }
 
-        private protected void FindMemoryAddressParameters(MethodInfo method, InstructionMetadata[] meta)
+        private protected void FindMemoryAddressParameters(MethodInfo method, InstructionMetadata?[] meta)
         {
             if (meta.Length < 1) return;
             // check if all attributes have memory attribute
@@ -150,14 +154,23 @@ namespace _6502sharp
                 }
                 else
                 {
-                    ThrowInvalidParameterType(parameter.Name, "int|byte", meta[0]);
+                    foreach (InstructionMetadata? metadata in meta)
+                    {
+                        if (metadata.HasValue)
+                        {
+                            ThrowInvalidParameterType(parameter.Name, "int|byte", metadata.Value);
+                        }
+                    }
+                    // in case that all provided metadata is null
+                    return;
                 }
             }
 
             // generate delegates
             for (int i = 0; i < meta.Length; i++)
             {
-                InstructionMetadata metadata = meta[i];
+                if(!meta[i].HasValue) continue;
+                InstructionMetadata metadata = meta[i].Value;
 
                 metadata.Parameters = new List<MemoryAddressAttributeBase>();
 
