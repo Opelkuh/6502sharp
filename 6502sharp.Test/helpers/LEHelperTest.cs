@@ -1,7 +1,7 @@
 using Xunit;
 using _6502sharp.Helpers;
 
-namespace _6502sharp.Test
+namespace _6502sharp.Test.Helpers
 {
     public class LEHelperTest
     {
