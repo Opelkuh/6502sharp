@@ -13,7 +13,7 @@ namespace _6502sharp.Instructions
         }
 
         [CPUInstruction(0x69, 2)]
-        public void ADC_Immidiate(byte param)
+        public void ADC_Immediate(byte param)
         {
             process(param);
         }
