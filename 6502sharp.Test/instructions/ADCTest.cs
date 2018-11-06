@@ -31,6 +31,28 @@ namespace _6502sharp.Test.Instructions
             Assert.Equal(expected, _cpu.A.Value);
         }
 
+        [Theory]
+        [InlineData(0x90, 0x80, true, false, false, true)]
+        [InlineData(0xFF, 0x01, true, true, false, false)]
+        public void AddsAndSetsFlags(
+            int accu,
+            int value,
+            bool expC,
+            bool expZ,
+            bool expN,
+            bool expV
+        )
+        {
+            PrepareCpu(accu, false);
+
+            _adc.ADC_Immediate((byte)value);
+
+            Assert.True(expC == _cpu.SR.Carry, "Invalid carry flag");
+            Assert.True(expZ == _cpu.SR.Zero, "Invalid zero flag");
+            Assert.True(expN == _cpu.SR.Negative, "Invalid negative flag");
+            Assert.True(expV == _cpu.SR.Overflow, "Invalid overflow flag");
+        }
+
         [Fact]
         public void AddsWithMemAddress()
         {
