@@ -3,11 +3,11 @@ using _6502sharp.Instructions;
 
 namespace _6502sharp.Test.Instructions
 {
-    public class ADC_NMOSTest : NMOSMachine
+    public class ADCTest : NMOSMachine
     {
         ADC _adc;
 
-        public ADC_NMOSTest()
+        public ADCTest()
         {
             _adc = new ADC(_cpu);
         }
