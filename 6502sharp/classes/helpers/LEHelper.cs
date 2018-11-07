@@ -1,3 +1,5 @@
+using System;
+
 namespace _6502sharp.Helpers
 {
     /// <summary>
@@ -14,6 +16,22 @@ namespace _6502sharp.Helpers
 
             for(int i = 0; i < input.Length; i++) {
                 ret |= input[i] << 8 * i;
+            }
+
+            return ret;
+        }
+
+        /// <summary>
+        /// Converts int to little-endian byte array
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="bytes">number of bytes to be converted</param>
+        /// <returns>le byte array</returns>
+        public static byte[] To(int input, int bytes) {
+            byte[] ret = new byte[bytes];
+
+            for(int i = 0; i < bytes; i++) {
+                ret[i] = (byte)((input >> 8 * i) & 0xFF);
             }
 
             return ret;
