@@ -14,6 +14,11 @@ namespace _6502sharp
         int SleepCycles { get; set; }
 
         /// <summary>
+        /// The number of finished cycles in the CPUs lifetime
+        /// </summary>
+        int FinishedCycles { get; }
+
+        /// <summary>
         /// Type of the CPU
         /// </summary>
         CPUType Type { get; }

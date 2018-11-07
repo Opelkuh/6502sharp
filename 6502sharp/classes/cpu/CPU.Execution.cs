@@ -3,7 +3,10 @@ namespace _6502sharp
     public partial class CPU : ICpu
     {
         public int SleepCycles { get => _sleepFor; set => _sleepFor = value; }
-        
+        public int FinishedCycles { get => _finishedCycles; }
+
+        private int _finishedCycles = 0;
+
         private int _sleepFor = 0;
         private Instruction _nextInstruction;
 
@@ -16,6 +19,8 @@ namespace _6502sharp
                 _nextInstruction = getCurrentOpcode();
                 _sleepFor = _nextInstruction.Cycles;
             }
+
+            _finishedCycles++;
         }
 
         private void invokeInstruction(Instruction instruction)
