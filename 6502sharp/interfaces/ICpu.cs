@@ -22,7 +22,7 @@ namespace _6502sharp
         /// Enables or disables decimal mode.
         /// If false, Decimal flag will be ignored
         /// </summary>
-        bool DecimalMode { get; }
+        bool DecimalMode { get; set; }
         
         /// <summary>
         /// Memmory linked to the cpu
