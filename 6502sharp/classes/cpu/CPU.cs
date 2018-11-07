@@ -4,8 +4,10 @@ namespace _6502sharp
     {
         public CPUType Type => _type;
         public bool DecimalMode { get => _decimalMode; set => _decimalMode = value; }
+        public IStack Stack { get => _stack; set => _stack = value; }
 
         private IMachine _machine;
+        private IStack _stack;
         private CPUType _type;
         private bool _decimalMode = true;
         private Instruction[] _instructions = new Instruction[256];
@@ -14,6 +16,7 @@ namespace _6502sharp
         {
             _machine = machine;
             _type = type;
+            _stack = new Stack(this);
 
             FindInjectables();
         }

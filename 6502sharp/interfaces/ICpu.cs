@@ -30,6 +30,11 @@ namespace _6502sharp
         IReadable Memory { get; }
 
         /// <summary>
+        /// Stack handler of the CPU
+        /// </summary>
+        IStack Stack { get; set; }
+
+        /// <summary>
         /// Status register
         /// </summary>
         StatusRegister SR { get; }
