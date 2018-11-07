@@ -3,13 +3,13 @@ using _6502sharp.Instructions;
 
 namespace _6502sharp.Test.Instructions
 {
-    public class ASLTest : NMOSMachine
+    public class ASLTest : MachineNMOSBase
     {
         ASL _asl;
 
         public ASLTest()
         {
-            _asl = new ASL(_cpu);
+            _asl = new ASL(machine.CPU);
         }
 
         [Theory]
@@ -20,11 +20,11 @@ namespace _6502sharp.Test.Instructions
             int expected
         )
         {
-            _cpu.A.Value = (byte)accu;
+            machine.CPU.A.Value = (byte)accu;
 
             _asl.ASL_Accumulator();
 
-            Assert.Equal(expected, _cpu.A.Value);
+            Assert.Equal(expected, machine.CPU.A.Value);
         }
 
         [Theory]
@@ -37,11 +37,11 @@ namespace _6502sharp.Test.Instructions
         {
             int memLoc = 0xBADC;
 
-            _ram.Set(memLoc, (byte)value);
+            machine.Memory.Set(memLoc, (byte)value);
 
             _asl.ASL_Memory(memLoc);
 
-            Assert.Equal(expected, _ram.Get(memLoc));
+            Assert.Equal(expected, machine.Memory.Get(memLoc));
         }
     }
 }
