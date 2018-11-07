@@ -35,5 +35,16 @@ namespace _6502sharp.Test.Instructions
             AssertFlag.Negative(machine, expN);
             AssertFlag.Overflow(machine, expV);
         }
+
+        [Fact]
+        public void SetsFlagsImmediate() {
+            machine.CPU.A.Value = 0xAB;
+
+            _bit.BIT_Immediate(0xC1);
+
+            AssertFlag.Zero(machine, false);
+            AssertFlag.Negative(machine, true);
+            AssertFlag.Overflow(machine, true);
+        }
     }
 }
