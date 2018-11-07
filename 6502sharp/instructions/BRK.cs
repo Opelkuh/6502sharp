@@ -1,3 +1,4 @@
+using System;
 using _6502sharp.Helpers;
 
 namespace _6502sharp.Instructions
@@ -16,7 +17,11 @@ namespace _6502sharp.Instructions
         public void BRK_Implied()
         {
             // save PC + 1
-            byte[] oldPc = LEHelper.To(_cpu.PC.Value + 1, 2); 
+            _cpu.PC.Value++;
+            byte[] oldPc = {
+                (byte)(_cpu.PC.Value >> 8),
+                (byte)(_cpu.PC.Value & 0xFF)
+            };
             _cpu.Stack.Push(oldPc);
 
             // save status reg
@@ -26,7 +31,7 @@ namespace _6502sharp.Instructions
 
             // set interrupt flag
             _cpu.SR.Interrupt = true;
-            
+
             // set new PC
             byte[] target = { _cpu.Memory.Get(0xFFFE), _cpu.Memory.Get(0xFFFF) };
 
