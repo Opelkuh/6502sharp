@@ -3,13 +3,13 @@ using _6502sharp.Instructions;
 
 namespace _6502sharp.Test.Instructions
 {
-    public class ADCTest : NMOSMachine
+    public class ADCTest : MachineNMOSBase
     {
         ADC _adc;
 
         public ADCTest()
         {
-            _adc = new ADC(_cpu);
+            _adc = new ADC(machine.CPU);
         }
 
         [Theory]
@@ -28,12 +28,13 @@ namespace _6502sharp.Test.Instructions
 
             _adc.ADC_Immediate((byte)value);
 
-            Assert.Equal(expected, _cpu.A.Value);
+            Assert.Equal(expected, machine.CPU.A.Value);
         }
 
         [Theory]
         [InlineData(0x90, 0x80, true, false, false, true)]
         [InlineData(0xFF, 0x01, true, true, false, false)]
+        [InlineData(0x40, 0x40, false, false, true, true)]
         public void AddsAndSetsFlags(
             int accu,
             int value,
@@ -47,10 +48,10 @@ namespace _6502sharp.Test.Instructions
 
             _adc.ADC_Immediate((byte)value);
 
-            Assert.True(expC == _cpu.SR.Carry, "Invalid carry flag");
-            Assert.True(expZ == _cpu.SR.Zero, "Invalid zero flag");
-            Assert.True(expN == _cpu.SR.Negative, "Invalid negative flag");
-            Assert.True(expV == _cpu.SR.Overflow, "Invalid overflow flag");
+            AssertFlag.Carry(machine, expC);
+            AssertFlag.Zero(machine, expZ);
+            AssertFlag.Negative(machine, expN);
+            AssertFlag.Overflow(machine, expV);
         }
 
         [Fact]
@@ -60,11 +61,11 @@ namespace _6502sharp.Test.Instructions
 
             PrepareCpu(0x32, true);
 
-            _ram.Set(memLocation, 0x36);
+            machine.Memory.Set(memLocation, 0x36);
 
             _adc.ADC_Memory(memLocation);
 
-            Assert.Equal(0x69, _cpu.A.Value);
+            Assert.Equal(0x69, machine.CPU.A.Value);
         }
 
         [Theory]
@@ -80,18 +81,18 @@ namespace _6502sharp.Test.Instructions
         )
         {
             PrepareCpu(accu, carry);
-            _cpu.DecimalMode = true;
-            _cpu.SR.Decimal = true;
+            machine.CPU.DecimalMode = true;
+            machine.CPU.SR.Decimal = true;
 
             _adc.ADC_Immediate((byte)value);
 
-            Assert.Equal(expected, _cpu.A.Value);
+            Assert.Equal(expected, machine.CPU.A.Value);
         }
 
         private void PrepareCpu(int accu, bool carry)
         {
-            _cpu.A.Value = (byte)accu;
-            _cpu.SR.Carry = carry;
+            machine.CPU.A.Value = (byte)accu;
+            machine.CPU.SR.Carry = carry;
         }
     }
 }
