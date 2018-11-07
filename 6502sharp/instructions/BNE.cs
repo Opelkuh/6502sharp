@@ -13,10 +13,7 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0xD0, 2)]
         public void BNE_Relative([Relative] int target)
         {
-            if (_cpu.SR.Zero == false)
-            {
-                _cpu.PC.Value = (ushort)(target & 0xFFFF);
-            }
+            if (_cpu.SR.Zero == false) _cpu.PC.Value = target;
         }
     }
 }

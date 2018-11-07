@@ -17,7 +17,7 @@ namespace _6502sharp.Test.Memory
         public void ReturnsAddress(int pc, int offset, int expected)
         {
             byte[] input = { (byte)offset };
-            machine.CPU.PC.Value = (ushort)pc;
+            machine.CPU.PC.Value = pc;
 
             int res = attr.Resolve(machine.CPU, ref input);
 

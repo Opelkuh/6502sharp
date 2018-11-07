@@ -16,17 +16,18 @@ namespace _6502sharp
         /// 
         /// </summary>
         /// <value>Value of the register</value>
-        public ushort Value
+        public int Value
         {
             get
             {
-                return (ushort)LEHelper.From(_store);
+                return LEHelper.From(_store);
             }
 
             set
             {
-                byte lower = (byte)(value & 0xFF);
-                byte higher = (byte)(value >> 8);
+                int converted = value & 0xFFFF;
+                byte lower = (byte)(converted & 0xFF);
+                byte higher = (byte)(converted >> 8);
 
                 Set(0, lower);
                 Set(1, higher);

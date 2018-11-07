@@ -13,10 +13,7 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0xF0, 2)]
         public void BEQ_Relative([Relative] int target)
         {
-            if (_cpu.SR.Zero == true)
-            {
-                _cpu.PC.Value = (ushort)(target & 0xFFFF);
-            }
+            if (_cpu.SR.Zero == true) _cpu.PC.Value = target;
         }
     }
 }

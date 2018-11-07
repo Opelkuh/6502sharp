@@ -13,9 +13,7 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0xB0, 2)]
         public void BCS_Relative([Relative] int target)
         {
-            if(_cpu.SR.Carry == true) {
-                _cpu.PC.Value = (ushort)(target & 0xFFFF);
-            }
+            if (_cpu.SR.Carry == true) _cpu.PC.Value = target;
         }
     }
 }
