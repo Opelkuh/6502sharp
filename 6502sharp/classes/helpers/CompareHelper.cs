@@ -8,7 +8,7 @@ namespace _6502sharp.Helpers
     public static class CompareHelper
     {
         /// <summary>
-        /// Compares 2 values and sets flags (C, N, Z) based on the result
+        /// Compares 2 values and sets flags (C, Z, N) based on the result
         /// </summary>
         /// <param name="cpu">cpu reference</param>
         /// <param name="registerVal">value of the register</param>
