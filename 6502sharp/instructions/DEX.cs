@@ -1,3 +1,5 @@
+using _6502sharp.Helpers;
+
 namespace _6502sharp.Instructions
 {
     [InjectableInstruction]
@@ -14,6 +16,9 @@ namespace _6502sharp.Instructions
         public void DEX_Implied()
         {
             _cpu.X.Value--;
+
+            FlagHelper.SetNegative(_cpu, _cpu.X.Value);
+            FlagHelper.SetZero(_cpu, _cpu.X.Value);
         }
     }
 }

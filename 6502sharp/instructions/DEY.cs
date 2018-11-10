@@ -1,3 +1,5 @@
+using _6502sharp.Helpers;
+
 namespace _6502sharp.Instructions
 {
     [InjectableInstruction]
@@ -14,6 +16,9 @@ namespace _6502sharp.Instructions
         public void DEY_Implied()
         {
             _cpu.Y.Value--;
+
+            FlagHelper.SetNegative(_cpu, _cpu.Y.Value);
+            FlagHelper.SetZero(_cpu, _cpu.Y.Value);
         }
     }
 }

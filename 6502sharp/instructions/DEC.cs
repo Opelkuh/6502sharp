@@ -1,3 +1,5 @@
+using _6502sharp.Helpers;
+
 namespace _6502sharp.Instructions
 {
     [InjectableInstruction]
@@ -11,8 +13,12 @@ namespace _6502sharp.Instructions
         }
 
         [CPUInstruction(0x3A, 2, CPUType.CMOS)]
-        public void DEC_Accumulator() {
+        public void DEC_Accumulator()
+        {
             _cpu.A.Value--;
+
+            FlagHelper.SetNegative(_cpu, _cpu.A.Value);
+            FlagHelper.SetZero(_cpu, _cpu.A.Value);
         }
 
         [CPUInstruction(0xC6, 5), ZeroPage]
@@ -23,7 +29,12 @@ namespace _6502sharp.Instructions
         {
             byte val = _cpu.Memory.Get(address);
 
-            _cpu.Memory.Set(address, --val);
+            val--;
+
+            FlagHelper.SetNegative(_cpu, val);
+            FlagHelper.SetZero(_cpu, val);
+
+            _cpu.Memory.Set(address, val);
         }
     }
 }
