@@ -23,7 +23,7 @@ namespace _6502sharp.Instructions
 
         [CPUInstruction(0xC6, 5), ZeroPage]
         [CPUInstruction(0xD6, 6), ZeroPageX]
-        [CPUInstruction(0xCE, 3), AbsoluteAddress]
+        [CPUInstruction(0xCE, 6), AbsoluteAddress]
         [CPUInstruction(0xDE, 7), AbsoluteAddressX]
         public void DEC_Memory(int address)
         {
