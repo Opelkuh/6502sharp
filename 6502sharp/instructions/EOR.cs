@@ -34,6 +34,9 @@ namespace _6502sharp.Instructions
         private void process(byte value)
         {
             _cpu.A.Value ^= value;
+
+            FlagHelper.SetNegative(_cpu, _cpu.A.Value);
+            FlagHelper.SetZero(_cpu, _cpu.A.Value);
         }
     }
 }

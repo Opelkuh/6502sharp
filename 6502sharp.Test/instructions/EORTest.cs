@@ -48,5 +48,25 @@ namespace _6502sharp.Test.Instructions
 
             Assert.Equal(expected, machine.CPU.A.Value);
         }
+
+        [Theory]
+        [InlineData(0x81, 0x7E, true, false)]
+        [InlineData(0xFF, 0xFF, false, true)]
+        public void SetsCorrectFlags(
+            byte accu,
+            byte value,
+            bool expN,
+            bool expZ
+        )
+        {
+            machine.CPU.A.Value = accu;
+            machine.CPU.SR.Negative = false;
+            machine.CPU.SR.Zero = false;
+
+            _dec.EOR_Immediate(value);
+
+            AssertFlag.Negative(machine, expN);
+            AssertFlag.Zero(machine, expZ);
+        }
     }
 }
