@@ -18,11 +18,7 @@ namespace _6502sharp.Instructions
         {
             // save PC + 1
             _cpu.PC.Value++;
-            byte[] oldPc = {
-                (byte)(_cpu.PC.Value >> 8),
-                (byte)(_cpu.PC.Value & 0xFF)
-            };
-            _cpu.Stack.Push(oldPc);
+            _cpu.Stack.PushPC();
 
             // save status reg
             _cpu.SR.Break = true;

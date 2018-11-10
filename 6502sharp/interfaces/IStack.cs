@@ -10,10 +10,21 @@ namespace _6502sharp
         void Push(params byte[] values);
 
         /// <summary>
+        /// Pushes program counter onto the stack.
+        /// </summary>
+        void PushPC();
+
+        /// <summary>
         /// Removes and returns the topmost value from the stack
         /// </summary>
         /// <returns>removed value</returns>
         byte Pop();
+
+        /// <summary>
+        /// Pops the topmost 2 values from the stack and converts them from LE to number.
+        /// </summary>
+        /// <returns>removed value</returns>
+        int PopPC();
 
         /// <summary>
         /// Removes and returns multiple topmost values from the stack.

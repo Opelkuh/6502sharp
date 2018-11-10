@@ -1,3 +1,5 @@
+using _6502sharp.Helpers;
+
 namespace _6502sharp
 {
     public class Stack : IStack
@@ -25,10 +27,27 @@ namespace _6502sharp
             }
         }
 
+        public void PushPC()
+        {
+            byte[] pc = {
+                (byte)(_cpu.PC.Value >> 8),
+                (byte)(_cpu.PC.Value & 0xFF)
+            };
+
+            Push(pc);
+        }
+
         public byte Pop()
         {
             byte target = ++_cpu.SP.Value;
             return _cpu.Memory.Get(_offset + target);
+        }
+
+        public int PopPC()
+        {
+            byte[] pc = PopMultiple(2);
+
+            return LEHelper.From(pc);
         }
 
         public byte[] PopMultiple(int length)
