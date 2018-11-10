@@ -11,7 +11,7 @@ namespace _6502sharp.Instructions
         }
 
         [CPUInstruction(0x88, 2)]
-        public void DEY_Implied(int address)
+        public void DEY_Implied()
         {
             _cpu.Y.Value--;
         }

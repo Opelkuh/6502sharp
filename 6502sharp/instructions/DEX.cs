@@ -11,7 +11,7 @@ namespace _6502sharp.Instructions
         }
 
         [CPUInstruction(0xCA, 2)]
-        public void DEX_Implied(int address)
+        public void DEX_Implied()
         {
             _cpu.X.Value--;
         }
