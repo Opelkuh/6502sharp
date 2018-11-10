@@ -7,7 +7,7 @@
     {
 
         /// <summary>
-        /// Sets the Carry flag if necessary
+        /// Sets or resets the Carry flag
         /// </summary>
         /// <param name="cpu">target</param>
         /// <param name="value">value to be checked</param>
@@ -18,7 +18,7 @@
         }
 
         /// <summary>
-        /// Sets the Overflow flag based on result and values that made the result
+        /// Sets or resets the Overflow flag based on result and values that made the result
         /// </summary>
         /// <param name="cpu">target</param>
         /// <param name="result">result to be checked</param>
@@ -32,7 +32,7 @@
         }
 
         /// <summary>
-        /// Sets the Zero flag if necessary
+        /// Sets or resets the Zero flag
         /// </summary>
         /// <param name="cpu">target</param>
         /// <param name="result">value to be checked</param>
@@ -43,7 +43,7 @@
         }
 
         /// <summary>
-        /// Sets the Negative flag if necessary
+        /// Sets or resets the Negative flag
         /// </summary>
         /// <param name="cpu">target</param>
         /// <param name="value">value to be checked</param>
@@ -51,6 +51,16 @@
         {
             if ((value & 0x80) > 0) cpu.SR.Negative = true;
             else cpu.SR.Negative = false;
+        }
+
+        /// <summary>
+        /// Sets or resets Zero and Negative flags
+        /// </summary>
+        /// <param name="cpu">target</param>
+        /// <param name="value">value to be checked</param>
+        public static void SetNegativeAndZero(ICpu cpu, int value) {
+            SetNegative(cpu, value);
+            SetZero(cpu, value);
         }
     }
 }

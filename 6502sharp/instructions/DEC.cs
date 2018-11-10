@@ -31,8 +31,7 @@ namespace _6502sharp.Instructions
 
             val--;
 
-            FlagHelper.SetNegative(_cpu, val);
-            FlagHelper.SetZero(_cpu, val);
+            FlagHelper.SetNegativeAndZero(_cpu, val);
 
             _cpu.Memory.Set(address, val);
         }

@@ -17,8 +17,7 @@ namespace _6502sharp.Instructions
         {
             _cpu.Y.Value--;
 
-            FlagHelper.SetNegative(_cpu, _cpu.Y.Value);
-            FlagHelper.SetZero(_cpu, _cpu.Y.Value);
+            FlagHelper.SetNegativeAndZero(_cpu, _cpu.Y.Value);
         }
     }
 }
