@@ -12,7 +12,7 @@ namespace _6502sharp.Instructions
             _cpu = cpu;
         }
 
-        [CPUInstruction(0xA9, 2)]
+        [CPUInstruction(0x09, 2)]
         public void ORA_Immediate(byte param)
         {
             process(param);
