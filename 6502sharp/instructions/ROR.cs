@@ -12,16 +12,16 @@ namespace _6502sharp.Instructions
             _cpu = cpu;
         }
 
-        [CPUInstruction(0x2A, 2)]
+        [CPUInstruction(0x6A, 2)]
         public void ROR_Accumulator()
         {
             _cpu.A.Value = process(_cpu.A.Value);
         }
 
-        [CPUInstruction(0x26, 5), ZeroPage]
-        [CPUInstruction(0x36, 6), ZeroPageX]
-        [CPUInstruction(0x2E, 6), AbsoluteAddress]
-        [CPUInstruction(0x3E, 7), AbsoluteAddressX]
+        [CPUInstruction(0x66, 5), ZeroPage]
+        [CPUInstruction(0x76, 6), ZeroPageX]
+        [CPUInstruction(0x6E, 6), AbsoluteAddress]
+        [CPUInstruction(0x7E, 7), AbsoluteAddressX]
         public void ROR_Memory(int address)
         {
             byte rotated = process(_cpu.Memory.Get(address));
