@@ -33,7 +33,7 @@ namespace _6502sharp.Instructions
 
         private void process(byte value)
         {
-            int carry = _cpu.SR.Carry ? 1 : 0;
+            int carry = _cpu.SR.Carry ? 0 : 1;
             int res = _cpu.A.Value - value - carry;
             int wrapped = (byte)res;
 

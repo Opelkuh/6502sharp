@@ -13,10 +13,10 @@ namespace _6502sharp.Test.Instructions
         }
 
         [Theory]
-        [InlineData(0xFF, false, 0x01, 0xFE)]
-        [InlineData(0x00, false, 0x01, 0xFF)]
-        [InlineData(0x50, true, 0x0A, 0x45)]
-        [InlineData(0x00, true, 0x00, 0xFF)]
+        [InlineData(0xFF, true, 0x01, 0xFE)]
+        [InlineData(0x00, true, 0x01, 0xFF)]
+        [InlineData(0x50, false, 0x0A, 0x45)]
+        [InlineData(0x00, false, 0x00, 0xFF)]
         public void SubstractsImmediate(
             byte accu,
             bool carry,
@@ -32,10 +32,10 @@ namespace _6502sharp.Test.Instructions
         }
 
         [Theory]
-        [InlineData(0xFF, false, 0x01, 0xFE)]
-        [InlineData(0x00, false, 0x01, 0xFF)]
-        [InlineData(0x50, true, 0x0A, 0x45)]
-        [InlineData(0x00, true, 0x00, 0xFF)]
+        [InlineData(0xFF, true, 0x01, 0xFE)]
+        [InlineData(0x00, true, 0x01, 0xFF)]
+        [InlineData(0x50, false, 0x0A, 0x45)]
+        [InlineData(0x00, false, 0x00, 0xFF)]
         public void SubstractsMemory(
             byte accu,
             bool carry,
@@ -67,7 +67,7 @@ namespace _6502sharp.Test.Instructions
             bool expV
         )
         {
-            PrepareCpu(accu, false);
+            PrepareCpu(accu, true);
 
             _sbc.SBC_Immediate(value);
 
@@ -78,10 +78,10 @@ namespace _6502sharp.Test.Instructions
         }
 
         [Theory]
-        [InlineData(0x50, false, 0x25, 0x25)]
-        [InlineData(0x15, false, 0x07, 0x8)]
-        [InlineData(0x99, true, 0x49, 0x49)]
-        [InlineData(0x50, true, 0x24, 0x25)]
+        [InlineData(0x50, true, 0x25, 0x25)]
+        [InlineData(0x15, true, 0x07, 0x8)]
+        [InlineData(0x99, false, 0x49, 0x49)]
+        [InlineData(0x50, false, 0x24, 0x25)]
         public void SubstractsWithDecimalMode(
             byte accu,
             bool carry,
