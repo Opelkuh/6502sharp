@@ -8,16 +8,15 @@ namespace _6502sharp
         private int _finishedCycles = 0;
 
         private int _sleepFor = 0;
-        private Instruction _nextInstruction;
 
         public void Tick()
         {
             if (--_sleepFor <= 0)
             {
-                invokeInstruction(_nextInstruction);
+                Instruction inst = getCurrentOpcode();
+                invokeInstruction(inst);
 
-                _nextInstruction = getCurrentOpcode();
-                _sleepFor = _nextInstruction.Cycles;
+                _sleepFor = inst.Cycles;
             }
 
             _finishedCycles++;
