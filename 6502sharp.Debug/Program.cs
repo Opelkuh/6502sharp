@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace _6502sharp.Debug
 {
@@ -7,62 +8,28 @@ namespace _6502sharp.Debug
         static void Main(string[] args)
         {
             Memory mem = new Memory(65536);
-            MemRandomFill(mem);
 
             IMachine mach = new NMOSMachine();
 
-            mach.CPU.Tick();
-            mach.CPU.Tick();
-            mach.CPU.Tick();
-            
-            // Test16BitReg();
-            // TestStatusReg();
-        }
+            LoadTestRom(mach, @"../AllSuiteA.bin", 0x4000);
 
-        private static void MemRandomFill(Memory mem)
-        {
-            for (int i = 0; i < mem.Size; i++)
-            {
-                mem.Set(i, (byte)i);
+            mach.CPU.PC.Value = 0x4000;
+
+            while(mach.CPU.PC.Value < 0x45C0) {
+                mach.CPU.Tick();
             }
+
+            Console.WriteLine(mach.Memory.Get(0x0210));
         }
 
-        private static void TestStatusReg()
+        private static void LoadTestRom(IMachine machine, string path, int offset)
         {
-            StatusRegister sr = new StatusRegister();
+            byte[] data = File.ReadAllBytes(path);
 
-            sr.Carry = true;
-
-            Console.WriteLine("Carry flag after true: " + sr.Carry);
-
-            sr.Carry = false;
-
-            Console.WriteLine("Carry flag after false: " + sr.Carry);
-
-            Console.WriteLine("SR value: " + Convert.ToString(sr.Value, 2).PadLeft(8, '0'));
-            sr.Negative = true;
-            sr.Unused = true;
-            sr.Decimal = true;
-            sr.Zero = true;
-            Console.WriteLine("SR value: " + Convert.ToString(sr.Value, 2).PadLeft(8, '0'));
-        }
-
-        private static void Test16BitReg()
-        {
-            Register16Bit pc = new Register16Bit();
-
-            pc.Value = 30000;
-
-            Console.WriteLine("PC value: " + pc.Value);
-        }
-
-        private static void TestMem()
-        {
-            Memory mem = new Memory(65535);
-
-            mem.Set(0, 255);
-
-            Console.WriteLine("Memory position 0x0000: " + mem.Get(0));
+            for (int i = 0; i < data.Length; i++)
+            {
+                machine.Memory.Set(i + offset, data[i]);
+            }
         }
     }
 }
