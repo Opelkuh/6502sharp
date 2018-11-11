@@ -15,7 +15,7 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0xA8, 2)]
         public void TAY_Implied()
         {
-            _cpu.Y.Value = _cpu.Y.Value;
+            _cpu.Y.Value = _cpu.A.Value;
 
             FlagHelper.SetNegativeAndZero(_cpu, _cpu.Y.Value);
         }
