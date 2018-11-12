@@ -11,7 +11,7 @@ namespace _6502sharp.Debug
 
             IMachine mach = new NMOSMachine();
 
-            LoadTestRom(mach, @"../AllSuiteA.bin", 0x4000);
+            /* LoadTestRom(mach, @"../AllSuiteA.bin", 0x4000);
 
             mach.CPU.PC.Value = 0x4000;
 
@@ -19,7 +19,7 @@ namespace _6502sharp.Debug
                 mach.CPU.Tick();
             }
 
-            Console.WriteLine(mach.Memory.Get(0x0210));
+            Console.WriteLine(mach.Memory.Get(0x0210)); */
         }
 
         private static void LoadTestRom(IMachine machine, string path, int offset)
