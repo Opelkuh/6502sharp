@@ -9,9 +9,13 @@ namespace _6502sharp
 
         public int Size => _store.Length;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="size">Size of the memory. Max - 65536</param>
         public Memory(int size)
         {
-            _store = new byte[size];
+            _store = new byte[size % 65536];
         }
         public byte Get(int location)
         {
