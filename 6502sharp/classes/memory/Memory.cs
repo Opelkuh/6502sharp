@@ -15,7 +15,9 @@ namespace _6502sharp
         /// <param name="size">Size of the memory. Max - 65536</param>
         public Memory(int size)
         {
-            _store = new byte[size % 65536];
+            if(size > 65536) throw new System.Exception("Memory size has to be bellow 65536");
+
+            _store = new byte[size];
         }
         public byte Get(int location)
         {
