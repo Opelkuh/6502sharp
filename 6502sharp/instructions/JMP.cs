@@ -10,9 +10,9 @@ namespace _6502sharp.Instructions
             _cpu = cpu;
         }
 
-        [CPUInstruction(0x4C, 3), AbsoluteAddress]
-        [CPUInstruction(0x6C, 5), IndirectAddress]
-        [CPUInstruction(0x7C, 6, CPUType.CMOS), IndirectXAddress]
+        [CPUInstruction(0x4C, 3), Absolute]
+        [CPUInstruction(0x6C, 5), Indirect]
+        [CPUInstruction(0x7C, 6, CPUType.CMOS), IndirectX]
         public void JMP_Memory(int address)
         {
             _cpu.PC.Value = address;

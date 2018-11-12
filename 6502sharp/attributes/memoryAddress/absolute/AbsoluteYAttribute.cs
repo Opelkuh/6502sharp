@@ -1,6 +1,6 @@
-namespace _6502sharp
+﻿namespace _6502sharp
 {
-    public class AbsoluteAddressYAttribute : MemoryAddressAttributeBase
+    public class AbsoluteYAttribute : MemoryAddressAttributeBase
     {
         public override int RequiredBytes => 2;
 

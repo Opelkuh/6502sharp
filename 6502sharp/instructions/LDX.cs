@@ -20,8 +20,8 @@ namespace _6502sharp.Instructions
 
         [CPUInstruction(0xA6, 3), ZeroPage]
         [CPUInstruction(0xB6, 4), ZeroPageY]
-        [CPUInstruction(0xAE, 4), AbsoluteAddress]
-        [CPUInstruction(0xBE, 4), AbsoluteAddressY]
+        [CPUInstruction(0xAE, 4), Absolute]
+        [CPUInstruction(0xBE, 4), AbsoluteY]
         public void LDX_Memory(int address)
         {
             process(_cpu.Memory.Get(address));

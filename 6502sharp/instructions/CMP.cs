@@ -20,12 +20,12 @@ namespace _6502sharp.Instructions
 
         [CPUInstruction(0xC5, 3), ZeroPage]
         [CPUInstruction(0xD5, 4), ZeroPageX]
-        [CPUInstruction(0xCD, 4), AbsoluteAddress]
-        [CPUInstruction(0xDD, 4), AbsoluteAddressX]
-        [CPUInstruction(0xD9, 4), AbsoluteAddressY]
-        [CPUInstruction(0xC1, 6), IndirectXAddress]
-        [CPUInstruction(0xD1, 5), IndirectYAddress]
-        [CPUInstruction(0xD2, 6, CPUType.CMOS), IndirectAddress]
+        [CPUInstruction(0xCD, 4), Absolute]
+        [CPUInstruction(0xDD, 4), AbsoluteX]
+        [CPUInstruction(0xD9, 4), AbsoluteY]
+        [CPUInstruction(0xC1, 6), IndirectX]
+        [CPUInstruction(0xD1, 5), IndirectY]
+        [CPUInstruction(0xD2, 6, CPUType.CMOS), Indirect]
         public void CMP_Memory(int address)
         {
             process(_cpu.Memory.Get(address));

@@ -19,8 +19,8 @@ namespace _6502sharp.Instructions
         }
 
         [CPUInstruction(0x24, 3), ZeroPage]
-        [CPUInstruction(0x2C, 4), AbsoluteAddress]
-        [CPUInstruction(0x3C, 4, CPUType.CMOS), AbsoluteAddressX]
+        [CPUInstruction(0x2C, 4), Absolute]
+        [CPUInstruction(0x3C, 4, CPUType.CMOS), AbsoluteX]
         [CPUInstruction(0x34, 4, CPUType.CMOS), ZeroPageX]
         public void BIT_Memory(int address)
         {

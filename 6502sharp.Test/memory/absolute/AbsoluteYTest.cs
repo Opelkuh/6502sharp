@@ -4,11 +4,11 @@ namespace _6502sharp.Test.Memory
 {
     public class AbsoluteYTest : MachineNMOSBase
     {
-        AbsoluteAddressYAttribute attr;
+        AbsoluteYAttribute attr;
 
         public AbsoluteYTest() : base()
         {
-            attr = new AbsoluteAddressYAttribute();
+            attr = new AbsoluteYAttribute();
         }
 
         [Theory]

@@ -19,7 +19,7 @@ namespace _6502sharp.Instructions
         }
 
         [CPUInstruction(0xC4, 3), ZeroPage]
-        [CPUInstruction(0xCC, 4), AbsoluteAddress]
+        [CPUInstruction(0xCC, 4), Absolute]
         public void CPY_Memory(int address)
         {
             process(_cpu.Memory.Get(address));

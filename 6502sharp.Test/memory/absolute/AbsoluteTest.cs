@@ -4,11 +4,11 @@ namespace _6502sharp.Test.Memory
 {
     public class AbsoluteTest : MachineNMOSBase
     {
-        AbsoluteAddressAttribute attr;
+        AbsoluteAttribute attr;
 
         public AbsoluteTest() : base()
         {
-            attr = new AbsoluteAddressAttribute();
+            attr = new AbsoluteAttribute();
         }
 
         [Fact]

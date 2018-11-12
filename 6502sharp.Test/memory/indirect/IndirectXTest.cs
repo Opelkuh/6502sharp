@@ -4,11 +4,11 @@ namespace _6502sharp.Test.Memory
 {
     public class IndirectXTest : MachineCMOSBase
     {
-        IndirectXAddressAttribute attr;
+        IndirectXAttribute attr;
 
         public IndirectXTest() : base()
         {
-            attr = new IndirectXAddressAttribute();
+            attr = new IndirectXAttribute();
         }
 
         [Theory]

@@ -20,8 +20,8 @@ namespace _6502sharp.Instructions
 
         [CPUInstruction(0x06, 5), ZeroPage]
         [CPUInstruction(0x16, 6), ZeroPageX]
-        [CPUInstruction(0x0E, 6), AbsoluteAddress]
-        [CPUInstruction(0x1E, 7), AbsoluteAddressX]
+        [CPUInstruction(0x0E, 6), Absolute]
+        [CPUInstruction(0x1E, 7), AbsoluteX]
         public void ASL_Memory(int address)
         {
             byte value = _cpu.Memory.Get(address);

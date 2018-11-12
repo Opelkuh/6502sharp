@@ -4,11 +4,11 @@ namespace _6502sharp.Test.Memory
 {
     public class IndirectYTest : MachineNMOSBase
     {
-        IndirectYAddressAttribute attr;
+        IndirectYAttribute attr;
 
         public IndirectYTest() : base()
         {
-            attr = new IndirectYAddressAttribute();
+            attr = new IndirectYAttribute();
         }
 
         [Theory]

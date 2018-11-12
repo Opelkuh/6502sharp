@@ -11,7 +11,7 @@ namespace _6502sharp.Instructions
         }
 
         [CPUInstruction(0x20, 6)]
-        public void JSR_Memory([AbsoluteAddress] int address)
+        public void JSR_Memory([Absolute] int address)
         {
             // decrement pc to last byte of JSR instruction
             _cpu.PC.Value--;

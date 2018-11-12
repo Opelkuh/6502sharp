@@ -20,8 +20,8 @@ namespace _6502sharp.Instructions
 
         [CPUInstruction(0x46, 5), ZeroPage]
         [CPUInstruction(0x56, 6), ZeroPageX]
-        [CPUInstruction(0x4E, 6), AbsoluteAddress]
-        [CPUInstruction(0x5E, 7), AbsoluteAddressX]
+        [CPUInstruction(0x4E, 6), Absolute]
+        [CPUInstruction(0x5E, 7), AbsoluteX]
         public void LSR_Memory(int address)
         {
             byte shifted = process(_cpu.Memory.Get(address));

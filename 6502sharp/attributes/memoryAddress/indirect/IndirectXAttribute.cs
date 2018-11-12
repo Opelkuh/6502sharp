@@ -1,8 +1,8 @@
-using _6502sharp.Helpers;
+﻿using _6502sharp.Helpers;
 
 namespace _6502sharp
 {
-    public class IndirectXAddressAttribute : MemoryAddressAttributeBase
+    public class IndirectXAttribute : MemoryAddressAttributeBase
     {
         public override int RequiredBytes => 1;
 

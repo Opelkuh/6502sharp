@@ -20,12 +20,12 @@ namespace _6502sharp.Instructions
 
         [CPUInstruction(0xE5, 3), ZeroPage]
         [CPUInstruction(0xF5, 4), ZeroPageX]
-        [CPUInstruction(0xED, 4), AbsoluteAddress]
-        [CPUInstruction(0xFD, 4), AbsoluteAddressX]
-        [CPUInstruction(0xF9, 4), AbsoluteAddressY]
-        [CPUInstruction(0xE1, 6), IndirectXAddress]
-        [CPUInstruction(0xF1, 5), IndirectYAddress]
-        [CPUInstruction(0xF2, 6, CPUType.CMOS), IndirectAddress]
+        [CPUInstruction(0xED, 4), Absolute]
+        [CPUInstruction(0xFD, 4), AbsoluteX]
+        [CPUInstruction(0xF9, 4), AbsoluteY]
+        [CPUInstruction(0xE1, 6), IndirectX]
+        [CPUInstruction(0xF1, 5), IndirectY]
+        [CPUInstruction(0xF2, 6, CPUType.CMOS), Indirect]
         public void SBC_Memory(int address)
         {
             process(_cpu.Memory.Get(address));

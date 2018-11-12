@@ -20,8 +20,8 @@ namespace _6502sharp.Instructions
 
         [CPUInstruction(0x26, 5), ZeroPage]
         [CPUInstruction(0x36, 6), ZeroPageX]
-        [CPUInstruction(0x2E, 6), AbsoluteAddress]
-        [CPUInstruction(0x3E, 7), AbsoluteAddressX]
+        [CPUInstruction(0x2E, 6), Absolute]
+        [CPUInstruction(0x3E, 7), AbsoluteX]
         public void ROL_Memory(int address)
         {
             byte rotated = process(_cpu.Memory.Get(address));

@@ -23,8 +23,8 @@ namespace _6502sharp.Instructions
 
         [CPUInstruction(0xC6, 5), ZeroPage]
         [CPUInstruction(0xD6, 6), ZeroPageX]
-        [CPUInstruction(0xCE, 6), AbsoluteAddress]
-        [CPUInstruction(0xDE, 7), AbsoluteAddressX]
+        [CPUInstruction(0xCE, 6), Absolute]
+        [CPUInstruction(0xDE, 7), AbsoluteX]
         public void DEC_Memory(int address)
         {
             byte val = _cpu.Memory.Get(address);
