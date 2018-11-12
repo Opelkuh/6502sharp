@@ -2,6 +2,10 @@ namespace _6502sharp
 {
     public class StatusRegister : Register
     {
+        public StatusRegister() {
+            Unused = true;
+        }
+
         /// <summary>
         /// Checks if register has specified flag
         /// </summary>
