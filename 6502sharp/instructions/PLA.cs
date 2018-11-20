@@ -2,7 +2,7 @@ using _6502sharp.Helpers;
 
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
+    [DefaultInstruction]
     public class PLA
     {
         private ICpu _cpu;
