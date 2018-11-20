@@ -1,6 +1,6 @@
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
+    [DefaultInstruction]
     public class SEC
     {
         private ICpu _cpu;

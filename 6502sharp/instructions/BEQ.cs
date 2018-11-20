@@ -1,6 +1,6 @@
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
+    [DefaultInstruction]
     public class BEQ
     {
         private ICpu _cpu;

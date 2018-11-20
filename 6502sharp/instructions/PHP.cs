@@ -1,6 +1,6 @@
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
+    [DefaultInstruction]
     public class PHP
     {
         private ICpu _cpu;

@@ -3,7 +3,7 @@ using _6502sharp.Helpers;
 
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
+    [DefaultInstruction]
     public class BRK
     {
         private ICpu _cpu;
