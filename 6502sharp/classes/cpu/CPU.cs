@@ -18,6 +18,7 @@ namespace _6502sharp
             _type = type;
             _stack = new Stack(this);
 
+            FindDefaultInjectables();
             FindInjectables();
         }
 
