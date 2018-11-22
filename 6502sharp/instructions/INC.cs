@@ -3,22 +3,19 @@ using _6502sharp.Helpers;
 namespace _6502sharp.Instructions
 {
     [DefaultInstruction]
-    public class INC
+    public class INC : InstructionBase
     {
-        private ICpu _cpu;
-
-        public INC(ICpu cpu)
+        public INC(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0x1A, 2, CPUType.CMOS)]
         public void INC_Accumulator()
         {
-            _cpu.A.Value++;
+            cpu.A.Value++;
 
-            FlagHelper.SetNegative(_cpu, _cpu.A.Value);
-            FlagHelper.SetZero(_cpu, _cpu.A.Value);
+            FlagHelper.SetNegative(cpu, cpu.A.Value);
+            FlagHelper.SetZero(cpu, cpu.A.Value);
         }
 
         [CPUInstruction(0xE6, 5), ZeroPage]
@@ -27,13 +24,13 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0xFE, 7), AbsoluteX]
         public void INC_Memory(int address)
         {
-            byte val = _cpu.Memory.Get(address);
+            byte val = cpu.Memory.Get(address);
 
             val++;
 
-            FlagHelper.SetNegativeAndZero(_cpu, val);
+            FlagHelper.SetNegativeAndZero(cpu, val);
 
-            _cpu.Memory.Set(address, val);
+            cpu.Memory.Set(address, val);
         }
     }
 }

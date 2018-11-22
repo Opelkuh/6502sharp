@@ -3,13 +3,10 @@ using _6502sharp.Helpers;
 namespace _6502sharp.Instructions
 {
     [DefaultInstruction]
-    public class AND
+    public class AND : InstructionBase
     {
-        private ICpu _cpu;
-
-        public AND(ICpu cpu)
+        public AND(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0x29, 2)]
@@ -28,17 +25,17 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0x32, 6, CPUType.CMOS), Indirect]
         public void AND_Memory(int address)
         {
-            process(_cpu.Memory.Get(address));
+            process(cpu.Memory.Get(address));
         }
 
         private void process(byte value)
         {
-            byte res = (byte)(_cpu.A.Value & value);
+            byte res = (byte)(cpu.A.Value & value);
 
-            FlagHelper.SetZero(_cpu, res);
-            FlagHelper.SetNegative(_cpu, res);
+            FlagHelper.SetZero(cpu, res);
+            FlagHelper.SetNegative(cpu, res);
 
-            _cpu.A.Value = (byte)(res & 0xFF);
+            cpu.A.Value = (byte)(res & 0xFF);
         }
     }
 }

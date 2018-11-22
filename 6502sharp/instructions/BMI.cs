@@ -1,19 +1,16 @@
 namespace _6502sharp.Instructions
 {
     [DefaultInstruction]
-    public class BMI
+    public class BMI : InstructionBase
     {
-        private ICpu _cpu;
-
-        public BMI(ICpu cpu)
+        public BMI(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0x30, 2)]
         public void BMI_Relative([Relative] int target)
         {
-            if (_cpu.SR.Negative == true) _cpu.PC.Value = target;
+            if (cpu.SR.Negative == true) cpu.PC.Value = target;
         }
     }
 }

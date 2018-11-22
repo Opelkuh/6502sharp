@@ -1,19 +1,16 @@
 namespace _6502sharp.Instructions
 {
     [DefaultInstruction]
-    public class CLV
+    public class CLV : InstructionBase
     {
-        private ICpu _cpu;
-
-        public CLV(ICpu cpu)
+        public CLV(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0xB8, 2)]
         public void CLV_Implied()
         {
-            _cpu.SR.Overflow = false;
+            cpu.SR.Overflow = false;
         }
     }
 }

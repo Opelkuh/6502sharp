@@ -3,13 +3,10 @@ using _6502sharp.Helpers;
 namespace _6502sharp.Instructions
 {
     [DefaultInstruction]
-    public class SBC
+    public class SBC : InstructionBase
     {
-        private ICpu _cpu;
-
-        public SBC(ICpu cpu)
+        public SBC(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0xE9, 2)]
@@ -28,27 +25,27 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0xF2, 6, CPUType.CMOS), Indirect]
         public void SBC_Memory(int address)
         {
-            process(_cpu.Memory.Get(address));
+            process(cpu.Memory.Get(address));
         }
 
         private void process(byte value)
         {
-            int carry = _cpu.SR.Carry ? 0 : 1;
-            int res = _cpu.A.Value - value - carry;
+            int carry = cpu.SR.Carry ? 0 : 1;
+            int res = cpu.A.Value - value - carry;
             int wrapped = (byte)res;
 
-            _cpu.SR.Carry = res >= 0;
+            cpu.SR.Carry = res >= 0;
 
-            FlagHelper.SetZero(_cpu, wrapped);
-            FlagHelper.SetNegative(_cpu, wrapped);
-            FlagHelper.SetOverflow(_cpu, wrapped, _cpu.A.Value, value - carry);
+            FlagHelper.SetZero(cpu, wrapped);
+            FlagHelper.SetNegative(cpu, wrapped);
+            FlagHelper.SetOverflow(cpu, wrapped, cpu.A.Value, value - carry);
 
-            if (_cpu.DecimalMode && _cpu.SR.Decimal)
+            if (cpu.DecimalMode && cpu.SR.Decimal)
             {
-                BCDHelper.SubstractionAdjust(_cpu, ref wrapped, _cpu.A.Value, value, carry);
+                BCDHelper.SubstractionAdjust(cpu, ref wrapped, cpu.A.Value, value, carry);
             }
 
-            _cpu.A.Value = (byte)(wrapped & 0xFF);
+            cpu.A.Value = (byte)(wrapped & 0xFF);
         }
     }
 }

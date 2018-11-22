@@ -1,19 +1,16 @@
 namespace _6502sharp.Instructions
 {
     [DefaultInstruction]
-    public class BVS
+    public class BVS : InstructionBase
     {
-        private ICpu _cpu;
-
-        public BVS(ICpu cpu)
+        public BVS(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0x70, 2)]
         public void BVS_Relative([Relative] int target)
         {
-            if (_cpu.SR.Overflow == true) _cpu.PC.Value = target;
+            if (cpu.SR.Overflow == true) cpu.PC.Value = target;
         }
     }
 }

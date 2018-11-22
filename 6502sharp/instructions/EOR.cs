@@ -3,13 +3,10 @@ using _6502sharp.Helpers;
 namespace _6502sharp.Instructions
 {
     [DefaultInstruction]
-    public class EOR
+    public class EOR : InstructionBase
     {
-        private ICpu _cpu;
-
-        public EOR(ICpu cpu)
+        public EOR(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0x49, 2)]
@@ -28,14 +25,14 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0x52, 6, CPUType.CMOS), Indirect]
         public void EOR_Memory(int address)
         {
-            process(_cpu.Memory.Get(address));
+            process(cpu.Memory.Get(address));
         }
 
         private void process(byte value)
         {
-            _cpu.A.Value ^= value;
+            cpu.A.Value ^= value;
 
-            FlagHelper.SetNegativeAndZero(_cpu, _cpu.A.Value);
+            FlagHelper.SetNegativeAndZero(cpu, cpu.A.Value);
         }
     }
 }

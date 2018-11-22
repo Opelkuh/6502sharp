@@ -3,19 +3,16 @@ using _6502sharp.Helpers;
 namespace _6502sharp.Instructions
 {
     [DefaultInstruction]
-    public class ROR
+    public class ROR : InstructionBase
     {
-        private ICpu _cpu;
-
-        public ROR(ICpu cpu)
+        public ROR(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0x6A, 2)]
         public void ROR_Accumulator()
         {
-            _cpu.A.Value = process(_cpu.A.Value);
+            cpu.A.Value = process(cpu.A.Value);
         }
 
         [CPUInstruction(0x66, 5), ZeroPage]
@@ -24,18 +21,18 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0x7E, 7), AbsoluteX]
         public void ROR_Memory(int address)
         {
-            byte rotated = process(_cpu.Memory.Get(address));
+            byte rotated = process(cpu.Memory.Get(address));
 
-            _cpu.Memory.Set(address, rotated);
+            cpu.Memory.Set(address, rotated);
         }
 
         private byte process(byte value)
         {
-            int res = (value >> 1) | (_cpu.SR.Carry ? 1 << 7 : 0);
+            int res = (value >> 1) | (cpu.SR.Carry ? 1 << 7 : 0);
             bool newCarry = (value & 0x01) > 0;
 
-            _cpu.SR.Carry = newCarry;
-            FlagHelper.SetNegativeAndZero(_cpu, res);
+            cpu.SR.Carry = newCarry;
+            FlagHelper.SetNegativeAndZero(cpu, res);
 
             return (byte)res;
         }

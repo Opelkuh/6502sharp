@@ -3,21 +3,18 @@ using _6502sharp.Helpers;
 namespace _6502sharp.Instructions
 {
     [DefaultInstruction]
-    public class TYA
+    public class TYA : InstructionBase
     {
-        private ICpu _cpu;
-
-        public TYA(ICpu cpu)
+        public TYA(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
-        
+
         [CPUInstruction(0x98, 2)]
         public void TYA_Implied()
         {
-            _cpu.A.Value = _cpu.Y.Value;
+            cpu.A.Value = cpu.Y.Value;
 
-            FlagHelper.SetNegativeAndZero(_cpu, _cpu.A.Value);
+            FlagHelper.SetNegativeAndZero(cpu, cpu.A.Value);
         }
     }
 }
