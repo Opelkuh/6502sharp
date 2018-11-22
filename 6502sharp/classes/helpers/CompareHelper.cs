@@ -8,6 +8,7 @@ namespace _6502sharp.Helpers
     public class CompareHelper
     {
         private ICpu _cpu;
+        private FlagHelper _flags;
 
         /// <summary>
         /// Creates a new instance of CompareHelper
@@ -15,6 +16,7 @@ namespace _6502sharp.Helpers
         /// <param name="cpu">cpu to set flags on</param>
         public CompareHelper(ICpu cpu) {
             _cpu = cpu;
+            _flags = new FlagHelper(_cpu);
         }
 
         /// <summary>
@@ -26,10 +28,10 @@ namespace _6502sharp.Helpers
         {
             int substracted = registerVal - compareVal;
 
-            FlagHelper.SetNegative(_cpu, substracted);
+            _flags.SetNegative(substracted);
 
             // set zero flag (==)
-            FlagHelper.SetZero(_cpu, substracted);
+            _flags.SetZero(substracted);
 
             // set carry flag (>=)
             if(registerVal >= compareVal) _cpu.SR.Carry = true;

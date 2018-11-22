@@ -14,7 +14,7 @@ namespace _6502sharp.Instructions
         {
             cpu.X.Value++;
 
-            FlagHelper.SetNegativeAndZero(cpu, cpu.X.Value);
+            flags.SetNegativeAndZero(cpu.X.Value);
         }
     }
 }

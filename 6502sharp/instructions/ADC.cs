@@ -33,10 +33,11 @@ namespace _6502sharp.Instructions
             int carry = cpu.SR.Carry ? 1 : 0;
             int res = value + cpu.A.Value + carry;
 
-            FlagHelper.SetCarry(cpu, res);
-            FlagHelper.SetZero(cpu, res);
-            FlagHelper.SetNegative(cpu, res);
-            FlagHelper.SetOverflow(cpu, res, cpu.A.Value, value + carry);
+            flags
+                .SetCarry(res)
+                .SetZero(res)
+                .SetNegative(res)
+                .SetOverflow(res, cpu.A.Value, value + carry);
 
             if (cpu.DecimalMode && cpu.SR.Decimal)
             {

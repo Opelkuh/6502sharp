@@ -32,7 +32,7 @@ namespace _6502sharp.Instructions
             bool newCarry = (value & 0x01) > 0;
 
             cpu.SR.Carry = newCarry;
-            FlagHelper.SetNegativeAndZero(cpu, res);
+            flags.SetNegativeAndZero(res);
 
             return (byte)res;
         }

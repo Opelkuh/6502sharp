@@ -32,7 +32,7 @@ namespace _6502sharp.Instructions
 
             // AND accu and target value
             int res = cpu.A.Value & target;
-            FlagHelper.SetZero(cpu, res);
+            flags.SetZero(res);
         }
     }
 }

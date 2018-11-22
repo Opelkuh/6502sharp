@@ -32,8 +32,7 @@ namespace _6502sharp.Instructions
         {
             byte res = (byte)(cpu.A.Value & value);
 
-            FlagHelper.SetZero(cpu, res);
-            FlagHelper.SetNegative(cpu, res);
+            flags.SetNegativeAndZero(res);
 
             cpu.A.Value = (byte)(res & 0xFF);
         }

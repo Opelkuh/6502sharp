@@ -115,8 +115,10 @@ namespace _6502sharp.Helpers
             // recalculate flags on CMOS
             if (cpu.Type == CPUType.CMOS)
             {
-                FlagHelper.SetZero(cpu, result);
-                FlagHelper.SetNegative(cpu, result);
+                FlagHelper flags = new FlagHelper(cpu);
+
+                flags.SetNegativeAndZero(result);
+                
                 cpu.SleepCycles++;
             }
         }

@@ -31,9 +31,10 @@ namespace _6502sharp.Instructions
         {
             int shifted = value << 1;
 
-            FlagHelper.SetCarry(cpu, shifted);
-            FlagHelper.SetZero(cpu, shifted);
-            FlagHelper.SetNegative(cpu, shifted);
+            flags
+                .SetCarry(shifted)
+                .SetZero(shifted)
+                .SetNegative(shifted);
 
             return (byte)(shifted);
         }

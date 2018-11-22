@@ -14,8 +14,7 @@ namespace _6502sharp.Instructions
         {
             cpu.A.Value++;
 
-            FlagHelper.SetNegative(cpu, cpu.A.Value);
-            FlagHelper.SetZero(cpu, cpu.A.Value);
+            flags.SetNegativeAndZero(cpu.A.Value);
         }
 
         [CPUInstruction(0xE6, 5), ZeroPage]
@@ -28,7 +27,7 @@ namespace _6502sharp.Instructions
 
             val++;
 
-            FlagHelper.SetNegativeAndZero(cpu, val);
+            flags.SetNegativeAndZero(val);
 
             cpu.Memory.Set(address, val);
         }
