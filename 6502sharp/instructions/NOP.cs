@@ -1,13 +1,10 @@
 namespace _6502sharp.Instructions
 {
     [DefaultInstruction]
-    public class NOP
+    public class NOP : InstructionBase
     {
-        private ICpu _cpu;
-
-        public NOP(ICpu cpu)
+        public NOP(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0xEA, 2)]

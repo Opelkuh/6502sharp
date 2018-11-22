@@ -3,19 +3,16 @@ using _6502sharp.Helpers;
 namespace _6502sharp.Instructions
 {
     [DefaultInstruction]
-    public class ASL
+    public class ASL : InstructionBase
     {
-        private ICpu _cpu;
-
-        public ASL(ICpu cpu)
+        public ASL(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0x0A, 2)]
         public void ASL_Accumulator()
         {
-            _cpu.A.Value = process(_cpu.A.Value);
+            cpu.A.Value = process(cpu.A.Value);
         }
 
         [CPUInstruction(0x06, 5), ZeroPage]
@@ -24,19 +21,20 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0x1E, 7), AbsoluteX]
         public void ASL_Memory(int address)
         {
-            byte value = _cpu.Memory.Get(address);
+            byte value = cpu.Memory.Get(address);
             byte shifted = process(value);
 
-            _cpu.Memory.Set(address, shifted);
+            cpu.Memory.Set(address, shifted);
         }
 
         private byte process(byte value)
         {
             int shifted = value << 1;
 
-            FlagHelper.SetCarry(_cpu, shifted);
-            FlagHelper.SetZero(_cpu, shifted);
-            FlagHelper.SetNegative(_cpu, shifted);
+            flags
+                .SetCarry(shifted)
+                .SetZero(shifted)
+                .SetNegative(shifted);
 
             return (byte)(shifted);
         }

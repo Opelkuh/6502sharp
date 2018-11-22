@@ -1,13 +1,10 @@
 namespace _6502sharp.Instructions
 {
     [DefaultInstruction]
-    public class STY
+    public class STY : InstructionBase
     {
-        private ICpu _cpu;
-
-        public STY(ICpu cpu)
+        public STY(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0x84, 3), ZeroPage]
@@ -15,7 +12,7 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0x8C, 4), Absolute]
         public void STY_Memory(int address)
         {
-            _cpu.Memory.Set(address, _cpu.Y.Value);
+            cpu.Memory.Set(address, cpu.Y.Value);
         }
     }
 }

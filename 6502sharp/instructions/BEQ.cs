@@ -1,19 +1,16 @@
 namespace _6502sharp.Instructions
 {
     [DefaultInstruction]
-    public class BEQ
+    public class BEQ : InstructionBase
     {
-        private ICpu _cpu;
-
-        public BEQ(ICpu cpu)
+        public BEQ(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0xF0, 2)]
         public void BEQ_Relative([Relative] int target)
         {
-            if (_cpu.SR.Zero == true) _cpu.PC.Value = target;
+            if (cpu.SR.Zero == true) cpu.PC.Value = target;
         }
     }
 }

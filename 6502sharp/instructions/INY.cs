@@ -3,21 +3,18 @@ using _6502sharp.Helpers;
 namespace _6502sharp.Instructions
 {
     [DefaultInstruction]
-    public class INY
+    public class INY : InstructionBase
     {
-        private ICpu _cpu;
-
-        public INY(ICpu cpu)
+        public INY(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0xC8, 2)]
         public void INY_Implied()
         {
-            _cpu.Y.Value++;
+            cpu.Y.Value++;
 
-            FlagHelper.SetNegativeAndZero(_cpu, _cpu.Y.Value);
+            flags.SetNegativeAndZero(cpu.Y.Value);
         }
     }
 }

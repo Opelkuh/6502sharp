@@ -3,21 +3,18 @@ using _6502sharp.Helpers;
 namespace _6502sharp.Instructions
 {
     [DefaultInstruction]
-    public class DEX
+    public class DEX : InstructionBase
     {
-        private ICpu _cpu;
-
-        public DEX(ICpu cpu)
+        public DEX(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0xCA, 2)]
         public void DEX_Implied()
         {
-            _cpu.X.Value--;
+            cpu.X.Value--;
 
-            FlagHelper.SetNegativeAndZero(_cpu, _cpu.X.Value);
+            flags.SetNegativeAndZero(cpu.X.Value);
         }
     }
 }

@@ -5,6 +5,12 @@ namespace _6502sharp.Test.Helpers
 {
     public class BCDHelperTest : MachineNMOSBase
     {
+        private BCDHelper bcd;
+
+        public BCDHelperTest() {
+            bcd = new BCDHelper(machine.CPU);
+        }
+
         [Theory]
         [InlineData(false, 0x01, 0x10)]
         [InlineData(false, 0xF0, 0xF0)]
@@ -40,7 +46,7 @@ namespace _6502sharp.Test.Helpers
             params int[] originalValues
         )
         {
-            BCDHelper.AdditionAdjust(machine.CPU, ref result, originalValues);
+            bcd.AdditionAdjust(ref result, originalValues);
 
             Assert.Equal(adjustedResult, result);
             Assert.Equal(carryFlag, machine.CPU.SR.Carry);
@@ -55,7 +61,7 @@ namespace _6502sharp.Test.Helpers
             params int[] originalValues
         )
         {
-            BCDHelper.SubstractionAdjust(machine.CPU, ref result, originalValues);
+            bcd.SubstractionAdjust(ref result, originalValues);
 
             Assert.Equal(adjustedResult, result);
         }

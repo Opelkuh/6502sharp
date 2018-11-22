@@ -3,19 +3,16 @@ using _6502sharp.Helpers;
 namespace _6502sharp.Instructions
 {
     [DefaultInstruction]
-    public class LSR
+    public class LSR : InstructionBase
     {
-        private ICpu _cpu;
-
-        public LSR(ICpu cpu)
+        public LSR(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0x4A, 2)]
         public void LSR_Accumulator()
         {
-            _cpu.A.Value = process(_cpu.A.Value);
+            cpu.A.Value = process(cpu.A.Value);
         }
 
         [CPUInstruction(0x46, 5), ZeroPage]
@@ -24,9 +21,9 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0x5E, 7), AbsoluteX]
         public void LSR_Memory(int address)
         {
-            byte shifted = process(_cpu.Memory.Get(address));
+            byte shifted = process(cpu.Memory.Get(address));
 
-            _cpu.Memory.Set(address, shifted);
+            cpu.Memory.Set(address, shifted);
         }
 
         private byte process(byte value)
@@ -34,9 +31,9 @@ namespace _6502sharp.Instructions
             bool carry = (value & 0x01) > 0;
             int res = value >> 1;
 
-            _cpu.SR.Carry = carry;
-            _cpu.SR.Negative = false;
-            FlagHelper.SetZero(_cpu, res);
+            cpu.SR.Carry = carry;
+            cpu.SR.Negative = false;
+            flags.SetZero(res);
 
             return (byte)res;
         }

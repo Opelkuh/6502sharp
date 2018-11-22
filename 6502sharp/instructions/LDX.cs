@@ -3,13 +3,10 @@ using _6502sharp.Helpers;
 namespace _6502sharp.Instructions
 {
     [DefaultInstruction]
-    public class LDX
+    public class LDX : InstructionBase
     {
-        private ICpu _cpu;
-
-        public LDX(ICpu cpu)
+        public LDX(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0xA2, 2)]
@@ -24,14 +21,14 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0xBE, 4), AbsoluteY]
         public void LDX_Memory(int address)
         {
-            process(_cpu.Memory.Get(address));
+            process(cpu.Memory.Get(address));
         }
 
         private void process(byte value)
         {
-            _cpu.X.Value = value;
+            cpu.X.Value = value;
 
-            FlagHelper.SetNegativeAndZero(_cpu, _cpu.X.Value);
+            flags.SetNegativeAndZero(cpu.X.Value);
         }
     }
 }
