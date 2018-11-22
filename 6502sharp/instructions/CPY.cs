@@ -24,7 +24,7 @@ namespace _6502sharp.Instructions
 
         private void process(byte value)
         {
-            CompareHelper.RegisterAndValue(cpu, cpu.Y.Value, value);
+            compare.RegisterAndValue(cpu.Y.Value, value);
         }
     }
 }
