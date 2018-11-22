@@ -43,7 +43,7 @@ namespace _6502sharp.Instructions
 
             if (cpu.DecimalMode && cpu.SR.Decimal)
             {
-                BCDHelper.SubstractionAdjust(cpu, ref wrapped, cpu.A.Value, value, carry);
+                bcd.SubstractionAdjust(ref wrapped, cpu.A.Value, value, carry);
             }
 
             cpu.A.Value = (byte)(wrapped & 0xFF);

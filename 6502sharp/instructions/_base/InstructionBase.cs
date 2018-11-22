@@ -5,12 +5,14 @@ namespace _6502sharp.Instructions {
         protected ICpu cpu;
         protected CompareHelper compare;
         protected FlagHelper flags;
+        protected BCDHelper bcd;
 
         public InstructionBase(ICpu cpu) {
             this.cpu = cpu;
 
             compare = new CompareHelper(cpu);
             flags = new FlagHelper(cpu);
+            bcd = new BCDHelper(cpu);
         }
     }
 }

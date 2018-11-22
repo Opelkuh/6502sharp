@@ -41,7 +41,7 @@ namespace _6502sharp.Instructions
 
             if (cpu.DecimalMode && cpu.SR.Decimal)
             {
-                BCDHelper.AdditionAdjust(cpu, ref res, value, cpu.A.Value, carry);
+                bcd.AdditionAdjust(ref res, value, cpu.A.Value, carry);
             }
 
             cpu.A.Value = (byte)(res & 0xFF);

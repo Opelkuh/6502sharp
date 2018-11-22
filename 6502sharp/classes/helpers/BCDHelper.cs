@@ -3,8 +3,20 @@ namespace _6502sharp.Helpers
     /// <summary>
     /// Helper for binary coded decimal adjustments
     /// </summary>
-    public static class BCDHelper
+    public class BCDHelper
     {
+        private ICpu _cpu;
+        private FlagHelper _flags;
+
+        /// <summary>
+        /// Creates a new instance of BCDHelper
+        /// </summary>
+        /// <param name="cpu">cpu to set flags on</param>
+        public BCDHelper(ICpu cpu) {
+            _cpu = cpu;
+            _flags = new FlagHelper(cpu);
+        }
+
         /// <summary>
         /// Gets the (half) carry flag from addition of the lower 4-bits
         /// </summary>
@@ -44,55 +56,51 @@ namespace _6502sharp.Helpers
         /// Corrects the result of addition of two BCD values (DAA instruction in other processors)
         /// Also adjusts the C flag on all processors and the N and Z flags on CMOS processors
         /// </summary>
-        /// <param name="cpu">target cpu</param>
         /// <param name="result">value to be adjusted</param>
         /// <param name="originalValues">values that made the result</param>
-        public static void AdditionAdjust(ICpu cpu, ref int result, params int[] originalValues)
+        public void AdditionAdjust(ref int result, params int[] originalValues)
         {
             bool halfCarry = GetHalfCarry(originalValues);
 
-            AdditionAdjust(cpu, ref result, halfCarry);
+            AdditionAdjust(ref result, halfCarry);
         }
 
         /// <summary>
         /// Corrects the addition of two BCD values (DAA instruction in other processors)
         /// Also adjusts the C flag on all processors and the N and Z flags on CMOS processors
         /// </summary>
-        /// <param name="cpu">target cpu</param>
         /// <param name="result">value to be adjusted</param>
         /// <param name="halfCarry">carry of the lower 4-bits</param>
-        public static void AdditionAdjust(ICpu cpu, ref int result, bool halfCarry)
+        public void AdditionAdjust(ref int result, bool halfCarry)
         {
-            adjustResult(cpu, ref result, halfCarry, 1);
+            adjustResult(ref result, halfCarry, 1);
         }
 
         /// <summary>
         /// Corrects the result of substraction of two BCD values (DAS instruction in other processors)
         /// Also adjusts the C flag on all processors and the N and Z flags on CMOS processors
         /// </summary>
-        /// <param name="cpu">target cpu</param>
         /// <param name="result">value to be adjusted</param>
         /// <param name="originalValues">values that made the result</param>
-        public static void SubstractionAdjust(ICpu cpu, ref int result, params int[] originalValues)
+        public void SubstractionAdjust(ref int result, params int[] originalValues)
         {
             bool halfBorrow = GetHalfBorrow(originalValues);
 
-            SubstractionAdjust(cpu, ref result, halfBorrow);
+            SubstractionAdjust(ref result, halfBorrow);
         }
 
         /// <summary>
         /// Corrects the result of substraction of two BCD values (DAS instruction in other processors)
         /// Also adjusts the C flag on all processors and the N and Z flags on CMOS processors
         /// </summary>
-        /// <param name="cpu">target cpu</param>
         /// <param name="result">value to be adjusted</param>
         /// <param name="halfBorrow">borrow of the lower 4-bits</param>
-        public static void SubstractionAdjust(ICpu cpu, ref int result, bool halfBorrow)
+        public void SubstractionAdjust(ref int result, bool halfBorrow)
         {
-            adjustResult(cpu, ref result, halfBorrow, -1);
+            adjustResult(ref result, halfBorrow, -1);
         }
 
-        private static void adjustResult(ICpu cpu, ref int result, bool carryOrBorrow, sbyte modifier)
+        private void adjustResult(ref int result, bool carryOrBorrow, sbyte modifier)
         {
             int mod = 0x00;
 
@@ -106,20 +114,18 @@ namespace _6502sharp.Helpers
             if (result > 0x99)
             {
                 mod |= 0x60;
-                cpu.SR.Carry = true;
+                _cpu.SR.Carry = true;
             }
-            else cpu.SR.Carry = false;
+            else _cpu.SR.Carry = false;
 
             result += mod * modifier;
 
             // recalculate flags on CMOS
-            if (cpu.Type == CPUType.CMOS)
+            if (_cpu.Type == CPUType.CMOS)
             {
-                FlagHelper flags = new FlagHelper(cpu);
+                _flags.SetNegativeAndZero(result);
 
-                flags.SetNegativeAndZero(result);
-                
-                cpu.SleepCycles++;
+                _cpu.SleepCycles++;
             }
         }
     }
