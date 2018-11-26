@@ -1,6 +1,6 @@
 namespace _6502sharp
 {
-    public class StatusRegister : Register
+    public class StatusRegister : Register, IStatusRegister 
     {
         public StatusRegister() {
             Unused = true;

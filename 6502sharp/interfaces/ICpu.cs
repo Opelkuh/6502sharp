@@ -42,30 +42,30 @@ namespace _6502sharp
         /// <summary>
         /// Status register
         /// </summary>
-        StatusRegister SR { get; }
+        IStatusRegister SR { get; set; }
         /// <summary>
         /// Accumulator
         /// </summary>
-        Register A { get; }
+        IRegister8Bit A { get; set; }
 
         /// <summary>
         /// X Register
         /// </summary>
-        Register X { get; }
+        IRegister8Bit X { get; set; }
 
         /// <summary>
         /// Y Register
         /// </summary>
-        Register Y { get; }
+        IRegister8Bit Y { get; set; }
 
         /// <summary>
         /// Stack pointer
         /// </summary>
-        Register SP { get; }
+        IRegister8Bit SP { get; set; }
 
         /// <summary>
         /// Program counter
         /// </summary>
-        Register16Bit PC { get; }
+        IRegister16Bit PC { get; set; }
     }
 }

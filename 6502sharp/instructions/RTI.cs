@@ -13,7 +13,7 @@ namespace _6502sharp.Instructions
         public void RTI_Implied()
         {
             cpu.SR.Value = cpu.Stack.Pop();
-            cpu.PC.Value = cpu.Stack.PopPC();
+            cpu.PC.Value = (ushort)cpu.Stack.PopPC();
         }
     }
 }

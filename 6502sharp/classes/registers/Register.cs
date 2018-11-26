@@ -3,7 +3,7 @@ namespace _6502sharp
     /// <summary>
     /// Processor register
     /// </summary>
-    public class Register : IReadable
+    public class Register : IRegister8Bit
     {
         private byte _store = 0;
 

@@ -10,7 +10,7 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0x50, 2)]
         public void BVC_Relative([Relative] int target)
         {
-            if (cpu.SR.Overflow == false) cpu.PC.Value = target;
+            if (cpu.SR.Overflow == false) cpu.PC.Value = (ushort)target;
         }
     }
 }

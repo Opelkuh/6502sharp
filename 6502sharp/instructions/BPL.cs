@@ -10,7 +10,7 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0x10, 2)]
         public void BPL_Relative([Relative] int target)
         {
-            if (cpu.SR.Negative == false) cpu.PC.Value = target;
+            if (cpu.SR.Negative == false) cpu.PC.Value = (ushort)target;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace _6502sharp
     /// <summary>
     /// 16-bit processor register
     /// </summary>
-    public class Register16Bit : IReadable
+    public class Register16Bit : IRegister16Bit
     {
         private byte[] _store = new byte[2];
 
@@ -16,11 +16,11 @@ namespace _6502sharp
         /// 
         /// </summary>
         /// <value>Value of the register</value>
-        public int Value
+        public ushort Value
         {
             get
             {
-                return LEHelper.From(_store);
+                return (ushort)LEHelper.From(_store);
             }
 
             set

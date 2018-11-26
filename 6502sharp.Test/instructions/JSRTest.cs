@@ -15,7 +15,7 @@ namespace _6502sharp.Test.Instructions
         [Fact]
         public void PushesPCAndSetsPCToMemAddress()
         {
-            int originalPc = 0xCAAC;
+            ushort originalPc = 0xCAAC;
             int memAddress = 0xABBA;
 
             machine.CPU.PC.Value = originalPc;

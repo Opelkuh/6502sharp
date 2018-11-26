@@ -15,7 +15,7 @@ namespace _6502sharp.Test.Instructions
         [Fact]
         public void PushesOntoStack()
         {
-            int oldPc = 0xBADA;
+            ushort oldPc = 0xBADA;
             byte oldSr = 0xEF;
 
             byte jumpLow = 0xBA;

@@ -28,7 +28,7 @@ namespace _6502sharp.Instructions
             // set new PC
             byte[] target = { cpu.Memory.Get(0xFFFE), cpu.Memory.Get(0xFFFF) };
 
-            cpu.PC.Value = LEHelper.From(target);
+            cpu.PC.Value = (ushort)LEHelper.From(target);
         }
     }
 }
