@@ -26,9 +26,11 @@ namespace _6502sharp.Instructions
             cpu.SR.Interrupt = true;
 
             // set new PC
-            byte[] target = { cpu.Memory.Get(0xFFFE), cpu.Memory.Get(0xFFFF) };
+            byte pcLo = cpu.Memory.Get(0xFFFE);
+            byte pcHi = cpu.Memory.Get(0xFFFF);
 
-            cpu.PC.Value = LEHelper.From(target);
+            cpu.PC.Set(0, pcLo);
+            cpu.PC.Set(1, pcHi);
         }
     }
 }
