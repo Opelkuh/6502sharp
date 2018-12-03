@@ -74,6 +74,9 @@ namespace _6502sharp
             // save status reg
             Stack.Push(SR.Value);
 
+            // set interrupt flag
+            SR.Interrupt = true;
+
             // set PC
             byte pcLo = Memory.Get(vecLo);
             byte pcHi = Memory.Get(vecHi);
