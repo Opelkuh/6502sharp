@@ -74,6 +74,9 @@ namespace _6502sharp
 
             PC.Set(0, pcLo);
             PC.Set(1, pcHi);
+
+            // clear decimal flag on CMOS
+            if (Type == CPUType.CMOS) SR.Decimal = false;
         }
 
         private void invokeInstruction(Instruction instruction)

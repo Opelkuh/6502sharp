@@ -31,6 +31,9 @@ namespace _6502sharp.Instructions
 
             cpu.PC.Set(0, pcLo);
             cpu.PC.Set(1, pcHi);
+
+            // clear decimal flag on CMOS
+            if (cpu.Type == CPUType.CMOS) cpu.SR.Decimal = false;
         }
     }
 }
