@@ -15,13 +15,24 @@ namespace _6502sharp
         {
             if (--_sleepFor <= 0)
             {
+                bool irqChecked = false;
+
                 Instruction inst = getCurrentOpcode();
+
+                // check queued irq for 2 cycle instructions
+                if (_irqQueued && inst.Cycles <= 2)
+                {
+                    InterruptIRQ(true);
+                    irqChecked = true;
+                }
+
+                // invoke instruction
                 invokeInstruction(inst);
 
                 _sleepFor = inst.Cycles;
 
-                // check queue irq interrupt
-                if (_irqQueued) InterruptIRQ(true);
+                // check queued irq interrupt
+                if (_irqQueued && !irqChecked) InterruptIRQ(true);
             }
 
             _finishedCycles++;
@@ -60,7 +71,7 @@ namespace _6502sharp
             // set PC
             byte pcLo = Memory.Get(vecLo);
             byte pcHi = Memory.Get(vecHi);
-            
+
             PC.Set(0, pcLo);
             PC.Set(1, pcHi);
         }
