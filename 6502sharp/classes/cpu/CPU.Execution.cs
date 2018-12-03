@@ -38,6 +38,11 @@ namespace _6502sharp
             _finishedCycles++;
         }
 
+        public void Reset()
+        {
+            interrupt(0xFFFC, 0xFFFD);
+        }
+
         public void InterruptIRQ(bool queue)
         {
             if (!SR.Interrupt)
@@ -54,6 +59,7 @@ namespace _6502sharp
                 _irqQueued = true;
             }
         }
+
         public void InterruptNMI()
         {
             interrupt(0xFFFA, 0xFFFB);
