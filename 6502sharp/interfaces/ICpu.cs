@@ -19,6 +19,11 @@ namespace _6502sharp
         void InterruptNMI();
 
         /// <summary>
+        /// Executes the reset interrupt
+        /// </summary>
+        void Reset();
+
+        /// <summary>
         /// The number of cycles that the processor is going to sleep for 
         /// (used to time instructions that take multiple cycles)
         /// </summary>
