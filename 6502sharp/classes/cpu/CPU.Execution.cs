@@ -9,17 +9,74 @@ namespace _6502sharp
 
         private int _sleepFor = 0;
 
+        private bool _irqQueued = false;
+
         public void Tick()
         {
             if (--_sleepFor <= 0)
             {
+                bool irqChecked = false;
+
                 Instruction inst = getCurrentOpcode();
+
+                // check queued irq for 2 cycle instructions
+                if (_irqQueued && inst.Cycles <= 2)
+                {
+                    InterruptIRQ(true);
+                    irqChecked = true;
+                }
+
+                // invoke instruction
                 invokeInstruction(inst);
 
                 _sleepFor = inst.Cycles;
+
+                // check queued irq interrupt
+                if (_irqQueued && !irqChecked) InterruptIRQ(true);
             }
 
             _finishedCycles++;
+        }
+
+        public void InterruptIRQ(bool queue)
+        {
+            if (!SR.Interrupt)
+            {
+                _irqQueued = false;
+
+                interrupt(0xFFFE, 0xFFFF);
+
+                return;
+            }
+
+            if (SR.Interrupt && queue)
+            {
+                _irqQueued = true;
+            }
+        }
+        public void InterruptNMI()
+        {
+            interrupt(0xFFFA, 0xFFFB);
+        }
+
+        private void interrupt(int vecLo, int vecHi)
+        {
+            // save PC + 1
+            PC.Value++;
+            Stack.PushPC();
+
+            // save status reg
+            Stack.Push(SR.Value);
+
+            // set PC
+            byte pcLo = Memory.Get(vecLo);
+            byte pcHi = Memory.Get(vecHi);
+
+            PC.Set(0, pcLo);
+            PC.Set(1, pcHi);
+
+            // clear decimal flag on CMOS
+            if (Type == CPUType.CMOS) SR.Decimal = false;
         }
 
         private void invokeInstruction(Instruction instruction)

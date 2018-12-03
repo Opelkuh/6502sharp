@@ -8,6 +8,17 @@ namespace _6502sharp
         void Tick();
 
         /// <summary>
+        /// Interrupts the processor with IRQ
+        /// </summary>
+        /// <param name="queue">whether to wait for interrupt flag to clear</param>
+        void InterruptIRQ(bool queue);
+
+        /// <summary>
+        /// Interrupts the processor with NMI
+        /// </summary>
+        void InterruptNMI();
+
+        /// <summary>
         /// The number of cycles that the processor is going to sleep for 
         /// (used to time instructions that take multiple cycles)
         /// </summary>
