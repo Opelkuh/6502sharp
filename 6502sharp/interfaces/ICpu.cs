@@ -1,11 +1,24 @@
 namespace _6502sharp
 {
+    public delegate void CpuEventHandler(ICpu cpu);
+    public delegate void CpuEventHandler<TEventArgs>(ICpu cpu, TEventArgs e);
+
     public interface ICpu
     {
         /// <summary>
         /// Executes one cpu cycle
         /// </summary>
         void Tick();
+
+        /// <summary>
+        /// Raised after every CPU cycle even if instruction execution was skipped
+        /// </summary>
+        event CpuEventHandler Cycle;
+
+        /// <summary>
+        /// Raised afer an instruction was executed
+        /// </summary>
+        event CpuEventHandler<InstructionEventArgs> Instruction;
 
         /// <summary>
         /// The number of cycles that the processor is going to sleep for 
@@ -28,7 +41,7 @@ namespace _6502sharp
         /// If false, Decimal flag will be ignored
         /// </summary>
         bool DecimalMode { get; set; }
-        
+
         /// <summary>
         /// Memmory linked to the cpu
         /// </summary>

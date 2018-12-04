@@ -16,8 +16,12 @@ namespace _6502sharp
                 Instruction inst = getCurrentOpcode();
                 invokeInstruction(inst);
 
+                OnInstruction(inst);
+
                 _sleepFor = inst.Cycles;
             }
+
+            OnCycle();
 
             _finishedCycles++;
         }
