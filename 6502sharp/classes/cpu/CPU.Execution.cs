@@ -9,7 +9,7 @@ namespace _6502sharp
 
         private int _sleepFor = 0;
 
-        public void Tick()
+        public virtual void Tick()
         {
             if (--_sleepFor <= 0)
             {

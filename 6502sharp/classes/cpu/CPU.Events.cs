@@ -5,13 +5,13 @@ namespace _6502sharp
         public event CpuEventHandler Cycle;
         public event CpuEventHandler<InstructionEventArgs> Instruction;
 
-        protected void OnCycle()
+        protected virtual void OnCycle()
         {
             CpuEventHandler handler = Cycle;
             handler?.Invoke(this);
         }
 
-        protected void OnInstruction(Instruction instruction)
+        protected virtual void OnInstruction(Instruction instruction)
         {
             CpuEventHandler<InstructionEventArgs> handler = Instruction;
             if (handler != null)

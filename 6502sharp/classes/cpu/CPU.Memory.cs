@@ -7,7 +7,7 @@ namespace _6502sharp
     {
         public IReadable Memory => _machine.Memory;
 
-        protected byte FetchNext()
+        protected virtual byte FetchNext()
         {
             byte ret = _machine.Memory.Get(PC.Value);
 
@@ -16,7 +16,7 @@ namespace _6502sharp
             return ret;
         }
 
-        protected byte[] FetchMultiple(int length)
+        protected virtual byte[] FetchMultiple(int length)
         {
             byte[] ret = new byte[length];
 
