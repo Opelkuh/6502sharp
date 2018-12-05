@@ -2,14 +2,11 @@ using _6502sharp.Helpers;
 
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
-    public class LDY
+    [DefaultInstruction]
+    public class LDY : InstructionBase
     {
-        private ICpu _cpu;
-
-        public LDY(ICpu cpu)
+        public LDY(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0xA0, 2)]
@@ -24,14 +21,14 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0xBC, 4), AbsoluteX]
         public void LDY_Memory(int address)
         {
-            process(_cpu.Memory.Get(address));
+            process(cpu.Memory.Get(address));
         }
 
         private void process(byte value)
         {
-            _cpu.Y.Value = value;
+            cpu.Y.Value = value;
 
-            FlagHelper.SetNegativeAndZero(_cpu, _cpu.Y.Value);
+            flags.SetNegativeAndZero(cpu.Y.Value);
         }
     }
 }

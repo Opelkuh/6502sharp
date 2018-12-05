@@ -1,19 +1,16 @@
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
-    public class CLD
+    [DefaultInstruction]
+    public class CLD : InstructionBase
     {
-        private ICpu _cpu;
-
-        public CLD(ICpu cpu)
+        public CLD(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0xD8, 2)]
         public void CLD_Implied()
         {
-            _cpu.SR.Decimal = false;
+            cpu.SR.Decimal = false;
         }
     }
 }

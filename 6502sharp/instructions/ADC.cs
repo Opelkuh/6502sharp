@@ -2,14 +2,11 @@ using _6502sharp.Helpers;
 
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
-    public class ADC
+    [DefaultInstruction]
+    public class ADC : InstructionBase
     {
-        private ICpu _cpu;
-
-        public ADC(ICpu cpu)
+        public ADC(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0x69, 2)]
@@ -28,25 +25,26 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0x72, 6, CPUType.CMOS), Indirect]
         public void ADC_Memory(int address)
         {
-            process(_cpu.Memory.Get(address));
+            process(cpu.Memory.Get(address));
         }
 
         private void process(byte value)
         {
-            int carry = _cpu.SR.Carry ? 1 : 0;
-            int res = value + _cpu.A.Value + carry;
+            int carry = cpu.SR.Carry ? 1 : 0;
+            int res = value + cpu.A.Value + carry;
 
-            FlagHelper.SetCarry(_cpu, res);
-            FlagHelper.SetZero(_cpu, res);
-            FlagHelper.SetNegative(_cpu, res);
-            FlagHelper.SetOverflow(_cpu, res, _cpu.A.Value, value + carry);
+            flags
+                .SetCarry(res)
+                .SetZero(res)
+                .SetNegative(res)
+                .SetOverflow(res, cpu.A.Value, value + carry);
 
-            if (_cpu.DecimalMode && _cpu.SR.Decimal)
+            if (cpu.DecimalMode && cpu.SR.Decimal)
             {
-                BCDHelper.AdditionAdjust(_cpu, ref res, value, _cpu.A.Value, carry);
+                bcd.AdditionAdjust(ref res, value, cpu.A.Value, carry);
             }
 
-            _cpu.A.Value = (byte)(res & 0xFF);
+            cpu.A.Value = (byte)(res & 0xFF);
         }
     }
 }

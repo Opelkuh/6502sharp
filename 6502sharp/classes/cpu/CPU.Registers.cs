@@ -2,24 +2,24 @@ namespace _6502sharp
 {
     public partial class CPU : ICpu
     {
-        public StatusRegister SR => _sr;
+        public IStatusRegister SR { get => _sr; set => _sr = value; }
 
-        public Register A => _a;
+        public IRegister8Bit A { get => _a; set => _a = value; }
 
-        public Register X => _x;
+        public IRegister8Bit X { get => _x; set => _x = value; }
 
-        public Register Y => _y;
+        public IRegister8Bit Y { get => _y; set => _y = value; }
 
-        public Register SP => _sp;
+        public IRegister8Bit SP { get => _sp; set => _sp = value; }
 
-        public Register16Bit PC => _pc;
+        public IRegister16Bit PC { get => _pc; set => _pc = value; }
 
 
-        private StatusRegister _sr = new StatusRegister();
-        private Register _a = new Register();
-        private Register _x = new Register();
-        private Register _y = new Register();
-        private Register _sp = new Register();
-        private Register16Bit _pc = new Register16Bit();
+        private IStatusRegister _sr = new StatusRegister();
+        private IRegister8Bit _a = new Register();
+        private IRegister8Bit _x = new Register();
+        private IRegister8Bit _y = new Register();
+        private IRegister8Bit _sp = new Register();
+        private IRegister16Bit _pc = new Register16Bit();
     }
 }

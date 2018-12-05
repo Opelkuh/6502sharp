@@ -2,14 +2,11 @@ using _6502sharp.Helpers;
 
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
-    public class CMP
+    [DefaultInstruction]
+    public class CMP : InstructionBase
     {
-        private ICpu _cpu;
-
-        public CMP(ICpu cpu)
+        public CMP(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0xC9, 2)]
@@ -28,12 +25,12 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0xD2, 6, CPUType.CMOS), Indirect]
         public void CMP_Memory(int address)
         {
-            process(_cpu.Memory.Get(address));
+            process(cpu.Memory.Get(address));
         }
 
         private void process(byte value)
         {
-            CompareHelper.RegisterAndValue(_cpu, _cpu.A.Value, value);
+            compare.RegisterAndValue(cpu.A.Value, value);
         }
     }
 }

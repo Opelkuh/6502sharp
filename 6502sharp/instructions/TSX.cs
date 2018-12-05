@@ -2,22 +2,19 @@ using _6502sharp.Helpers;
 
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
-    public class TSX
+    [DefaultInstruction]
+    public class TSX : InstructionBase
     {
-        private ICpu _cpu;
-
-        public TSX(ICpu cpu)
+        public TSX(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
-        
+
         [CPUInstruction(0xBA, 2)]
         public void TSX_Implied()
         {
-            _cpu.X.Value = _cpu.SP.Value;
+            cpu.X.Value = cpu.SP.Value;
 
-            FlagHelper.SetNegativeAndZero(_cpu, _cpu.X.Value);
+            flags.SetNegativeAndZero(cpu.X.Value);
         }
     }
 }

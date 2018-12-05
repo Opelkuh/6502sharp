@@ -2,21 +2,18 @@ using _6502sharp.Helpers;
 
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
-    public class RTI
+    [DefaultInstruction]
+    public class RTI : InstructionBase
     {
-        private ICpu _cpu;
-
-        public RTI(ICpu cpu)
+        public RTI(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0x40, 6)]
         public void RTI_Implied()
         {
-            _cpu.SR.Value = _cpu.Stack.Pop();
-            _cpu.PC.Value = _cpu.Stack.PopPC();
+            cpu.SR.Value = cpu.Stack.Pop();
+            cpu.PC.Value = (ushort)cpu.Stack.PopPC();
         }
     }
 }

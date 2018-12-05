@@ -1,13 +1,10 @@
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
-    public class STX
+    [DefaultInstruction]
+    public class STX : InstructionBase
     {
-        private ICpu _cpu;
-
-        public STX(ICpu cpu)
+        public STX(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0x86, 3), ZeroPage]
@@ -15,7 +12,7 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0x8E, 4), Absolute]
         public void STX_Memory(int address)
         {
-            _cpu.Memory.Set(address, _cpu.X.Value);
+            cpu.Memory.Set(address, cpu.X.Value);
         }
     }
 }

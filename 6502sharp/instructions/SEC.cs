@@ -1,19 +1,16 @@
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
-    public class SEC
+    [DefaultInstruction]
+    public class SEC : InstructionBase
     {
-        private ICpu _cpu;
-
-        public SEC(ICpu cpu)
+        public SEC(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0x38, 2)]
         public void SEC_Implied()
         {
-            _cpu.SR.Carry = true;
+            cpu.SR.Carry = true;
         }
     }
 }

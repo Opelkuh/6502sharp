@@ -1,13 +1,10 @@
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
-    public class STA
+    [DefaultInstruction]
+    public class STA : InstructionBase
     {
-        private ICpu _cpu;
-
-        public STA(ICpu cpu)
+        public STA(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0x85, 3), ZeroPage]
@@ -20,7 +17,7 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0x92, 6, CPUType.CMOS), Indirect]
         public void STA_Memory(int address)
         {
-            _cpu.Memory.Set(address, _cpu.A.Value);
+            cpu.Memory.Set(address, cpu.A.Value);
         }
     }
 }

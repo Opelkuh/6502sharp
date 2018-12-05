@@ -1,19 +1,16 @@
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
-    public class BCS
+    [DefaultInstruction]
+    public class BCS : InstructionBase
     {
-        private ICpu _cpu;
-
-        public BCS(ICpu cpu)
+        public BCS(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0xB0, 2)]
         public void BCS_Relative([Relative] int target)
         {
-            if (_cpu.SR.Carry == true) _cpu.PC.Value = target;
+            if (cpu.SR.Carry == true) cpu.PC.Value = (ushort)target;
         }
     }
 }

@@ -7,25 +7,31 @@ namespace _6502sharp
 {
     public partial class CPU
     {
+        private Assembly _libAssembly = Assembly.GetExecutingAssembly();
+
+        private protected void FindDefaultInjectables()
+        {
+            findByAttribute(_libAssembly, typeof(DefaultInstructionAttribute));
+        }
+
         private protected void FindInjectables()
         {
-            Assembly self = Assembly.GetExecutingAssembly();
-
-            List<Assembly> assemblies = new List<Assembly>(AppDomain.CurrentDomain.GetAssemblies());
-
-            assemblies.Remove(self);
-            assemblies.Insert(0, self);
+            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
             foreach (Assembly assembly in assemblies)
             {
-                foreach (Type type in assembly.GetTypes())
+                findByAttribute(assembly, typeof(InjectableInstructionAttribute));
+            }
+        }
+
+        private void findByAttribute(Assembly assembly, Type type)
+        {
+            foreach (Type t in assembly.GetTypes())
+            {
+                Attribute attribute = t.GetCustomAttribute(type, true);
+                if (attribute != null)
                 {
-                    InjectableInstructionAttribute attribute =
-                        (InjectableInstructionAttribute)type.GetCustomAttribute(typeof(InjectableInstructionAttribute), true);
-                    if (attribute != null)
-                    {
-                        FindMethods(type);
-                    }
+                    FindMethods(t);
                 }
             }
         }
@@ -169,7 +175,7 @@ namespace _6502sharp
             // generate delegates
             for (int i = 0; i < meta.Length; i++)
             {
-                if(!meta[i].HasValue) continue;
+                if (!meta[i].HasValue) continue;
                 InstructionMetadata metadata = meta[i].Value;
 
                 metadata.Parameters = new List<MemoryAddressAttributeBase>();

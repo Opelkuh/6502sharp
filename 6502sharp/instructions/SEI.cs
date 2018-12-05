@@ -1,19 +1,16 @@
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
-    public class SEI
+    [DefaultInstruction]
+    public class SEI : InstructionBase
     {
-        private ICpu _cpu;
-
-        public SEI(ICpu cpu)
+        public SEI(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0x78, 2)]
         public void SEI_Implied()
         {
-            _cpu.SR.Interrupt = true;
+            cpu.SR.Interrupt = true;
         }
     }
 }

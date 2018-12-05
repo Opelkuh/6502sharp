@@ -2,22 +2,19 @@ using _6502sharp.Helpers;
 
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
-    public class DEY
+    [DefaultInstruction]
+    public class DEY : InstructionBase
     {
-        private ICpu _cpu;
-
-        public DEY(ICpu cpu)
+        public DEY(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0x88, 2)]
         public void DEY_Implied()
         {
-            _cpu.Y.Value--;
+            cpu.Y.Value--;
 
-            FlagHelper.SetNegativeAndZero(_cpu, _cpu.Y.Value);
+            flags.SetNegativeAndZero(cpu.Y.Value);
         }
     }
 }

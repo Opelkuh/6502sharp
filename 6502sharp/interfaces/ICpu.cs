@@ -1,11 +1,39 @@
 namespace _6502sharp
 {
+    public delegate void CpuEventHandler(ICpu cpu);
+    public delegate void CpuEventHandler<TEventArgs>(ICpu cpu, TEventArgs e);
+
     public interface ICpu
     {
         /// <summary>
         /// Executes one cpu cycle
         /// </summary>
         void Tick();
+
+        /// <summary>
+        /// Raised after every CPU cycle even if instruction execution was skipped
+        /// </summary>
+        event CpuEventHandler Cycle;
+
+        /// <summary>
+        /// Raised afer an instruction was executed
+        /// </summary>
+        event CpuEventHandler<InstructionEventArgs> Instruction;
+
+        /// Interrupts the processor with IRQ
+        /// </summary>
+        /// <param name="queue">whether to wait for interrupt flag to clear</param>
+        void InterruptIRQ(bool queue);
+
+        /// <summary>
+        /// Interrupts the processor with NMI
+        /// </summary>
+        void InterruptNMI();
+
+        /// <summary>
+        /// Executes the reset interrupt
+        /// </summary>
+        void Reset();
 
         /// <summary>
         /// The number of cycles that the processor is going to sleep for 
@@ -28,7 +56,7 @@ namespace _6502sharp
         /// If false, Decimal flag will be ignored
         /// </summary>
         bool DecimalMode { get; set; }
-        
+
         /// <summary>
         /// Memmory linked to the cpu
         /// </summary>
@@ -42,30 +70,30 @@ namespace _6502sharp
         /// <summary>
         /// Status register
         /// </summary>
-        StatusRegister SR { get; }
+        IStatusRegister SR { get; set; }
         /// <summary>
         /// Accumulator
         /// </summary>
-        Register A { get; }
+        IRegister8Bit A { get; set; }
 
         /// <summary>
         /// X Register
         /// </summary>
-        Register X { get; }
+        IRegister8Bit X { get; set; }
 
         /// <summary>
         /// Y Register
         /// </summary>
-        Register Y { get; }
+        IRegister8Bit Y { get; set; }
 
         /// <summary>
         /// Stack pointer
         /// </summary>
-        Register SP { get; }
+        IRegister8Bit SP { get; set; }
 
         /// <summary>
         /// Program counter
         /// </summary>
-        Register16Bit PC { get; }
+        IRegister16Bit PC { get; set; }
     }
 }

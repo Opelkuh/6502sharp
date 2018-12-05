@@ -2,22 +2,19 @@ using _6502sharp.Helpers;
 
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
-    public class INX
+    [DefaultInstruction]
+    public class INX : InstructionBase
     {
-        private ICpu _cpu;
-
-        public INX(ICpu cpu)
+        public INX(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0xE8, 2)]
         public void INX_Implied()
         {
-            _cpu.X.Value++;
+            cpu.X.Value++;
 
-            FlagHelper.SetNegativeAndZero(_cpu, _cpu.X.Value);
+            flags.SetNegativeAndZero(cpu.X.Value);
         }
     }
 }

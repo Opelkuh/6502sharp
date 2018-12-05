@@ -1,19 +1,16 @@
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
-    public class BNE
+    [DefaultInstruction]
+    public class BNE : InstructionBase
     {
-        private ICpu _cpu;
-
-        public BNE(ICpu cpu)
+        public BNE(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0xD0, 2)]
         public void BNE_Relative([Relative] int target)
         {
-            if (_cpu.SR.Zero == false) _cpu.PC.Value = target;
+            if (cpu.SR.Zero == false) cpu.PC.Value = (ushort)target;
         }
     }
 }

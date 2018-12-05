@@ -2,14 +2,11 @@ using _6502sharp.Helpers;
 
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
-    public class BIT
+    [DefaultInstruction]
+    public class BIT : InstructionBase
     {
-        private ICpu _cpu;
-
-        public BIT(ICpu cpu)
+        public BIT(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0x89, 2, CPUType.CMOS)]
@@ -24,18 +21,18 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0x34, 4, CPUType.CMOS), ZeroPageX]
         public void BIT_Memory(int address)
         {
-            process(_cpu.Memory.Get(address));
+            process(cpu.Memory.Get(address));
         }
 
         private void process(byte target)
         {
             // set flags
-            _cpu.SR.Negative = ((1 << 7) & target) > 0;
-            _cpu.SR.Overflow = ((1 << 6) & target) > 0;
+            cpu.SR.Negative = ((1 << 7) & target) > 0;
+            cpu.SR.Overflow = ((1 << 6) & target) > 0;
 
             // AND accu and target value
-            int res = _cpu.A.Value & target;
-            FlagHelper.SetZero(_cpu, res);
+            int res = cpu.A.Value & target;
+            flags.SetZero(res);
         }
     }
 }

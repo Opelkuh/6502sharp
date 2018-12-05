@@ -1,19 +1,16 @@
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
-    public class CLI
+    [DefaultInstruction]
+    public class CLI : InstructionBase
     {
-        private ICpu _cpu;
-
-        public CLI(ICpu cpu)
+        public CLI(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0x58, 2)]
         public void CLI_Implied()
         {
-            _cpu.SR.Interrupt = false;
+            cpu.SR.Interrupt = false;
         }
     }
 }

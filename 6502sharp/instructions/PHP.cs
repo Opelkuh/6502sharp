@@ -1,21 +1,18 @@
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
-    public class PHP
+    [DefaultInstruction]
+    public class PHP : InstructionBase
     {
-        private ICpu _cpu;
-
-        public PHP(ICpu cpu)
+        public PHP(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0x08, 3)]
         public void PHP_Implied()
         {
-            _cpu.SR.Break = true;
+            cpu.SR.Break = true;
 
-            _cpu.Stack.Push(_cpu.SR.Value);
+            cpu.Stack.Push(cpu.SR.Value);
         }
     }
 }

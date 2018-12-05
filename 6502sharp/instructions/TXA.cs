@@ -2,22 +2,19 @@ using _6502sharp.Helpers;
 
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
-    public class TXA
+    [DefaultInstruction]
+    public class TXA : InstructionBase
     {
-        private ICpu _cpu;
-
-        public TXA(ICpu cpu)
+        public TXA(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
-        
+
         [CPUInstruction(0x8A, 2)]
         public void TXA_Implied()
         {
-            _cpu.A.Value = _cpu.X.Value;
+            cpu.A.Value = cpu.X.Value;
 
-            FlagHelper.SetNegativeAndZero(_cpu, _cpu.A.Value);
+            flags.SetNegativeAndZero(cpu.A.Value);
         }
     }
 }

@@ -2,22 +2,19 @@ using _6502sharp.Helpers;
 
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
-    public class TAY
+    [DefaultInstruction]
+    public class TAY : InstructionBase
     {
-        private ICpu _cpu;
-
-        public TAY(ICpu cpu)
+        public TAY(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
-        
+
         [CPUInstruction(0xA8, 2)]
         public void TAY_Implied()
         {
-            _cpu.Y.Value = _cpu.A.Value;
+            cpu.Y.Value = cpu.A.Value;
 
-            FlagHelper.SetNegativeAndZero(_cpu, _cpu.Y.Value);
+            flags.SetNegativeAndZero(cpu.Y.Value);
         }
     }
 }

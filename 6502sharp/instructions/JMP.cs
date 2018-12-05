@@ -1,13 +1,10 @@
 namespace _6502sharp.Instructions
 {
-    [InjectableInstruction]
-    public class JMP
+    [DefaultInstruction]
+    public class JMP : InstructionBase
     {
-        private ICpu _cpu;
-
-        public JMP(ICpu cpu)
+        public JMP(ICpu cpu) : base(cpu)
         {
-            _cpu = cpu;
         }
 
         [CPUInstruction(0x4C, 3), Absolute]
@@ -15,7 +12,7 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0x7C, 6, CPUType.CMOS), IndirectX]
         public void JMP_Memory(int address)
         {
-            _cpu.PC.Value = address;
+            cpu.PC.Value = (ushort)address;
         }
     }
 }
