@@ -26,9 +26,14 @@ namespace _6502sharp.Instructions
             cpu.SR.Interrupt = true;
 
             // set new PC
-            byte[] target = { cpu.Memory.Get(0xFFFE), cpu.Memory.Get(0xFFFF) };
+            byte pcLo = cpu.Memory.Get(0xFFFE);
+            byte pcHi = cpu.Memory.Get(0xFFFF);
+            
+            cpu.PC.Set(0, pcLo);
+            cpu.PC.Set(1, pcHi);
 
-            cpu.PC.Value = (ushort)LEHelper.From(target);
+            // clear decimal flag on CMOS
+            if (cpu.Type == CPUType.CMOS) cpu.SR.Decimal = false;
         }
     }
 }
