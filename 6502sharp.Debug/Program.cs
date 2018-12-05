@@ -1,28 +1,47 @@
 ﻿using System;
 using System.IO;
+using System.Timers;
 
 namespace _6502sharp.Debug
 {
-    partial class Program
+    class Program
     {
         static void Main(string[] args)
         {
-            Memory mem = new Memory(65536);
-
-            IMachine mach = new NMOSMachine();
-
-            /* LoadTestRom(mach, @"../AllSuiteA.bin", 0x4000);
-
-            mach.CPU.PC.Value = 0x4000;
-
-            while(mach.CPU.PC.Value < 0x45C0) {
-                mach.CPU.Tick();
-            }
-
-            Console.WriteLine(mach.Memory.Get(0x0210)); */
+            Start();
         }
 
-        private static void LoadTestRom(IMachine machine, string path, int offset)
+        private static void Start()
+        {
+            ConsoleRenderer renderer = new ConsoleRenderer(32, 32);
+            GameMemory mem = new GameMemory(renderer);
+
+            IMachine mach = new NMOSMachine(mem);
+
+            // LoadRom(mach, "./roms/compo-1st.bin", 0x0600);
+            LoadRom(mach, "./roms/snake.bin", 0x0600);
+
+            DateTime nextTick = DateTime.Now;
+            while (true)
+            {
+                if (DateTime.Now < nextTick) continue;
+
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo pressed = Console.ReadKey(true);
+                    mach.Memory.Set(0xFF, (byte)pressed.KeyChar);
+                }
+
+                mach.CPU.Tick();
+
+                if (mach.CPU.PC.Value == 0) {
+                    Start();
+                    break;
+                }
+            }
+        }
+
+        private static void LoadRom(IMachine machine, string path, int offset)
         {
             byte[] data = File.ReadAllBytes(path);
 
@@ -30,6 +49,8 @@ namespace _6502sharp.Debug
             {
                 machine.Memory.Set(i + offset, data[i]);
             }
+
+            machine.CPU.PC.Value = (ushort)offset;
         }
     }
 }
