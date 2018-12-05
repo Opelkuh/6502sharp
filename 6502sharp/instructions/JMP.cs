@@ -12,7 +12,7 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0x7C, 6, CPUType.CMOS), IndirectX]
         public void JMP_Memory(int address)
         {
-            cpu.PC.Value = address;
+            cpu.PC.Value = (ushort)address;
         }
     }
 }

@@ -46,7 +46,7 @@ namespace _6502sharp.Test.Stacks
         [Fact]
         public void PushesPC()
         {
-            int expPc = 0xABBA;
+            ushort expPc = 0xABBA;
             byte sp = 0xFF;
 
             machine.CPU.SP.Value = sp;

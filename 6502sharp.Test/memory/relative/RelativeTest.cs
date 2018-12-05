@@ -14,7 +14,7 @@ namespace _6502sharp.Test.Memory
         [Theory]
         [InlineData(0x0010, 0x40, 0x0050)]
         [InlineData(100, -50, 50)]
-        public void ReturnsAddress(int pc, int offset, int expected)
+        public void ReturnsAddress(ushort pc, int offset, int expected)
         {
             byte[] input = { (byte)offset };
             machine.CPU.PC.Value = pc;

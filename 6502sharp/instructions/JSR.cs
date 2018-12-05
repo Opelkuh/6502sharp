@@ -15,7 +15,7 @@ namespace _6502sharp.Instructions
             cpu.Stack.PushPC();
 
             // jump
-            cpu.PC.Value = address;
+            cpu.PC.Value = (ushort)address;
         }
     }
 }

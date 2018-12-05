@@ -6,9 +6,7 @@ namespace _6502sharp
         public int FinishedCycles { get => _finishedCycles; }
 
         private int _finishedCycles = 0;
-
         private int _sleepFor = 0;
-
         private bool _irqQueued = false;
 
         public void Tick()
@@ -29,11 +27,15 @@ namespace _6502sharp
                 // invoke instruction
                 invokeInstruction(inst);
 
+                OnInstruction(inst);
+
                 _sleepFor = inst.Cycles;
 
                 // check queued irq interrupt
                 if (_irqQueued && !irqChecked) InterruptIRQ(true);
             }
+
+            OnCycle();
 
             _finishedCycles++;
         }

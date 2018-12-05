@@ -28,7 +28,7 @@ namespace _6502sharp.Instructions
             // set new PC
             byte pcLo = cpu.Memory.Get(0xFFFE);
             byte pcHi = cpu.Memory.Get(0xFFFF);
-
+            
             cpu.PC.Set(0, pcLo);
             cpu.PC.Set(1, pcHi);
 
