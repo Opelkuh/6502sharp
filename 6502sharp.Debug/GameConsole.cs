@@ -5,6 +5,8 @@ namespace _6502sharp.Debug
 {
     public class GameConsole
     {
+        private const int INSTRUCTIONS_PER_SLEEP = 15;
+
         private IMachine machine;
 
         public void StartGame(string rom, bool loop = false)
@@ -30,7 +32,11 @@ namespace _6502sharp.Debug
                     machine.Memory.Set(0xFF, (byte)pressed.KeyChar);
                 }
 
-                machine.CPU.NextTick();
+                for (int i = 0; i < INSTRUCTIONS_PER_SLEEP; i++)
+                {
+                    machine.CPU.NextInstruction();
+                }
+                System.Threading.Thread.Sleep(1);
 
                 if (loop && machine.CPU.PC.Value == 0)
                 {
