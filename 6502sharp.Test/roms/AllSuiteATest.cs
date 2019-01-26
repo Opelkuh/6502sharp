@@ -12,8 +12,7 @@ namespace _6502sharp.Test.ROMs
             machine.CPU.PC.Value = 0x4000;
 
             while(machine.CPU.PC.Value < 0x45C0 && machine.CPU.FinishedCycles < 0xFFFF) {
-                machine.CPU.Tick();
-                machine.CPU.SleepCycles = 0;
+                machine.CPU.NextInstruction();
             }
 
             byte result = machine.Memory.Get(0x0210);
