@@ -9,7 +9,7 @@ namespace _6502sharp
         private int _sleepFor = 0;
         private bool _irqQueued = false;
 
-        public void Tick()
+        public void NextTick()
         {
             if (--_sleepFor <= 0)
             {
@@ -38,6 +38,11 @@ namespace _6502sharp
             OnCycle();
 
             _finishedCycles++;
+        }
+
+        public void NextInstruction() {
+            SleepCycles = 0;
+            NextTick();
         }
 
         public void Reset()

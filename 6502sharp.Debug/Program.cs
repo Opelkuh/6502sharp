@@ -1,34 +1,29 @@
-﻿using System;
-using System.IO;
+﻿using System.Timers;
 
 namespace _6502sharp.Debug
 {
-    partial class Program
+    class Program
     {
+        private static MenuItem[] roms =
+        {
+            new MenuItem("Snake", "snake.bin"),
+            new MenuItem("Calculator", "calculator.bin"),
+            new MenuItem("Alive", "alive.bin"),
+            new MenuItem("Brick", "brick.bin"),
+            new MenuItem("Colors", "colors.bin"),
+            new MenuItem("Compo-1st", "compo-1st.bin")
+        };
+
         static void Main(string[] args)
         {
-            Memory mem = new Memory(65536);
+            GameConsole cons = new GameConsole();
+            Menu menu = new Menu(roms);
 
-            IMachine mach = new NMOSMachine();
-
-            /* LoadTestRom(mach, @"../AllSuiteA.bin", 0x4000);
-
-            mach.CPU.PC.Value = 0x4000;
-
-            while(mach.CPU.PC.Value < 0x45C0) {
-                mach.CPU.Tick();
-            }
-
-            Console.WriteLine(mach.Memory.Get(0x0210)); */
-        }
-
-        private static void LoadTestRom(IMachine machine, string path, int offset)
-        {
-            byte[] data = File.ReadAllBytes(path);
-
-            for (int i = 0; i < data.Length; i++)
+            while (true)
             {
-                machine.Memory.Set(i + offset, data[i]);
+                var selected = menu.Start();
+
+                cons.StartGame(selected.value, true);
             }
         }
     }

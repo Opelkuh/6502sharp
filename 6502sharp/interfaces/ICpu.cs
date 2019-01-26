@@ -8,7 +8,12 @@ namespace _6502sharp
         /// <summary>
         /// Executes one cpu cycle
         /// </summary>
-        void Tick();
+        void NextTick();
+
+        /// <summary>
+        /// Executes one cpu instruction
+        /// </summary>
+        void NextInstruction(); 
 
         /// <summary>
         /// Raised after every CPU cycle even if instruction execution was skipped

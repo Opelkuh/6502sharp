@@ -7,6 +7,8 @@ namespace _6502sharp
     {
         private byte[] _store;
 
+        protected byte[] Store => _store;
+
         public int Size => _store.Length;
 
         /// <summary>
@@ -19,12 +21,13 @@ namespace _6502sharp
 
             _store = new byte[size];
         }
-        public byte Get(int location)
+        
+        public virtual byte Get(int location)
         {
             return _store[location % Size];
         }
 
-        public void Set(int location, byte value)
+        public virtual void Set(int location, byte value)
         {
             _store[location % Size] = value;
         }
