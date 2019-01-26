@@ -18,7 +18,6 @@ namespace _6502sharp.Debug
 
             LoadRom($"./roms/{rom}", 0x0600);
 
-            int slow = 0;
             while (true)
             {
                 // input poll
