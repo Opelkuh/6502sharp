@@ -18,7 +18,7 @@ namespace _6502sharp.Test.Instructions
         [InlineData(0x7F, 0x81, 0x80)]
         [InlineData(0xFF, 0x69, 0x00)]
         [InlineData(0xFF, 0x00, 0x00)]
-        public void TestAndResetsBits(byte accu, byte value, byte expected)
+        public void TestsAndResetsBits(byte accu, byte value, byte expected)
         {
             int memAddress = 0xABBA;
 
