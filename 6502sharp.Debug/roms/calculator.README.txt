@@ -1,0 +1,4 @@
+; Calculator for 6502asm.com, Version 1.02, 2015.JUL.08 by Sid Liu
+; It is slow in the 6502 emulator by JavaScript.
+; The left top flash point is a busy indicator.
+; The calculator supports keys: 'C', 'c', '0', '1', ..., '9', '+', '-' and '='.
