@@ -1,0 +1,7 @@
+; By DMSC - daniel.serpell@gmail.com
+;
+; This demo was programmed in ACME:
+;     http://www.esw-heim.tu-clausthal.de/~marco/smorbrod/acme/
+;
+; If you want the source code, send me an email :-)
+;
