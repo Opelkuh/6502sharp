@@ -30,7 +30,7 @@ namespace _6502sharp.Debug
                     machine.Memory.Set(0xFF, (byte)pressed.KeyChar);
                 }
 
-                machine.CPU.Tick();
+                machine.CPU.NextTick();
 
                 if (loop && machine.CPU.PC.Value == 0)
                 {
