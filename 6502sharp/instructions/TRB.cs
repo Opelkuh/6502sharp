@@ -7,8 +7,8 @@ namespace _6502sharp.Instructions
         {
         }
 
-        [CPUInstruction(0x14, 3, CPUType.CMOS), ZeroPage]
-        [CPUInstruction(0x1C, 4, CPUType.CMOS), Absolute]
+        [CPUInstruction(0x14, 5, CPUType.CMOS), ZeroPage]
+        [CPUInstruction(0x1C, 6, CPUType.CMOS), Absolute]
         public void TRB_Memory(int address)
         {
             byte value = cpu.Memory.Get(address);
