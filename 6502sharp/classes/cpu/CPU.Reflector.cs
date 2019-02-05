@@ -182,7 +182,11 @@ namespace _6502sharp
 
                 foreach (bool isInt in isIntParam)
                 {
-                    if (isInt) metadata.Parameters.Add(memAttributes[i]);
+                    if (isInt)
+                    {
+                        if (i < memAttributes.Length) metadata.Parameters.Add(memAttributes[i]);
+                        else ThrowInvalidParameterType(parameters[i].Name, "byte", metadata);
+                    }
                     else metadata.Parameters.Add(null);
                 }
 
