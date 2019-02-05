@@ -9,8 +9,8 @@ namespace _6502sharp.Instructions
         {
         }
 
-        [CPUInstruction(0x9C, 5), Absolute]
-        public void SHY_MemoryY(int address)
+        [CPUInstruction(0x9C, 5)]
+        public void SHY_MemoryY([Absolute] int address)
         {
             int value = (address >> 8) + 1;
             int res = cpu.Y.Value & value;
