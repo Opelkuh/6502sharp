@@ -15,6 +15,8 @@ namespace _6502sharp.Instructions
             int and = cpu.A.Value & value;
             int res = (and << 1) | (cpu.SR.Carry ? 1 : 0);
 
+            cpu.A.Value = (byte)res;
+
             cpu.SR.Carry = (and & (1 << 7)) > 0;
             flags.SetNegativeAndZero(res);
         }
