@@ -138,7 +138,7 @@ namespace _6502sharp
             MemoryAddressAttributeBase[] memAttributes =
                 (MemoryAddressAttributeBase[])method.GetCustomAttributes(typeof(MemoryAddressAttributeBase), false);
 
-            if (meta.Length != memAttributes.Length)
+            if (memAttributes.Length > 0 && meta.Length != memAttributes.Length)
                 throw new Exception($"Method {method.Name} doesn't have the same number of CPUInstruction attributes ({meta.Length}) and MemoryResolver attributes ({memAttributes.Length})!");
 
             // check parameters
