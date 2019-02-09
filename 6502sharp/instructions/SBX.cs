@@ -9,6 +9,7 @@ namespace _6502sharp.Instructions
         {
         }
 
+        [NMOSOnly]
         [CPUInstruction(0xCB, 2)]
         public void SBX_Immediate(byte value)
         {

@@ -9,6 +9,7 @@ namespace _6502sharp.Instructions
         {
         }
 
+        [NMOSOnly]
         [CPUInstruction(0x4B, 2)]
         public void ALR_Immediate(byte value)
         {

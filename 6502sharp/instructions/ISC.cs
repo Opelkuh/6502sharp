@@ -12,6 +12,7 @@ namespace _6502sharp.Instructions
             this.sbc = new SBC(cpu);
         }
 
+        [NMOSOnly]
         [CPUInstruction(0xE7, 5), ZeroPage]
         [CPUInstruction(0xF7, 6), ZeroPageX]
         [CPUInstruction(0xEF, 6), Absolute]

@@ -9,6 +9,7 @@ namespace _6502sharp.Instructions
         {
         }
 
+        [NMOSOnly]
         [CPUInstruction(0x9F, 5), Absolute]
         [CPUInstruction(0x93, 6), Indirect]
         public void SHA_MemoryY(int address)

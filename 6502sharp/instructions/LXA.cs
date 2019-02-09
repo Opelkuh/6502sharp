@@ -9,6 +9,7 @@ namespace _6502sharp.Instructions
         {
         }
 
+        [NMOSOnly]
         [CPUInstruction(0xAB, 2)]
         public void LXA_Immediate(byte value)
         {
