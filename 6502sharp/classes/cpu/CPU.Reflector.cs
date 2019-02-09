@@ -62,8 +62,13 @@ namespace _6502sharp
             foreach (MethodInfo method in methods)
             {
                 CPUInstructionAttribute[] attributes = (CPUInstructionAttribute[])method.GetCustomAttributes(typeof(CPUInstructionAttribute), false);
+                LimitCPUTypeAttribute typeLimit = (LimitCPUTypeAttribute)method.GetCustomAttribute(typeof(LimitCPUTypeAttribute), false);
 
                 if (attributes.Length < 1) continue;
+
+                // ignore instruction if it's only for one type of CPU
+                if (typeLimit != null && typeLimit.Type != _type)
+                    continue;
 
                 List<InstructionMetadata?> metadata = new List<InstructionMetadata?>();
 
