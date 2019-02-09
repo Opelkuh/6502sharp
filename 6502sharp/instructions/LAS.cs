@@ -9,8 +9,8 @@ namespace _6502sharp.Instructions
         {
         }
 
-        [CPUInstruction(0xBB, 4), AbsoluteY]
-        public void LAS_Memory(int address)
+        [CPUInstruction(0xBB, 4)]
+        public void LAS_Memory([AbsoluteY] int address)
         {
             int and = cpu.SP.Value & cpu.Memory.Get(address);
             byte res = (byte)and;
