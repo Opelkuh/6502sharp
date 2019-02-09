@@ -10,6 +10,7 @@ namespace _6502sharp.Instructions
         }
 
         [CPUInstruction(0xE9, 2)]
+        [CPUInstruction(0xEB, 2, CPUType.NMOS)]
         public void SBC_Immediate(byte param)
         {
             process(param);
