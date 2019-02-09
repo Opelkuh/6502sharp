@@ -62,8 +62,13 @@ namespace _6502sharp
             foreach (MethodInfo method in methods)
             {
                 CPUInstructionAttribute[] attributes = (CPUInstructionAttribute[])method.GetCustomAttributes(typeof(CPUInstructionAttribute), false);
+                LimitCPUTypeAttribute typeLimit = (LimitCPUTypeAttribute)method.GetCustomAttribute(typeof(LimitCPUTypeAttribute), false);
 
                 if (attributes.Length < 1) continue;
+
+                // ignore instruction if it's only for one type of CPU
+                if (typeLimit != null && typeLimit.Type != _type)
+                    continue;
 
                 List<InstructionMetadata?> metadata = new List<InstructionMetadata?>();
 
@@ -138,7 +143,7 @@ namespace _6502sharp
             MemoryAddressAttributeBase[] memAttributes =
                 (MemoryAddressAttributeBase[])method.GetCustomAttributes(typeof(MemoryAddressAttributeBase), false);
 
-            if (meta.Length != memAttributes.Length)
+            if (memAttributes.Length > 0 && meta.Length != memAttributes.Length)
                 throw new Exception($"Method {method.Name} doesn't have the same number of CPUInstruction attributes ({meta.Length}) and MemoryResolver attributes ({memAttributes.Length})!");
 
             // check parameters
@@ -182,7 +187,11 @@ namespace _6502sharp
 
                 foreach (bool isInt in isIntParam)
                 {
-                    if (isInt) metadata.Parameters.Add(memAttributes[i]);
+                    if (isInt)
+                    {
+                        if (i < memAttributes.Length) metadata.Parameters.Add(memAttributes[i]);
+                        else ThrowInvalidParameterType(parameters[i].Name, "byte", metadata);
+                    }
                     else metadata.Parameters.Add(null);
                 }
 
