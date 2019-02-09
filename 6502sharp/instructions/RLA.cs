@@ -12,6 +12,7 @@ namespace _6502sharp.Instructions
             this.rol = new ROL(cpu);
         }
 
+        [NMOSOnly]
         [CPUInstruction(0x27, 5), ZeroPage]
         [CPUInstruction(0x37, 6), ZeroPageX]
         [CPUInstruction(0x2F, 6), Absolute]

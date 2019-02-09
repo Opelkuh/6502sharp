@@ -7,6 +7,7 @@ namespace _6502sharp.Instructions
         {
         }
 
+        [NMOSOnly]
         [CPUInstruction(0x80, 2)]
         [CPUInstruction(0x82, 2)]
         [CPUInstruction(0x89, 2)]
@@ -17,7 +18,7 @@ namespace _6502sharp.Instructions
             // do nothing :)
         }
 
-
+        [NMOSOnly]
         [CPUInstruction(0x04, 3), ZeroPage]
         [CPUInstruction(0x44, 3), ZeroPage]
         [CPUInstruction(0x64, 3), ZeroPage]

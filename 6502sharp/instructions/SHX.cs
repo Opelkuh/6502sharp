@@ -9,6 +9,7 @@ namespace _6502sharp.Instructions
         {
         }
 
+        [NMOSOnly]
         [CPUInstruction(0x9E, 5)]
         public void SHX_MemoryY([Absolute] int address)
         {

@@ -14,6 +14,7 @@ namespace _6502sharp.Instructions
             this.ora = new ORA(cpu);
         }
 
+        [NMOSOnly]
         [CPUInstruction(0x07, 5), ZeroPage]
         [CPUInstruction(0x17, 6), ZeroPageX]
         [CPUInstruction(0x0F, 6), Absolute]

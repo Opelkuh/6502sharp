@@ -9,6 +9,7 @@ namespace _6502sharp.Instructions
         {
         }
 
+        [NMOSOnly]
         [CPUInstruction(0xBB, 4)]
         public void LAS_Memory([AbsoluteY] int address)
         {

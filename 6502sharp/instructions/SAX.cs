@@ -9,6 +9,7 @@ namespace _6502sharp.Instructions
         {
         }
 
+    [NMOSOnly]
         [CPUInstruction(0x87, 3), ZeroPage]
         [CPUInstruction(0x97, 4), ZeroPageY]
         [CPUInstruction(0x8F, 4), Absolute]

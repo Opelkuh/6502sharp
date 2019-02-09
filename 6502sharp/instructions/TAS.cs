@@ -9,6 +9,7 @@ namespace _6502sharp.Instructions
         {
         }
 
+        [NMOSOnly]
         [CPUInstruction(0x9B, 5)]
         public void TAS_MemoryY([Absolute] int address)
         {

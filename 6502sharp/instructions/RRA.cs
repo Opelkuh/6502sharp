@@ -14,6 +14,7 @@ namespace _6502sharp.Instructions
             this.adc = new ADC(cpu);
         }
 
+        [NMOSOnly]
         [CPUInstruction(0x67, 5), ZeroPage]
         [CPUInstruction(0x77, 6), ZeroPageX]
         [CPUInstruction(0x6F, 6), Absolute]

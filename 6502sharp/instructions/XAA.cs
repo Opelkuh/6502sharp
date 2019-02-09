@@ -20,6 +20,7 @@ namespace _6502sharp.Instructions
         * Magic value used: 0xEE
         *
         */
+        [NMOSOnly]
         [CPUInstruction(0x8B, 2)]
         public void XAA_Immediate(byte value)
         {

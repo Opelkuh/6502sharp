@@ -14,6 +14,7 @@ namespace _6502sharp.Instructions
             this.eor = new EOR(cpu);
         }
 
+        [NMOSOnly]
         [CPUInstruction(0x47, 5), ZeroPage]
         [CPUInstruction(0x57, 6), ZeroPageX]
         [CPUInstruction(0x4F, 6), Absolute]
