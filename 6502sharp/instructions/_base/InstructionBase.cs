@@ -1,7 +1,9 @@
 ﻿using _6502sharp.Helpers;
 
-namespace _6502sharp.Instructions {
-    public abstract class InstructionBase {
+namespace _6502sharp.Instructions
+{
+    public abstract class InstructionBase
+    {
         /// <summary>
         /// Injected CPU
         /// </summary>
@@ -15,15 +17,21 @@ namespace _6502sharp.Instructions {
         /// </summary>
         protected FlagHelper flags;
         /// <summary>
+        /// BranchHelper bound to the injected CPU
+        /// </summary>
+        protected BranchHelper branch;
+        /// <summary>
         /// BCDHelper bound to the injected CPU
         /// </summary>
         protected BCDHelper bcd;
 
-        public InstructionBase(ICpu cpu) {
+        public InstructionBase(ICpu cpu)
+        {
             this.cpu = cpu;
 
             compare = new CompareHelper(cpu);
             flags = new FlagHelper(cpu);
+            branch = new BranchHelper(cpu);
             bcd = new BCDHelper(cpu);
         }
     }
