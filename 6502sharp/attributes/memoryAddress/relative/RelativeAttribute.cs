@@ -10,8 +10,6 @@ namespace _6502sharp
 
             int address = cpu.PC.Value + offset;
 
-            if (cpu.Type == CPUType.CMOS || (address & 0xFF00) != (cpu.PC.Value & 0xFF00)) cpu.SleepCycles++;
-
             return address;
         }
     }
