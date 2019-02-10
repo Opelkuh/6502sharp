@@ -5,7 +5,7 @@ namespace _6502sharp.Test
 {
     public class MachineNMOSBase
     {
-        protected IMachine machine;
+        protected NMOSMachine machine;
 
         public MachineNMOSBase()
         {
