@@ -1,4 +1,4 @@
-namespace _6502sharp
+namespace _6502sharp.Reflection
 {
     public class ZeroPageAttribute : MemoryAddressAttributeBase
     {

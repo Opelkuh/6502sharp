@@ -1,4 +1,4 @@
-using _6502sharp.Helpers;
+using _6502sharp.Reflection;
 
 namespace _6502sharp.Instructions
 {

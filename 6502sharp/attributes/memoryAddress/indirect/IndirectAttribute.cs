@@ -1,6 +1,6 @@
 ﻿using _6502sharp.Helpers;
 
-namespace _6502sharp
+namespace _6502sharp.Reflection
 {
     public class IndirectAttribute : MemoryAddressAttributeBase
     {
