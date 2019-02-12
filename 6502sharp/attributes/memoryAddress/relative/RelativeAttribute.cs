@@ -1,4 +1,4 @@
-namespace _6502sharp
+namespace _6502sharp.Reflection
 {
     public class RelativeAttribute : MemoryAddressAttributeBase
     {
@@ -9,8 +9,6 @@ namespace _6502sharp
             sbyte offset = (sbyte)rawAddress[0];
 
             int address = cpu.PC.Value + offset;
-
-            if (cpu.Type == CPUType.CMOS || (address & 0xFF00) != (cpu.PC.Value & 0xFF00)) cpu.SleepCycles++;
 
             return address;
         }

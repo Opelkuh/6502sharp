@@ -1,3 +1,5 @@
+using _6502sharp.Reflection;
+
 namespace _6502sharp.Instructions
 {
     [DefaultInstruction]
@@ -10,7 +12,7 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0xF0, 2)]
         public void BEQ_Relative([Relative] int target)
         {
-            if (cpu.SR.Zero == true) cpu.PC.Value = (ushort)target;
+            if (cpu.SR.Zero == true) branch.Branch(target);
         }
     }
 }

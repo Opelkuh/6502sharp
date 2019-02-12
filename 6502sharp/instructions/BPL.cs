@@ -1,3 +1,5 @@
+using _6502sharp.Reflection;
+
 namespace _6502sharp.Instructions
 {
     [DefaultInstruction]
@@ -10,7 +12,7 @@ namespace _6502sharp.Instructions
         [CPUInstruction(0x10, 2)]
         public void BPL_Relative([Relative] int target)
         {
-            if (cpu.SR.Negative == false) cpu.PC.Value = (ushort)target;
+            if (cpu.SR.Negative == false) branch.Branch(target);
         }
     }
 }

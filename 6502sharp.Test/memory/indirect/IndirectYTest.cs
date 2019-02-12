@@ -1,4 +1,5 @@
 using Xunit;
+using _6502sharp.Reflection;
 
 namespace _6502sharp.Test.Memory
 {

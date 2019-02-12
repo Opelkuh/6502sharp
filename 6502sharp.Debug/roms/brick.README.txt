@@ -1,0 +1,24 @@
+; Brick Out by Blake Ramsdell <blaker@gmail.com> http://www.blakeramsdell.com
+
+; A poor attempt at brick out with no player involved. Maybe someday I'll
+; let you play it, or you can view this as an exercise for the reader to put
+; in a paddle that is user-controlled.
+
+; I guess this is Copyright (C) 2007 Blake Ramsdell, and you have a license to
+; do whatever you want with it, just tell me what you did and give me a
+; mention. If you want to sell it, and you make a billion dollars, then good
+; for you. You might at least throw a party and invite me.
+
+; The gist of it is pretty simple -- you have a ball, and the ball has an X
+; and a Y velocity. When it hits something, it bounces off of it. If the thing
+; that it hits is not a wall, then it erases it. Pretty dead-simple behavior.
+
+; I don't like the vertical movement -- there's a shortcut in here somewhere
+; to make it less computationally expensive I think. Right now it just does a
+; two byte add and subtract of $20.
+
+; The ball motion is also a bit weird looking. I don't know if this is an
+; artifact of the simulation environment combined with a normal tearing
+; artifact related to refresh or what.
+
+; Blake Ramsdell, May 2007

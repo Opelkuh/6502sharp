@@ -9,7 +9,7 @@ namespace _6502sharp
         private int _sleepFor = 0;
         private bool _irqQueued = false;
 
-        public void Tick()
+        public void NextTick()
         {
             if (--_sleepFor <= 0)
             {
@@ -40,9 +40,22 @@ namespace _6502sharp
             _finishedCycles++;
         }
 
+        public void NextInstruction()
+        {
+            SleepCycles = 0;
+            NextTick();
+        }
+
         public void Reset()
         {
-            interrupt(0xFFFC, 0xFFFD);
+            loadPC(0xFFFC, 0xFFFD);
+            A.Value = 0;
+            X.Value = 0;
+            Y.Value = 0;
+            SP.Value = 0xFD;
+
+            SR.Value = 0;
+            SR.Unused = true;
         }
 
         public void InterruptIRQ(bool queue)
@@ -80,14 +93,19 @@ namespace _6502sharp
             SR.Interrupt = true;
 
             // set PC
-            byte pcLo = Memory.Get(vecLo);
-            byte pcHi = Memory.Get(vecHi);
-
-            PC.Set(0, pcLo);
-            PC.Set(1, pcHi);
+            loadPC(vecLo, vecHi);
 
             // clear decimal flag on CMOS
             if (Type == CPUType.CMOS) SR.Decimal = false;
+        }
+
+        private void loadPC(int addrLo, int addrHi)
+        {
+            byte pcLo = Memory.Get(addrLo);
+            byte pcHi = Memory.Get(addrHi);
+
+            PC.Set(0, pcLo);
+            PC.Set(1, pcHi);
         }
 
         private void invokeInstruction(Instruction instruction)
