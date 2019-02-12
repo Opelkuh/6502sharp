@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using _6502sharp.Reflection;
 
 namespace _6502sharp
 {

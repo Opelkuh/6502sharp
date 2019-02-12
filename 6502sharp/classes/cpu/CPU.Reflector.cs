@@ -3,6 +3,8 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Collections.Generic;
 
+using _6502sharp.Reflection;
+
 namespace _6502sharp
 {
     public partial class CPU
