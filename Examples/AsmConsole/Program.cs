@@ -1,6 +1,6 @@
 ﻿using System.Timers;
 
-namespace _6502sharp.Debug
+namespace AsmConsole
 {
     class Program
     {

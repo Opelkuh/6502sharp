@@ -1,7 +1,8 @@
+using _6502sharp;
 using System;
 using System.IO;
 
-namespace _6502sharp.Debug
+namespace AsmConsole
 {
     public class GameConsole
     {

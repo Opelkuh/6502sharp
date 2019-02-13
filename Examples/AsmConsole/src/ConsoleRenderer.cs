@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace _6502sharp.Debug
+namespace AsmConsole
 {
     class ConsoleRenderer
     {

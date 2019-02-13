@@ -2,12 +2,12 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "buildAsmConsole",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/6502sharp.Debug/6502sharp.Debug.csproj"
+                "${workspaceFolder}/Examples/AsmConsole/AsmConsole.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
