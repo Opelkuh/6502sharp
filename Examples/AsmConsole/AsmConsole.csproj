@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\6502sharp\6502sharp.csproj" />
+    <ProjectReference Include="..\..\6502sharp\6502sharp.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

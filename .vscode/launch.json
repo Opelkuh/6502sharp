@@ -5,15 +5,13 @@
    "version": "0.2.0",
    "configurations": [
         {
-            "name": ".NET Core Launch (console)",
+            "name": "Launch AsmConsole example",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
-            // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/6502sharp.Debug/bin/Debug/netcoreapp2.0/6502sharp.Debug.dll",
+            "preLaunchTask": "buildAsmConsole",
+            "program": "${workspaceFolder}/Examples/AsmConsole/bin/Debug/netcoreapp2.0/AsmConsole.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/6502sharp.Debug",
-            // For more information about the 'console' field, see https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md#console-terminal-window
+            "cwd": "${workspaceFolder}/Examples/AsmConsole",
             "console": "externalTerminal",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart"

@@ -1,6 +1,7 @@
+using _6502sharp;
 using System;
 
-namespace _6502sharp.Debug
+namespace AsmConsole
 {
     class GameMemory : Memory
     {

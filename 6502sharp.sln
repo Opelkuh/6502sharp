@@ -6,7 +6,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "6502sharp", "6502sharp\6502
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "6502sharp.Test", "6502sharp.Test\6502sharp.Test.csproj", "{1F7FFA00-8FA5-4FF2-AED2-A5A4C0410093}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "6502sharp.Debug", "6502sharp.Debug\6502sharp.Debug.csproj", "{31BEC67B-07F7-43C1-8A7E-49E134AAEA3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsmConsole", "Examples\AsmConsole\AsmConsole.csproj", "{31BEC67B-07F7-43C1-8A7E-49E134AAEA3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

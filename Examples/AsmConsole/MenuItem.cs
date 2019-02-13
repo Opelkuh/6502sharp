@@ -1,4 +1,4 @@
-namespace _6502sharp.Debug
+namespace AsmConsole
 {
     struct MenuItem
     {
