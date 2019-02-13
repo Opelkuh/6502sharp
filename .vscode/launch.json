@@ -9,9 +9,21 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "buildAsmConsole",
-            "program": "${workspaceFolder}/Examples/AsmConsole/bin/Debug/netcoreapp2.0/AsmConsole.dll",
+            "program": "${workspaceFolder}/Examples/AsmConsole/bin/Debug/netcoreapp2.1/AsmConsole.dll",
             "args": [],
             "cwd": "${workspaceFolder}/Examples/AsmConsole",
+            "console": "externalTerminal",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "name": "Launch NES example",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildNES",
+            "program": "${workspaceFolder}/Examples/NES/bin/Debug/netcoreapp2.2/NES.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Examples/NES",
             "console": "externalTerminal",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart"
