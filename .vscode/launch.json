@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "buildAsmConsole",
-            "program": "${workspaceFolder}/Examples/AsmConsole/bin/Debug/netcoreapp2.0/AsmConsole.dll",
+            "program": "${workspaceFolder}/Examples/AsmConsole/bin/Debug/netcoreapp2.2/AsmConsole.dll",
             "args": [],
             "cwd": "${workspaceFolder}/Examples/AsmConsole",
             "console": "externalTerminal",
