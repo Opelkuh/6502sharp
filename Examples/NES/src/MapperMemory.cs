@@ -29,7 +29,7 @@ namespace NES
         {
             foreach (var mir in mirrors)
             {
-                if (mir.Fits(loc)) loc = mir.Wrap(loc);
+                mir.Transform(ref loc);
             }
         }
     }
