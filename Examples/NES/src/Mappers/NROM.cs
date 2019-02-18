@@ -6,8 +6,8 @@ namespace NES.Mappers
         private RomData rom;
         private GetPRGRom getAction;
 
-        private static Range PRGRamRange = new Range(0x8000, 0xBFFF);
-        private static Mirror PRGRamMirror = new Mirror(PRGRamRange, new Range(0xC000, 0xFFFF));
+        private static Range PRGRomRange = new Range(0x8000, 0xBFFF);
+        private static Mirror PRGRomMirror = new Mirror(PRGRomRange, new Range(0xC000, 0xFFFF));
 
         private delegate byte? GetPRGRom(int address);
 
@@ -22,7 +22,7 @@ namespace NES.Mappers
 
         public byte? Get(int address)
         {
-            if (!PRGRamRange.Fits(address)) return null;
+            if (!PRGRomRange.Fits(address)) return null;
 
             return getAction(address);
         }
@@ -39,7 +39,7 @@ namespace NES.Mappers
 
         private byte? get16K(int address)
         {
-            PRGRamMirror.Transform(ref address);
+            PRGRomMirror.Transform(ref address);
 
             return rom.PRGRom[address - 0x8000];
         }
