@@ -6,7 +6,9 @@ namespace NES
     class NESMachine : IMachine
     {
         public ICpu CPU => cpu;
+        public PPU PPU => ppu;
         public IReadable Memory => ram;
+        public PPUMemory PPUMemory => vram;
 
         private CPU cpu;
         private PPU ppu;
