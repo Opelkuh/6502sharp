@@ -15,5 +15,10 @@ namespace NES
         {
             return address >= Start && address <= End;
         }
+
+        public static bool Fits(int start, int end, int address)
+        {
+            return address >= start && address <= end;
+        }
     }
 }
