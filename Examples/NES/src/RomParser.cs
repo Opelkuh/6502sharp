@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace NES
 {
-    class RomParser
+    static class RomParser
     {
         // "NES" followed by MS-DOS end-of-file
         private static readonly byte[] INES_FINGERPRINT = { 0x4E, 0x45, 0x53, 0x1A };
