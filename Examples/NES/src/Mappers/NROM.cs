@@ -22,6 +22,8 @@ namespace NES.Mappers
 
         public byte? Get(int address)
         {
+            if (!PRGRamRange.Fits(address)) return null;
+
             return getAction(address);
         }
 
