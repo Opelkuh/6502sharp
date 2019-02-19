@@ -7,6 +7,8 @@ namespace NES
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+
+            new GameWindow().Run(60);
         }
     }
 }
