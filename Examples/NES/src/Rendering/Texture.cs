@@ -42,10 +42,8 @@ namespace NES.Rendering
             GL.BindTexture(TARGET, id);
         }
 
-        public void Load(Bitmap bitmap, bool noFlip = false)
+        public void Load(Bitmap bitmap)
         {
-            bitmap.RotateFlip(RotateFlipType.Rotate180FlipX);
-
             BitmapData data = bitmap.LockBits(
                 new Rectangle(0, 0, bitmap.Width, bitmap.Height),
                 ImageLockMode.ReadOnly,
