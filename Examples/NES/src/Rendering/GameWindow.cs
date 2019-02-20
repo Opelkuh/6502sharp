@@ -18,7 +18,7 @@ namespace NES.Rendering
              1,  1,
         };
 
-        private static ushort[] INDICIES =
+        private static ushort[] INDICES =
         {
             0, 1, 2,
             2, 3, 1
@@ -67,7 +67,7 @@ namespace NES.Rendering
             // EBO
             EBO = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, EBO);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, INDICIES.Length * sizeof(ushort), INDICIES, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, INDICES.Length * sizeof(ushort), INDICES, BufferUsageHint.StaticDraw);
 
             // shaders
             Shader vertex = new Shader(ShaderType.VertexShader, VERTEX_SHADER_PATH);
@@ -98,7 +98,7 @@ namespace NES.Rendering
             GL.BindVertexArray(VAO);
 
             // Draw
-            GL.DrawElements(PrimitiveType.Triangles, INDICIES.Length, DrawElementsType.UnsignedShort, 0);
+            GL.DrawElements(PrimitiveType.Triangles, INDICES.Length, DrawElementsType.UnsignedShort, 0);
 
             SwapBuffers();
         }
