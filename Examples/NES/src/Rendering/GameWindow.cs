@@ -11,11 +11,11 @@ namespace NES.Rendering
         public const string WINDOW_TITLE = "6502sharp - NES Emulator";
 
         private static float[] VERTICIES =
-        {
-            -1, -1,
-             1, -1,
-            -1,  1,
-             1,  1,
+        {   // pos  //tex
+            -1,  1, 0, 1,   // top l
+             1,  1, 1, 1,   // top r
+            -1, -1, 0, 0,   // bot l
+             1, -1, 1, 0,   // bot r
         };
 
         private static ushort[] INDICES =
@@ -26,6 +26,7 @@ namespace NES.Rendering
 
         private static string VERTEX_SHADER_PATH = @"src/Rendering/Shaders/vertex.glsl";
         private static string FRAGMENT_SHADER_PATH = @"src/Rendering/Shaders/fragment.glsl";
+        
         #endregion
 
         #region OpenGL Variables
@@ -33,6 +34,7 @@ namespace NES.Rendering
         private int VBO;
         private int EBO;
         private int shaderProgram;
+        private Texture texture;
 
         #endregion
 
@@ -61,15 +63,19 @@ namespace NES.Rendering
             GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
             GL.BufferData(BufferTarget.ArrayBuffer, VERTICIES.Length * sizeof(float), VERTICIES, BufferUsageHint.StaticDraw);
 
-            GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Float, false, 2 * sizeof(float), 0);
+            // Vertex attributes
+            int stride = 4 * sizeof(float);
+            GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Float, false, stride, 0);
+            GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, stride, 2 * sizeof(float));
             GL.EnableVertexAttribArray(0);
+            GL.EnableVertexAttribArray(1);
 
             // EBO
             EBO = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, EBO);
             GL.BufferData(BufferTarget.ElementArrayBuffer, INDICES.Length * sizeof(ushort), INDICES, BufferUsageHint.StaticDraw);
 
-            // shaders
+            // Shaders
             Shader vertex = new Shader(ShaderType.VertexShader, VERTEX_SHADER_PATH);
             Shader fragment = new Shader(ShaderType.FragmentShader, FRAGMENT_SHADER_PATH);
 
@@ -78,7 +84,10 @@ namespace NES.Rendering
                 .Add(fragment)
                 .Finish();
 
-            // unbind VAO
+            // Texture
+            texture = new Texture();
+
+            // Unbind VAO
             GL.BindVertexArray(0);
         }
 
@@ -95,6 +104,7 @@ namespace NES.Rendering
 
             // Bind
             GL.UseProgram(shaderProgram);
+            texture.Bind();
             GL.BindVertexArray(VAO);
 
             // Draw
