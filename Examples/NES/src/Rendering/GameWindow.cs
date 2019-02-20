@@ -99,7 +99,7 @@ namespace NES.Rendering
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             // Clear
-            GL.ClearColor(Color4.DeepPink);
+            GL.ClearColor(Color4.Black);
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
             // Bind
