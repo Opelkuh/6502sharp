@@ -1,4 +1,4 @@
-namespace NES
+namespace NES.PPU
 {
     class PPU
     {
