@@ -23,7 +23,6 @@ namespace NES
         // MAPPERS
         public int MapperNum;
         public int SubmapperNum;
-        public bool HasBusConflicts;
         public Mirroring PPUMirroring;
 
         // FLAGS
