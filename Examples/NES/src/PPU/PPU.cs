@@ -7,8 +7,8 @@ namespace NES.PPU
         public OAMMemory OAM => oam;
 
         private NESMachine mach;
-        private PPUMemory vram;
-        private OAMMemory oam;
+        private PPUMemory vram = new PPUMemory();
+        private OAMMemory oam = new OAMMemory();
 
         public PictureProcessingUnit(NESMachine machine)
         {

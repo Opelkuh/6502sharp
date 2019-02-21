@@ -4,7 +4,7 @@ namespace NES.PPU
 {
     class PPUMemory : Memory
     {
-        public Mirroring Mirroring;
+        public Mirroring Mirroring = Mirroring.Horizontal;
 
         #region Nametables
         private static readonly Range Nametable0 = new Range(0x2000, 0x23FF);

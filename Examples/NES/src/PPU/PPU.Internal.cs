@@ -5,7 +5,6 @@ namespace NES.PPU
         #region Internal registers
         // OAM
         private byte OAMAddress = 0;
-        private byte OAMData = 0;
 
         // Scrolling
         private int VRAMAddress = 0;
