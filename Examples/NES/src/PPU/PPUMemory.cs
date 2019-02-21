@@ -1,6 +1,6 @@
 using _6502sharp;
 
-namespace NES
+namespace NES.PPU
 {
     class PPUMemory : Memory
     {
