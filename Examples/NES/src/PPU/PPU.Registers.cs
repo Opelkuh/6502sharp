@@ -27,19 +27,9 @@ namespace NES.PPU
         private CTRL ctrl = new CTRL();
         private MASK mask = new MASK();
         private STATUS status = new STATUS();
-
-        private byte OAMAddress = 0;
-        private byte OAMData = 0;
-
-        private byte ScrollX = 0;
-        private byte ScrollY = 0;
-
-        private int VRAMAddress = 0;
-        private byte ReadBuffer = 0;
         #endregion
 
         public byte Latch = 0;
-        public bool AddressLatch = false;
 
         public byte? Get(int address)
         {
@@ -98,18 +88,9 @@ namespace NES.PPU
                     oam.Set(OAMAddress++, value);
                     break;
                 case SCROLL:
-                    if (!AddressLatch) ScrollX = value;
-                    else ScrollY = value;
-
-                    AddressLatch = !AddressLatch;
-                    break;
+                    writeScroll(value); break;
                 case ADDR:
-                    if (!AddressLatch)
-                        VRAMAddress = (VRAMAddress & 0x0F) | (value << 8);
-                    else
-                        VRAMAddress = (VRAMAddress & 0xF0) | value;
-
-                    VRAMAddress += ctrl.AddressIncrement;
+                    writeAddr(value);
                     break;
                 case DATA:
                     vram.Set(VRAMAddress, value);
