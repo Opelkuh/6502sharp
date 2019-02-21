@@ -61,6 +61,16 @@ namespace NES.PPU
             }
         }
 
+        private int TileAddress
+        {
+            get => 0x2000 | (VRAMAddress & 0x0FFF);
+        }
+
+        private int AttributeAddress
+        {
+            get => 0x23C0 | (VRAMAddress & 0x0C00) | ((VRAMAddress >> 4) & 0x38) | ((VRAMAddress >> 2) & 0x07);
+        }
+
         private byte ReadBuffer = 0;
         #endregion
 
