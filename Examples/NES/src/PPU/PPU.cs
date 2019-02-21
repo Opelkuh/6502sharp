@@ -1,12 +1,16 @@
 namespace NES.PPU
 {
-    class PPU
+    class PictureProcessingUnit
     {
+        public NESMachine Machine => mach;
+        public PPUMemory VRAM => vram;
+        public OAMMemory OAM => oam;
+
         private NESMachine mach;
+        private PPUMemory vram;
+        private OAMMemory oam;
 
-        private OAMMemory OAM;
-
-        public PPU(NESMachine machine)
+        public PictureProcessingUnit(NESMachine machine)
         {
             mach = machine;
         }
