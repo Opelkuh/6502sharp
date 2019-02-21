@@ -1,4 +1,5 @@
 using _6502sharp;
+using NES.PPU;
 
 namespace NES
 {
@@ -17,16 +18,22 @@ namespace NES
 
         private Mirror[] mirrors = new Mirror[] {
             new Mirror(0x0000, 0x07FF, 0x0800, 0x1FFF),
-            new Mirror(0x2000, 0x2007, 0x2008, 0x3FFF)
         };
+        private PictureProcessingUnit _ppu;
         private IMapper _mapper;
 
-        public MapperMemory() : base(65536)
+        public MapperMemory(PictureProcessingUnit ppu) : base(65536)
         {
+            _ppu = ppu;
         }
 
         public override byte Get(int location)
         {
+            // check ppu
+            byte? ppuRes = _ppu.Get(location);
+            if (ppuRes.HasValue) return ppuRes.Value;
+
+            // check mapper
             if (_mapper != null)
             {
                 byte? res = _mapper.Get(location);
@@ -35,12 +42,16 @@ namespace NES
                 if (res.HasValue) return res.Value;
             }
 
+            // fallback to ram
             CheckMirror(ref location);
             return base.Get(location);
         }
 
         public override void Set(int location, byte value)
         {
+            // return if handled by ppu
+            if (_ppu.Set(location, value)) return;
+
             // return if handled by mapper
             if (_mapper != null && _mapper.Set(location, value)) return;
 

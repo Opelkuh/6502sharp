@@ -16,10 +16,10 @@ namespace NES
 
         public NESMachine()
         {
-            ram = new MapperMemory();
-
             cpu = new CPU(this, CPUType.NMOS);
             ppu = new PictureProcessingUnit(this);
+
+            ram = new MapperMemory(ppu);
 
             // permanently disable decimal mode
             cpu.DecimalMode = false;
