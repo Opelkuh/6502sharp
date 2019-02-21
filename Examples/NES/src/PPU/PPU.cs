@@ -2,9 +2,12 @@ namespace NES.PPU
 {
     class PPU
     {
-        NESMachine mach;
+        private NESMachine mach;
 
-        public PPU(NESMachine machine) {
+        private OAMMemory OAM;
+
+        public PPU(NESMachine machine)
+        {
             mach = machine;
         }
     }
