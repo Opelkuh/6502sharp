@@ -69,10 +69,15 @@ namespace NES.PPU
             }
         }
 
-        public bool SpriteSize
+        public bool SpriteSizeRaw
         {
             get => HasFlag(1 << 5);
             set => SetFlag(1 << 5, value);
+        }
+
+        public int SpriteSize
+        {
+            get => SpriteSizeRaw ? 16 : 8;
         }
 
         public bool IsMaster
