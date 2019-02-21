@@ -28,10 +28,15 @@ namespace NES.PPU
             }
         }
 
-        public bool AddressIncrement
+        public bool AddressIncrementRaw
         {
             get => HasFlag(1 << 2);
             set => SetFlag(1 << 2, value);
+        }
+
+        public int AddressIncrement
+        {
+            get => AddressIncrementRaw ? 32 : 1;
         }
 
         public bool SpriteAddressRaw
