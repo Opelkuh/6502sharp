@@ -23,7 +23,9 @@ namespace NES.PPU
                 if (mask.ShowSpritesLeftmost) spritePixel = Color.Transparent;
             }
 
-            Color toDraw = backgroundPixel;
+            Color toDraw = ColorPalette.Get(vram.Get(0x3F00));
+
+            if (backgroundPixel != Color.Transparent) toDraw = backgroundPixel;
 
             if (sprite.HasValue)
             {
