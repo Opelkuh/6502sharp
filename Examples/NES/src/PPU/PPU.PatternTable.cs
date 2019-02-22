@@ -21,7 +21,7 @@ namespace NES.PPU
 
         private int getBackgroundPatternAddress()
         {
-            return (nametableByte * 16) + ctrl.BackgroundAddress + VRAMAddress.FineYScroll;
+            return (nametableRaw * 16) + ctrl.BackgroundAddress + VRAMAddress.FineYScroll;
         }
 
         private Color[] fetchBackgroundData()

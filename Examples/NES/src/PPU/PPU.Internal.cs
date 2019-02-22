@@ -52,7 +52,7 @@ namespace NES.PPU
             }
         }
 
-        private void incrementCoarseX()
+        private void incrementX()
         {
             if (VRAMAddress.CoarseXScroll == 31)
             {
@@ -63,7 +63,7 @@ namespace NES.PPU
                 VRAMAddress.CoarseXScroll++;
         }
 
-        private void incrementFineY()
+        private void incrementY()
         {
             if (VRAMAddress.FineYScroll < 7) VRAMAddress.FineYScroll++;
             else
