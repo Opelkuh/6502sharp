@@ -49,5 +49,10 @@ namespace NES.PPU
             get => HasFlag(1 << 7);
             set => SetFlag(1 << 7, value);
         }
+
+        public bool RenderingEnabled
+        {
+            get => ShowSprites || ShowBackground;
+        }
     }
 }
