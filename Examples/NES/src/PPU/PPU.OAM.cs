@@ -10,6 +10,8 @@ namespace NES.PPU
             {
                 Sprite sprite = getSpriteInfo(i);
 
+                sprite.Index = i / 4;
+
                 int relativeY = Scanline - sprite.Y;
                 if (!Range.Fits(0, ctrl.SpriteSize - 1, relativeY))
                     continue;
