@@ -81,8 +81,13 @@ namespace NES.PPU
             {
                 int addrBase = paletteAddr[palette];
 
-                int hex = vram.Get(addrBase + (raw[i] - 1));
-                ret[i] = ColorPalette.Get(hex);
+                int target = raw[i] - 1;
+                if (target >= 0)
+                {
+                    int hex = vram.Get(addrBase + target);
+                    ret[i] = ColorPalette.Get(hex);
+                }
+                else ret[i] = Color.Transparent;
             }
 
             return ret;
