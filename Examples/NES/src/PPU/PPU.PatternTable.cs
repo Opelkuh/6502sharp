@@ -5,6 +5,35 @@ namespace NES.PPU
 {
     partial class PictureProcessingUnit
     {
+        private static readonly int[] BACKGROUND_PALETTE_ADDR = {
+            0x3F01,
+            0x3F05,
+            0x3F09,
+            0x3F0D,
+        };
+
+        private static readonly int[] SPRITE_PALETTE_ADDR = {
+            0x3F11,
+            0x3F15,
+            0x3F19,
+            0x3F1D,
+        };
+
+        private int getBackgroundPatternAddress()
+        {
+            return (nametableByte * 16) + ctrl.BackgroundAddress + VRAMAddress.FineYScroll;
+        }
+
+        private Color[] fetchBackgroundData()
+        {
+            byte lo = vram.Get(backgroundLo);
+            byte hi = vram.Get(backgroundHi);
+
+            int[] raw = reconstructPatternBits(lo, hi);
+
+            return getColor(BACKGROUND_PALETTE_ADDR, backgroundPalette, raw);
+        }
+
         private void fetchSpriteData(ref Sprite sprite, int y)
         {
             int bank;
@@ -37,8 +66,32 @@ namespace NES.PPU
             byte hi = vram.Get(addr + 8);
 
             // reconstruct bits
-            int[] raw = new int[8];
+            int[] raw = reconstructPatternBits(lo, hi);
+
+            if (sprite.FlipHorizontal) raw.Reverse();
+
+            sprite.Data = getColor(SPRITE_PALETTE_ADDR, sprite.Palette, raw);
+        }
+
+        private Color[] getColor(int[] paletteAddr, int palette, int[] raw)
+        {
+            Color[] ret = new Color[raw.Length];
+
             for (int i = 0; i < raw.Length; i++)
+            {
+                int addrBase = paletteAddr[palette];
+
+                int hex = vram.Get(addrBase + (raw[i] - 1));
+                ret[i] = ColorPalette.Get(hex);
+            }
+
+            return ret;
+        }
+
+        private int[] reconstructPatternBits(byte lo, byte hi)
+        {
+            int[] ret = new int[8];
+            for (int i = 0; i < ret.Length; i++)
             {
                 int loBit = lo & 1;
                 int hiBit = hi & 1;
@@ -46,32 +99,7 @@ namespace NES.PPU
                 lo >>= 1;
                 hi >>= 1;
 
-                raw[i] = (hiBit << 1) | (loBit);
-            }
-
-            if (sprite.FlipHorizontal) raw.Reverse();
-
-            sprite.Data = getSpriteColor(ref sprite, raw);
-        }
-
-        private Color[] getSpriteColor(ref Sprite sprite, int[] raw)
-        {
-            Color[] ret = new Color[raw.Length];
-
-            for (int i = 0; i < raw.Length; i++)
-            {
-                int addrBase;
-                switch (sprite.Palette)
-                {
-                    case 0: addrBase = 0x3F11; break;
-                    case 1: addrBase = 0x3F15; break;
-                    case 2: addrBase = 0x3F19; break;
-                    case 3: addrBase = 0x3F1D; break;
-                    default: addrBase = 0x3F11; break;
-                }
-
-                int hex = vram.Get(addrBase + (raw[i] - 1));
-                ret[i] = ColorPalette.Get(hex);
+                ret[i] = (hiBit << 1) | (loBit);
             }
 
             return ret;
