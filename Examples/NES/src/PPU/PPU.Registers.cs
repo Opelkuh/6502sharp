@@ -55,16 +55,16 @@ namespace NES.PPU
                     return oam.Get(OAMAddress);
                 case DATA:
                     byte buf;
-                    if (VRAMAddress <= 0x3EFFF)
+                    if (VRAMAddress.Value <= 0x3EFFF)
                     {
                         buf = ReadBuffer;
 
-                        ReadBuffer = vram.Get(VRAMAddress);
+                        ReadBuffer = vram.Get(VRAMAddress.Value);
                     }
                     else
-                        buf = vram.Get(VRAMAddress);
+                        buf = vram.Get(VRAMAddress.Value);
 
-                    VRAMAddress += ctrl.AddressIncrement;
+                    VRAMAddress.Value += ctrl.AddressIncrement;
 
                     return buf;
                 default:
@@ -93,8 +93,8 @@ namespace NES.PPU
                     writeAddr(value);
                     break;
                 case DATA:
-                    vram.Set(VRAMAddress, value);
-                    VRAMAddress += ctrl.AddressIncrement;
+                    vram.Set(VRAMAddress.Value, value);
+                    VRAMAddress.Value += ctrl.AddressIncrement;
                     break;
                 case OAMDMA:
                     startDMA(value); break;

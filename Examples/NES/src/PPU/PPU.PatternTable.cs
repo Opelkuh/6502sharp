@@ -1,4 +1,5 @@
 using System.Drawing;
+using System.Linq;
 
 namespace NES.PPU
 {
@@ -47,6 +48,8 @@ namespace NES.PPU
 
                 raw[i] = (hiBit << 1) | (loBit);
             }
+
+            if (sprite.FlipHorizontal) raw.Reverse();
 
             sprite.Data = getSpriteColor(ref sprite, raw);
         }
