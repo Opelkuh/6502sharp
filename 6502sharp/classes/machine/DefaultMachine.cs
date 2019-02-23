@@ -48,10 +48,6 @@ namespace _6502sharp
             {
                 _ram.Set(i + location, data[i]);
             }
-
-            byte[] pc = LEHelper.To(location, 2);
-            _ram.Set(0xFFFC, pc[0]);
-            _ram.Set(0xFFFD, pc[1]);
         }
     }
 }

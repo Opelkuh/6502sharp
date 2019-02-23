@@ -9,7 +9,7 @@ namespace _6502sharp.Test.ROMs
         public void PassesAllSuiteA()
         {
             machine.LoadRom(@"../../../roms/binaries/AllSuiteA.bin", 0x4000);
-            machine.CPU.Reset();
+            machine.CPU.PC.Value = 0x4000;
 
             while (machine.CPU.PC.Value < 0x45C0 && machine.CPU.FinishedCycles < 0xFFFF)
             {
