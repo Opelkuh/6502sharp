@@ -16,15 +16,24 @@ namespace NES.Mappers
             this.machine = machine;
             this.rom = rom;
 
-            if (rom.PRGRom.Length <= 16384) getAction = get16K;
-            else getAction = get32K;
+            for (int i = 0x8000; i <= 0xFFFF; i++)
+            {
+                byte data = rom.PRGRom[(i - 0x8000) % (rom.PRGRom.Length)];
+
+                machine.Memory.Set(i, data);
+            }
+
+            for (int i = 0; i <= 0x1FFF; i++)
+            {
+                byte data = rom.CHRRom[i % rom.CHRRom.Length];
+
+                machine.PPU.Memory.Set(i, data);
+            }
         }
 
         public byte? Get(int address)
         {
-            if (!PRGRomRange.Fits(address)) return null;
-
-            return getAction(address);
+            return null;
         }
 
         public bool Set(int address, byte value)
@@ -35,18 +44,6 @@ namespace NES.Mappers
         public void Dispose()
         {
             return;
-        }
-
-        private byte? get16K(int address)
-        {
-            PRGRomMirror.Transform(ref address);
-
-            return rom.PRGRom[address - 0x8000];
-        }
-
-        private byte? get32K(int address)
-        {
-            return rom.PRGRom[address - 0x8000];
         }
     }
 }
