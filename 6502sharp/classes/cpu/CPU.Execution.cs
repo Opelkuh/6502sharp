@@ -9,12 +9,20 @@ namespace _6502sharp
         private int _sleepFor = 0;
         private bool _irqQueued = false;
 
+        private Instruction? nextInstruction;
+
         public void NextTick()
         {
             if (--_sleepFor <= 0)
             {
                 bool irqChecked = false;
 
+                if (nextInstruction.HasValue) {
+                    invokeInstruction(nextInstruction.Value);
+                    OnInstruction(nextInstruction.Value);
+                }
+
+                // fetch next
                 Instruction inst = getCurrentOpcode();
 
                 // check queued irq for 2 cycle instructions
@@ -24,12 +32,9 @@ namespace _6502sharp
                     irqChecked = true;
                 }
 
-                // invoke instruction
-                invokeInstruction(inst);
-
-                OnInstruction(inst);
-
                 _sleepFor = inst.Cycles;
+                
+                nextInstruction = inst;
 
                 // check queued irq interrupt
                 if (_irqQueued && !irqChecked) InterruptIRQ(true);
