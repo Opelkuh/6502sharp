@@ -17,6 +17,18 @@
             "internalConsoleOptions": "openOnSessionStart"
         },
         {
+            "name": "Launch ehBasic example",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildEHBasic",
+            "program": "${workspaceFolder}/Examples/ehBasic/bin/Debug/netcoreapp2.2/ehBasic.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Examples/ehBasic",
+            "console": "externalTerminal",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
             "name": "Launch NES example",
             "type": "coreclr",
             "request": "launch",
