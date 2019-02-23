@@ -10,6 +10,16 @@
                 "${workspaceFolder}/Examples/AsmConsole/AsmConsole.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "buildNES",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/Examples/NES/NES.csproj"
+            ],
+            "problemMatcher": "$msCompile"
         }
     ]
 }
