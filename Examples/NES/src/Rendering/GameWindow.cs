@@ -1,5 +1,6 @@
 using System;
 using OpenTK;
+using OpenTK.Input;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 
@@ -26,7 +27,7 @@ namespace NES.Rendering
 
         private static string VERTEX_SHADER_PATH = @"src/Rendering/Shaders/vertex.glsl";
         private static string FRAGMENT_SHADER_PATH = @"src/Rendering/Shaders/fragment.glsl";
-        
+
         #endregion
 
         #region OpenGL Variables
@@ -35,10 +36,11 @@ namespace NES.Rendering
         private int EBO;
         private int shaderProgram;
         private Texture texture;
-
         #endregion
 
-        public GameWindow() : base(
+        private NESMachine machine;
+
+        public GameWindow(NESMachine machine) : base(
             256, 240,
             GraphicsMode.Default,
             WINDOW_TITLE,
@@ -48,6 +50,11 @@ namespace NES.Rendering
             GraphicsContextFlags.Debug
         )
         {
+            this.machine = machine;
+
+            IGraphicsContext context = new GraphicsContext(GraphicsMode.Default, WindowInfo);
+            context.MakeCurrent(WindowInfo);
+
             Console.WriteLine("Renderer: " + GL.GetString(StringName.Renderer));
             Console.WriteLine("OpenGL Version: " + GL.GetString(StringName.Version));
         }
@@ -94,6 +101,26 @@ namespace NES.Rendering
         protected override void OnResize(EventArgs e)
         {
             GL.Viewport(0, 0, this.Width, this.Height);
+        }
+
+        protected override void OnUpdateFrame(FrameEventArgs e)
+        {
+            lock (machine.PPU.front)
+            {
+                texture.Load(machine.PPU.front);
+            }
+
+            var state = Keyboard.GetState();
+
+            Controller ctrl = machine.MapperMemory.Controller1;
+            ctrl.SetKey(ControllerKey.Up, state.IsKeyDown(Key.Up));
+            ctrl.SetKey(ControllerKey.Down, state.IsKeyDown(Key.Down));
+            ctrl.SetKey(ControllerKey.Left, state.IsKeyDown(Key.Left));
+            ctrl.SetKey(ControllerKey.Right, state.IsKeyDown(Key.Right));
+            ctrl.SetKey(ControllerKey.Start, state.IsKeyDown(Key.Space));
+            ctrl.SetKey(ControllerKey.Select, state.IsKeyDown(Key.Enter));
+            ctrl.SetKey(ControllerKey.A, state.IsKeyDown(Key.A));
+            ctrl.SetKey(ControllerKey.B, state.IsKeyDown(Key.S));
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)

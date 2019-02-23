@@ -1,4 +1,5 @@
 ﻿using System;
+using _6502sharp;
 using NES.PPU;
 using NES.Rendering;
 
@@ -9,10 +10,11 @@ namespace NES
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            
             ColorPalette.Initialize();
 
-            new GameWindow().Run(60);
+            RomData? data = RomParser.ParseFile("bin/Debug/netcoreapp2.2/roms/donkeykong.nes");
+
+            NESGame.Create(data.Value);
         }
     }
 }
