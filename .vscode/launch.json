@@ -24,7 +24,7 @@
             "program": "${workspaceFolder}/Examples/ehBasic/bin/Debug/netcoreapp2.2/ehBasic.dll",
             "args": [],
             "cwd": "${workspaceFolder}/Examples/ehBasic",
-            "console": "integratedTerminal",
+            "console": "externalTerminal",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart"
         },
