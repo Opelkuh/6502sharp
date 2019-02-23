@@ -1,4 +1,5 @@
-#version 330 core
+#version 320 es
+precision lowp float;
 layout (location = 0) in vec2 inPos;
 layout (location = 1) in vec2 inTex;
 
