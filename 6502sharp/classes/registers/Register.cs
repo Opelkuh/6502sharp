@@ -5,22 +5,22 @@ namespace _6502sharp
     /// </summary>
     public class Register : IRegister8Bit
     {
-        private byte _store = 0;
+        protected byte store = 0;
 
         /// <summary>
         /// 
         /// </summary>
         /// <value>Value of the register</value>
-        public byte Value
+        public virtual byte Value
         {
             get
             {
-                return _store;
+                return store;
             }
 
             set
             {
-                _store = value;
+                store = value;
             }
         }
 
@@ -36,15 +36,15 @@ namespace _6502sharp
         /// <param name="startValue">initial value of register</param>
         public Register(byte startValue)
         {
-            _store = startValue;
+            store = startValue;
         }
 
-        public void Set(int location, byte value)
+        public virtual void Set(int location, byte value)
         {
             Value = value;
         }
 
-        public byte Get(int location)
+        public virtual byte Get(int location)
         {
             return Value;
         }
