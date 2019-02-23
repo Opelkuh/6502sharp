@@ -13,6 +13,10 @@ namespace NES.PPU
         public PictureProcessingUnit(NESMachine machine)
         {
             mach = machine;
+
+            Cycles = 340;
+            Scanline = 240;
+            Frame = 0;
         }
     }
 }

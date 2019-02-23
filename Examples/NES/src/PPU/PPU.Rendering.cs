@@ -18,8 +18,33 @@ namespace NES.PPU
         private Sprite?[] scanlineSprites;
         #endregion
 
+        private int nmiDelay;
+        private bool nmiPrevious;
+        private bool nmiOccured;
+
+        private void nmiChange()
+        {
+            bool temp = status.VBlank && ctrl.NMIEnabled;
+            if (temp && !nmiPrevious)
+            {
+                nmiDelay = 15;
+            }
+            nmiPrevious = temp;
+        }
+
         public void NextTick()
         {
+            if (nmiDelay > 0)
+            {
+                nmiDelay--;
+
+                if (nmiDelay == 0 && ctrl.NMIEnabled && status.VBlank)
+                {
+                    mach.CPU.InterruptNMI();
+                }
+            }
+
+
             if (Scanline >= 261)
             {
                 prerenderScanline();
@@ -59,6 +84,7 @@ namespace NES.PPU
                 status.VBlank = false;
                 status.Sprite0Hit = false;
                 status.SpriteOverflow = false;
+                nmiChange();
             }
 
             if (mask.RenderingEnabled && Range.Fits(280, 304, Cycles))
@@ -73,7 +99,7 @@ namespace NES.PPU
             if (!mask.RenderingEnabled) return;
             if (Cycles == 0) return;
 
-            if (draw) nextPixel();
+            if (draw && Cycles <= 256) nextPixel();
             loadRenderRegisters();
 
             // increment x
@@ -96,7 +122,7 @@ namespace NES.PPU
             if (Scanline != 241 | Cycles != 1) return;
 
             status.VBlank = true;
-            mach.CPU.InterruptNMI();
+            nmiChange();
         }
 
         private void loadRenderRegisters()

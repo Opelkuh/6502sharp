@@ -17,7 +17,7 @@ namespace NES.PPU
                     continue;
 
                 found++;
-                if (found > 8)
+                if (found >= 8)
                 {
                     status.SpriteOverflow = true;
                     break;

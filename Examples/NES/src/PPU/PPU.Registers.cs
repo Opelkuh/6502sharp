@@ -54,19 +54,22 @@ namespace NES.PPU
                 case OAMDATA:
                     return oam.Get(OAMAddress);
                 case DATA:
-                    byte buf;
-                    if (VRAMAddress.Value <= 0x3EFFF)
+                    byte value = vram.Get(VRAMAddress.Value);
+                    // emulate buffered reads
+                    if (VRAMAddress.Value % 0x4000 < 0x3F00)
                     {
-                        buf = ReadBuffer;
-
-                        ReadBuffer = vram.Get(VRAMAddress.Value);
+                        byte buffered = ReadBuffer;
+                        ReadBuffer = value;
+                        value = buffered;
                     }
                     else
-                        buf = vram.Get(VRAMAddress.Value);
+                    {
+                        ReadBuffer = vram.Get(VRAMAddress.Value - 0x1000);
 
+                    }
+                    // increment address
                     VRAMAddress.Value += ctrl.AddressIncrement;
-
-                    return buf;
+                    return value;
                 default:
                     return null;
             }
@@ -79,7 +82,9 @@ namespace NES.PPU
             switch (address)
             {
                 case CTRLADDR:
-                    ctrl.Value = value; break;
+                    ctrl.Value = value; 
+                    nmiChange();
+                    break;
                 case MASKADDR:
                     mask.Value = value; break;
                 case OAMADDR:

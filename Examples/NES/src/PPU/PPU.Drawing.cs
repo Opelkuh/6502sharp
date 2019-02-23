@@ -11,11 +11,17 @@ namespace NES.PPU
         {
             int renderX = Cycles - 1;
 
-            Color backgroundPixel = backgroundData[FineXScroll];
+            Color backgroundPixel =
+                backgroundData != null ? backgroundData[FineXScroll] : Color.Transparent;
 
             Sprite? sprite = getCurrentSprite();
-            Color spritePixel =
-                sprite.HasValue ? sprite.Value.Data[renderX - sprite.Value.X] : Color.Transparent;
+            Color spritePixel;
+            if (sprite.HasValue)
+            {
+                int index = sprite.Value.X - renderX;
+                spritePixel = sprite.Value.Data[index];
+            }
+            else spritePixel = Color.Transparent;
 
             if (renderX < 8)
             {
@@ -25,14 +31,14 @@ namespace NES.PPU
 
             Color toDraw = ColorPalette.Get(vram.Get(0x3F00));
 
-            if (backgroundPixel != Color.Transparent) toDraw = backgroundPixel;
+            if (backgroundPixel.A != 0) toDraw = backgroundPixel;
 
             if (sprite.HasValue)
             {
                 Sprite spr = sprite.Value;
                 if (!spr.BehindBackground)
                 {
-                    if (spr.Index == 0 && toDraw != Color.Transparent && spritePixel != Color.Transparent)
+                    if (spr.Index == 0 && toDraw.A != 0 && spritePixel.A != 0)
                     {
                         status.Sprite0Hit = true;
                     }
@@ -42,12 +48,18 @@ namespace NES.PPU
             }
 
             // draw
-            Canvas.SetPixelGL(renderX, Scanline, toDraw);
+            lock (Canvas)
+            {
+                Canvas.SetPixelGL(renderX, Scanline, toDraw);
+            }
+
         }
 
         private Sprite? getCurrentSprite()
         {
             int renderX = Cycles - 1;
+
+            if (scanlineSprites == null) return null;
 
             for (int i = 0; i < scanlineSprites.Length; i++)
             {
@@ -55,7 +67,7 @@ namespace NES.PPU
 
                 Sprite spr = scanlineSprites[i].Value;
 
-                if (!Range.Fits(renderX, renderX + spr.Data.Length, spr.X)) continue;
+                if (!Range.Fits(renderX, renderX + (spr.Data.Length - 1), spr.X)) continue;
 
                 return spr;
             }

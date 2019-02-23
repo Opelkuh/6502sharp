@@ -39,17 +39,19 @@ namespace NES.PPU
             if (!AddressLatch)
             {
                 // clear and set bits 8 - 15
-                TempVRAMAddress.Value &= 0x7F << 8;
+                TempVRAMAddress.Value &= 0x80FF;
                 TempVRAMAddress.Value |= (value & 0x3F) << 8;
             }
             else
             {
                 // clear lower byte
-                TempVRAMAddress.Value &= 0x0F;
+                TempVRAMAddress.Value &= 0xFF00;
                 TempVRAMAddress.Value |= value;
 
                 VRAMAddress.Value = TempVRAMAddress.Value;
             }
+
+            AddressLatch = !AddressLatch;
         }
 
         private void incrementX()
