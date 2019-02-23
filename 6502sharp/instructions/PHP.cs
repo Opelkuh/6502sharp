@@ -10,11 +10,9 @@ namespace _6502sharp.Instructions
         }
 
         [CPUInstruction(0x08, 3)]
-        public void PHP_Implied()
+        public void PHP_Implied()   
         {
-            cpu.SR.Break = true;
-
-            cpu.Stack.Push(cpu.SR.Value);
+            cpu.Stack.Push((byte)(cpu.SR.Value | (int)StatusFlag.Break));
         }
     }
 }

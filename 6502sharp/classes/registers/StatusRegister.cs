@@ -1,8 +1,15 @@
 namespace _6502sharp
 {
-    public class StatusRegister : Register, IStatusRegister 
+    public class StatusRegister : Register, IStatusRegister
     {
-        public StatusRegister() {
+        public override byte Value
+        {
+            get => (byte)(store | (int)StatusFlag.Unused);
+            set => store = value;
+        }
+
+        public StatusRegister()
+        {
             Unused = true;
         }
 
