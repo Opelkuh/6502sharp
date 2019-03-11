@@ -29,18 +29,6 @@
             "internalConsoleOptions": "openOnSessionStart"
         },
         {
-            "name": "Launch NES example",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "buildNES",
-            "program": "${workspaceFolder}/Examples/NES/bin/Debug/netcoreapp2.2/NES.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/Examples/NES",
-            "console": "externalTerminal",
-            "stopAtEntry": false,
-            "internalConsoleOptions": "openOnSessionStart"
-        },
-        {
             "name": ".NET Core Attach",
             "type": "coreclr",
             "request": "attach",
